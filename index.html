@@ -1,0 +1,5377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MiBiCUBE²</title>
+
+<style>
+
+/* ================================
+   GENERAL
+================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #24452c;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e8f8eb,
+            #dff5e3
+        );
+}
+
+.oculto {
+    display: none !important;
+}
+
+
+/* ================================
+   ANIMACIONES
+================================ */
+
+.aparecer {
+    opacity: 0;
+    transform: translateY(25px);
+
+    animation:
+        aparecerSuave
+        0.7s
+        ease
+        forwards;
+}
+
+.delay1 {
+    animation-delay: 0.15s;
+}
+
+.delay2 {
+    animation-delay: 0.30s;
+}
+
+.delay3 {
+    animation-delay: 0.45s;
+}
+
+.delay4 {
+    animation-delay: 0.60s;
+}
+
+.delay5 {
+    animation-delay: 0.75s;
+}
+
+.delay6 {
+    animation-delay: 0.90s;
+}
+
+@keyframes aparecerSuave {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================================
+   PANTALLAS
+================================ */
+
+.pantalla {
+    min-height: 100vh;
+    padding: 30px 20px;
+}
+
+
+/* ================================
+   INICIO
+================================ */
+
+#inicio {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #ffffff;
+}
+
+.inicioContenido {
+
+    position: relative;
+
+    z-index: 5;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+/* ================================
+   PARTÍCULAS
+================================ */
+
+.particula {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            91,
+            170,
+            105,
+            0.15
+        );
+
+    animation:
+        flotar
+        7s
+        ease-in-out
+        infinite;
+}
+
+
+/* 1 */
+
+.particula:nth-child(1) {
+    width: 20px;
+    height: 20px;
+    left: 8%;
+    top: 20%;
+}
+
+
+/* 2 */
+
+.particula:nth-child(2) {
+    width: 12px;
+    height: 12px;
+    left: 18%;
+    top: 70%;
+    animation-delay: -2s;
+}
+
+
+/* 3 */
+
+.particula:nth-child(3) {
+    width: 30px;
+    height: 30px;
+    right: 10%;
+    top: 18%;
+    animation-delay: -3s;
+}
+
+
+/* 4 */
+
+.particula:nth-child(4) {
+    width: 15px;
+    height: 15px;
+    right: 20%;
+    bottom: 20%;
+    animation-delay: -1s;
+}
+
+
+/* 5 */
+
+.particula:nth-child(5) {
+    width: 25px;
+    height: 25px;
+    left: 30%;
+    top: 10%;
+    animation-delay: -4s;
+}
+
+
+/* 6 */
+
+.particula:nth-child(6) {
+    width: 14px;
+    height: 14px;
+    right: 35%;
+    bottom: 10%;
+    animation-delay: -2s;
+}
+
+
+/* 7 */
+
+.particula:nth-child(7) {
+    width: 18px;
+    height: 18px;
+    left: 5%;
+    bottom: 15%;
+    animation-delay: -5s;
+}
+
+
+/* 8 */
+
+.particula:nth-child(8) {
+    width: 22px;
+    height: 22px;
+    right: 5%;
+    bottom: 40%;
+    animation-delay: -3s;
+}
+
+
+/* 9 */
+
+.particula:nth-child(9) {
+    width: 11px;
+    height: 11px;
+    left: 42%;
+    top: 25%;
+    animation-delay: -1s;
+}
+
+
+/* 10 */
+
+.particula:nth-child(10) {
+    width: 17px;
+    height: 17px;
+    right: 42%;
+    top: 65%;
+    animation-delay: -4s;
+}
+
+
+/* 11 */
+
+.particula:nth-child(11) {
+    width: 9px;
+    height: 9px;
+    left: 55%;
+    top: 12%;
+    animation-delay: -2s;
+}
+
+
+/* 12 */
+
+.particula:nth-child(12) {
+    width: 26px;
+    height: 26px;
+    left: 70%;
+    top: 35%;
+    animation-delay: -5s;
+}
+
+
+/* 13 */
+
+.particula:nth-child(13) {
+    width: 13px;
+    height: 13px;
+    left: 25%;
+    top: 40%;
+    animation-delay: -3s;
+}
+
+
+/* 14 */
+
+.particula:nth-child(14) {
+    width: 19px;
+    height: 19px;
+    left: 75%;
+    top: 75%;
+    animation-delay: -6s;
+}
+
+
+/* 15 */
+
+.particula:nth-child(15) {
+    width: 8px;
+    height: 8px;
+    left: 48%;
+    top: 85%;
+    animation-delay: -1s;
+}
+
+
+/* 16 */
+
+.particula:nth-child(16) {
+    width: 23px;
+    height: 23px;
+    left: 12%;
+    top: 45%;
+    animation-delay: -4s;
+}
+
+
+/* 17 */
+
+.particula:nth-child(17) {
+    width: 11px;
+    height: 11px;
+    right: 28%;
+    top: 8%;
+    animation-delay: -7s;
+}
+
+
+/* 18 */
+
+.particula:nth-child(18) {
+    width: 16px;
+    height: 16px;
+    right: 12%;
+    top: 55%;
+    animation-delay: -2s;
+}
+
+
+/* 19 */
+
+.particula:nth-child(19) {
+    width: 28px;
+    height: 28px;
+    left: 35%;
+    bottom: 5%;
+    animation-delay: -5s;
+}
+
+
+/* 20 */
+
+.particula:nth-child(20) {
+    width: 10px;
+    height: 10px;
+    right: 45%;
+    bottom: 25%;
+    animation-delay: -3s;
+}
+
+
+@keyframes flotar {
+
+    0% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform:
+            translate(
+                15px,
+                -25px
+            );
+    }
+
+    100% {
+        transform: translate(0,0);
+    }
+}
+
+
+/* ================================
+   LOGO PRINCIPAL
+================================ */
+
+.logoInicio {
+
+    width:
+        min(
+            75vw,
+            430px
+        );
+
+    max-height: 300px;
+
+    object-fit: contain;
+
+    margin-bottom: 25px;
+
+    filter:
+        drop-shadow(
+            0 10px 18px
+            rgba(
+                70,
+                130,
+                80,
+                0.12
+            )
+        );
+}
+
+
+/* ================================
+   SUBTÍTULO
+================================ */
+
+.subtitulo {
+
+    font-size: 17px;
+
+    color: #66816c;
+
+    max-width: 450px;
+
+    line-height: 1.6;
+
+    margin:
+        0 0 32px;
+}
+
+
+/* ================================
+   BOTONES
+================================ */
+
+.boton {
+
+    border: none;
+
+    background: #4f9860;
+
+    color: white;
+
+    padding:
+        18px 65px;
+
+    border-radius: 17px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            79,
+            152,
+            96,
+            0.22
+        );
+
+    transition:
+        background 0.2s;
+}
+
+.boton:hover {
+    background: #3d7c4b;
+}
+
+
+/* ================================
+   ANIMACIÓN BOTÓN
+================================ */
+
+.boton.animando {
+
+    animation:
+        botonPop
+        0.7s
+        ease-in-out;
+}
+
+@keyframes botonPop {
+
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.08);
+    }
+
+    45% {
+        transform: scale(1.18);
+    }
+
+    60% {
+        transform: scale(0.94);
+    }
+
+    75% {
+        transform: scale(1.06);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* ================================
+   GOTAS
+================================ */
+
+.gota {
+
+    position: absolute;
+
+    width: 10px;
+
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #7fcf8d;
+
+    pointer-events: none;
+
+    animation:
+        salpicar
+        0.7s
+        ease-out
+        forwards;
+}
+
+@keyframes salpicar {
+
+    0% {
+        opacity: 1;
+
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0.2);
+    }
+}
+
+
+/* ================================
+   CARGA
+================================ */
+
+#cargando {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e8f8eb,
+            #ffffff
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.cargaContenido {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    animation:
+        aparecerSuave
+        0.6s
+        ease;
+}
+
+.videoCarga {
+
+    width:
+        min(
+            70vw,
+            300px
+        );
+
+    max-height: 300px;
+
+    object-fit: contain;
+
+    border-radius: 20px;
+}
+
+.textoCarga {
+
+    margin-top: 18px;
+
+    color: #4f9860;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.puntosCarga {
+
+    margin-top: 10px;
+
+    color: #6fba7d;
+
+    letter-spacing: 5px;
+
+    animation:
+        puntos
+        1.2s
+        infinite;
+}
+
+@keyframes puntos {
+
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+
+/* ================================
+   ENCABEZADO
+================================ */
+
+.encabezado {
+
+    max-width: 900px;
+
+    margin:
+        0 auto 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* ================================
+   MINI LOGO
+================================ */
+
+.miniLogo {
+
+    display: flex;
+
+    align-items: center;
+}
+
+.miniLogo img {
+
+    width: 110px;
+
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+
+/* ================================
+   VOLVER
+================================ */
+
+.volver {
+
+    border: none;
+
+    background: white;
+
+    color: #4f9860;
+
+    padding:
+        10px 15px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+
+/* ================================
+   TÍTULOS
+================================ */
+
+.titulo {
+
+    text-align: center;
+
+    color: #356b40;
+
+    font-size:
+        clamp(
+            28px,
+            6vw,
+            42px
+        );
+
+    margin-bottom: 8px;
+}
+
+.descripcionTitulo {
+
+    text-align: center;
+
+    color: #66816c;
+
+    margin-bottom: 35px;
+}
+
+
+/* ================================
+   ÁRBOLES
+================================ */
+
+.arboles {
+
+    max-width: 850px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                250px,
+                1fr
+            )
+        );
+
+    gap: 22px;
+}
+
+.tarjetaArbol {
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 28px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            50,
+            100,
+            60,
+            0.10
+        );
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+}
+
+.tarjetaArbol:hover {
+
+    transform:
+        translateY(-6px);
+
+    box-shadow:
+        0 15px 30px
+        rgba(
+            50,
+            100,
+            60,
+            0.16
+        );
+}
+
+.iconoArbol {
+
+    width: 100%;
+
+    height: 230px;
+
+    margin-bottom: 10px;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    background: #eef8f0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.iconoArbol img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    filter:
+        brightness(1.08)
+        saturate(0.85);
+
+    transform: scale(1.02);
+}
+
+
+.tarjetaArbol h2 {
+
+    color: #356b40;
+
+    margin:
+        5px 0 8px;
+}
+
+.tarjetaArbol p {
+
+    color: #718374;
+
+    line-height: 1.5;
+}
+
+
+/* ================================
+   FICHA
+================================ */
+
+.ficha {
+
+    max-width: 850px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            40,
+            90,
+            50,
+            0.12
+        );
+}
+
+.fotoArbol {
+
+    height: 300px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dff5e3,
+            #c8eacb
+        );
+}
+
+.fotoArbol img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    filter:
+        brightness(1.08)
+        saturate(0.85);
+
+    transform: scale(1.02);
+}
+
+
+.fichaContenido {
+
+    padding: 30px;
+}
+
+.fichaContenido h2 {
+
+    color: #356b40;
+
+    font-size: 32px;
+
+    margin-top: 0;
+}
+
+.fichaContenido p {
+
+    color: #5d7162;
+
+    line-height: 1.7;
+}
+
+.infoRapida {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                150px,
+                1fr
+            )
+        );
+
+    gap: 12px;
+
+    margin:
+        25px 0;
+}
+
+.infoItem {
+
+    background: #f3faf4;
+
+    border-radius: 13px;
+
+    padding: 15px;
+}
+
+.infoItem strong {
+
+    display: block;
+
+    color: #356b40;
+
+    margin-bottom: 5px;
+}
+
+
+/* ================================
+   ANÁLISIS
+================================ */
+
+.analisis {
+
+    max-width: 800px;
+
+    margin: auto;
+}
+
+.progreso {
+
+    height: 8px;
+
+    background: #dceee0;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    margin-bottom: 25px;
+}
+
+.progresoBarra {
+
+    height: 100%;
+
+    width: 0%;
+
+    background: #6fba7d;
+
+    transition:
+        width 0.4s;
+}
+
+.pregunta {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(
+            40,
+            90,
+            50,
+            0.07
+        );
+}
+
+.pregunta h3 {
+
+    margin-top: 0;
+
+    color: #356b40;
+}
+
+.opciones {
+
+    display: flex;
+
+    gap: 12px;
+}
+
+.opciones label {
+    flex: 1;
+}
+
+.opciones input {
+    display: none;
+}
+
+.opciones span {
+
+    display: block;
+
+    text-align: center;
+
+    padding: 12px;
+
+    background: #f5faf6;
+
+    border:
+        1px solid
+        #d6ead9;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition:
+        0.2s;
+}
+
+.opciones input:checked + span {
+
+    background: #a9dfb3;
+
+    border-color: #5eaa6d;
+
+    animation:
+        seleccion
+        0.35s
+        ease;
+}
+
+@keyframes seleccion {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.07);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* ================================
+   RESULTADOS
+================================ */
+
+.resultados {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.estadoGeneral {
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 7px 20px
+        rgba(
+            40,
+            90,
+            50,
+            0.08
+        );
+}
+
+.porcentaje {
+
+    font-size: 45px;
+
+    font-weight: bold;
+
+    color: #4f9860;
+
+    min-height: 55px;
+}
+
+.barraFondo {
+
+    height: 12px;
+
+    background: #dceee0;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.barraResultado {
+
+    height: 100%;
+
+    background: #6fba7d;
+
+    width: 0%;
+
+    transition:
+        width 0.05s linear;
+}
+
+.botonAnalizarArbol {
+    display: block;
+    margin: 28px auto 0;
+}
+
+.resultadoGrid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    grid-template-rows: auto auto;
+
+    gap: 20px;
+
+    align-items: stretch;
+}
+
+.tarjetaConsejoResultados {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0;
+    padding: 18px 20px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f3faf4, #edf7ef);
+    border: 1px solid #d8eadb;
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    box-shadow: 0 5px 16px rgba(40, 90, 50, 0.05);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.tarjetaConsejoIcono {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    box-shadow: 0 3px 9px rgba(40, 90, 50, 0.06);
+}
+
+.contenidoConsejoResultados {
+    min-width: 0;
+    flex: 1;
+}
+
+.tarjetaConsejoResultados h3 {
+    margin: 0 0 5px;
+    color: #356b40;
+    font-size: 16px;
+}
+
+.tarjetaConsejoResultados p {
+    margin: 0;
+    color: #637467;
+    font-size: 13px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+/* Distribución: consejo arriba y cuidados abajo a la izquierda;
+   microorganismos ocupa las dos filas de la derecha. */
+#panelCuidadosResultados {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#panelMicroorganismosResultados {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    min-width: 0;
+}
+
+.panel {
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 7px 20px
+        rgba(
+            40,
+            90,
+            50,
+            0.08
+        );
+}
+
+.panel h2 {
+
+    color: #356b40;
+
+    margin-top: 0;
+}
+
+.recomendacion {
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    background: #f3faf4;
+
+    margin-bottom: 10px;
+
+    color: #526458;
+
+    line-height: 1.5;
+}
+
+
+/* ================================
+   MICROORGANISMOS
+================================ */
+
+.microorganismo {
+
+    background: #f7fcf8;
+
+    border:
+        1px solid
+        #dceede;
+
+    border-radius: 15px;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform: translateY(15px);
+
+    animation:
+        aparecerSuave
+        0.6s
+        ease
+        forwards;
+
+    transition:
+        transform 0.2s;
+}
+
+.microorganismo:hover {
+
+    transform:
+        translateY(-3px);
+}
+
+.microNombre {
+
+    font-weight: bold;
+
+    color: #356b40;
+
+    font-size: 17px;
+}
+
+.microTipo {
+
+    color: #7a8c7d;
+
+    font-size: 13px;
+
+    margin:
+        5px 0 10px;
+}
+
+.microCompatibilidad {
+
+    font-size: 13px;
+
+    color: #55705b;
+}
+
+.miniBarra {
+
+    height: 7px;
+
+    background: #dceee0;
+
+    border-radius: 10px;
+
+    margin-top: 7px;
+
+    overflow: hidden;
+}
+
+.miniBarra div {
+
+    height: 100%;
+
+    background: #6fba7d;
+
+    width: 0%;
+
+    transition:
+        width 0.9s
+        ease-out;
+}
+
+
+/* ================================
+   MODAL
+================================ */
+
+#modalMicro {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(
+            25,
+            55,
+            30,
+            0.35
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 5000;
+}
+
+.modalContenido {
+
+    max-width: 550px;
+
+    width: 100%;
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 20px 50px
+        rgba(
+            0,
+            0,
+            0,
+            0.2
+        );
+
+    animation:
+        entrarModal
+        0.3s
+        ease;
+}
+
+.modalIcono {
+
+    font-size: 65px;
+
+    text-align: center;
+}
+
+.modalContenido h2 {
+
+    color: #356b40;
+
+    text-align: center;
+}
+
+.modalContenido p {
+
+    color: #5d7162;
+
+    line-height: 1.7;
+}
+
+.cerrarModal {
+
+    width: 100%;
+
+    border: none;
+
+    background: #4f9860;
+
+    color: white;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+@keyframes entrarModal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.9)
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+/* ================================
+   DISTRIBUCIÓN GEOGRÁFICA
+================================ */
+
+.distribucionGeografica {
+    margin: 38px 0 30px;
+}
+
+.distribucionTitulo {
+    text-align: center;
+    color: #356b40;
+    font-size: 28px;
+    margin: 0 0 8px;
+}
+
+.distribucionIntro {
+    text-align: center;
+    color: #718374;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 25px;
+}
+
+.mapaTarjeta {
+    background: #f8fcf9;
+    border: 1px solid #dceee0;
+    border-radius: 22px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 7px 22px rgba(50,100,60,0.07);
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+.mapaTarjeta.mapaVisible {
+    animation: mapaEntrada 0.8s ease forwards;
+}
+
+.mapaTarjeta:nth-of-type(2).mapaVisible {
+    animation-delay: 0.35s;
+}
+
+.mapaEncabezado {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.mapaEncabezado h3 {
+    margin: 0 0 5px;
+    color: #356b40;
+    font-size: 21px;
+}
+
+.mapaEncabezado p {
+    margin: 0;
+    color: #718374;
+    font-size: 14px;
+}
+
+.mapaMarco {
+    position: relative;
+    overflow: hidden;
+    border-radius: 17px;
+    background: #eaf6ed;
+    padding: 10px;
+}
+
+.mapaImagen {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    object-fit: contain;
+    border-radius: 12px;
+    opacity: 0;
+    transform: scale(0.97);
+}
+
+.mapaVisible .mapaImagen {
+    animation: mapaRevelado 1.15s ease 0.45s forwards;
+}
+
+.mapaPuntos {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.mapaPunto {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(79,152,96,0.75);
+    box-shadow: 0 0 0 5px rgba(79,152,96,0.12);
+    opacity: 0;
+}
+
+.mapaVisible .mapaPunto {
+    animation: puntoPulso 2.4s ease-in-out infinite;
+}
+
+.mapaVisible .punto1 { animation-delay: 1.2s; }
+.mapaVisible .punto2 { animation-delay: 1.6s; }
+.mapaVisible .punto3 { animation-delay: 2s; }
+
+.mapaNota {
+    text-align: center;
+    color: #7a8c7d;
+    font-size: 12px;
+    margin: 12px 5px 0;
+    line-height: 1.5;
+}
+
+@keyframes mapaEntrada {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mapaRevelado {
+    from { opacity: 0; transform: scale(0.97); clip-path: inset(0 100% 0 0); }
+    to { opacity: 1; transform: scale(1); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes puntoPulso {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    30%, 70% { opacity: 1; transform: scale(1); }
+}
+
+@media(max-width:700px) {
+
+    .resultadoGrid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .tarjetaConsejoResultados,
+    #panelCuidadosResultados,
+    #panelMicroorganismosResultados {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+
+    .tarjetaConsejoResultados {
+        height: auto !important;
+        align-items: flex-start;
+    }
+
+    .textoAudioCurioso small {
+        line-height: 1.35;
+    }
+    .mapaTarjeta { padding: 14px; }
+    .mapaImagen { min-height: 130px; }
+}
+
+/* ================================
+   MÓVIL
+================================ */
+
+/* ================================
+   SECCIONES DEL CUESTIONARIO
+================================ */
+
+.seccionCuestionario {
+    margin: 28px 0 16px;
+}
+
+.seccionCuestionario h2 {
+    color: #356b40;
+    margin: 0 0 6px;
+    font-size: 24px;
+}
+
+.seccionCuestionario p {
+    color: #718374;
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+.etiquetaPregunta {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.esencial {
+    background: #e2f4e5;
+    color: #3d7c4b;
+}
+
+.opcional {
+    background: #f3f0e0;
+    color: #806f35;
+}
+
+.notaOpcional {
+    margin-top: 8px;
+    color: #7a8c7d;
+    font-size: 12px;
+}
+
+
+@media(max-width:550px) {
+
+    .logoInicio {
+        width: 80vw;
+    }
+
+    .miniLogo img {
+        width: 90px;
+    }
+
+    .boton {
+        padding:
+            17px 50px;
+    }
+
+    .fotoArbol {
+
+        height: 240px;
+
+        font-size: 120px;
+    }
+
+    .opciones {
+        flex-direction: column;
+    }
+
+    .fichaContenido {
+        padding: 22px;
+    }
+
+}
+
+
+/* ================================
+   DATOS CURIOSOS
+================================ */
+
+.contenedorOpcionAudioCurioso {
+    margin-top: 25px;
+    background: #f0f8f2;
+    padding: 12px 15px;
+    border-radius: 15px;
+    border: 1px solid #c8e6ce;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #2e5a36;
+    font-weight: 600;
+}
+
+.tarjetaAudioCurioso {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+}
+
+.iconoAudioCurioso {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 3px 9px rgba(40, 90, 50, 0.08);
+}
+
+.textoAudioCurioso {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    flex: 1;
+    gap: 3px;
+}
+
+.textoAudioCurioso strong {
+    color: #2e5a36;
+    font-size: 14px;
+}
+
+.textoAudioCurioso small {
+    color: #718374;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.contenedorOpcionAudioCurioso input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #356b40;
+    cursor: pointer;
+}
+
+.botonCurioso {
+    margin-top: 12px;
+    background: #356b40;
+    width: 100%;
+}
+
+.botonCurioso:hover {
+    background: #275230;
+    transform: translateY(-2px);
+}
+
+.contenedorBotonDatosCuriososFinal {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    margin-bottom: 10px;
+}
+
+.botonDatosCuriososFinal {
+    width: min(100%, 520px);
+    margin: 0 auto;
+}
+
+.datosCuriososPantalla {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.datosCuriososPantalla .contenedorOpcionAudioCurioso {
+    width: min(100%, 760px);
+}
+
+#modalCurioso {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 45, 25, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 6000;
+}
+
+.contenidoCurioso {
+    background: linear-gradient(180deg, #ffffff 0%, #f4fbf5 100%);
+    border-radius: 28px;
+    padding: 30px 35px;
+    max-width: 580px;
+    width: 95%;
+    text-align: center;
+    position: relative;
+    border: 3px solid #b8e6c1;
+    box-shadow: 0 20px 50px rgba(25, 60, 35, 0.25),
+                0 0 20px rgba(130, 210, 150, 0.2);
+    animation: entrarModalCurioso 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.contenidoCurioso::after {
+    content: "🌿";
+    position: absolute;
+    bottom: -15px;
+    right: -10px;
+    font-size: 90px;
+    opacity: 0.08;
+    pointer-events: none;
+    transform: rotate(-20deg);
+}
+
+@keyframes entrarModalCurioso {
+    from {
+        opacity: 0;
+        transform: scale(0.85) translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.tituloModalCurioso {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #e2f5e6;
+    color: #275230;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border: 1px solid #c2e8c9;
+}
+
+.contenedorVideoGrandeCurioso {
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    border: 5px solid #4f9860;
+    box-shadow: 0 8px 22px rgba(79, 152, 96, 0.3);
+    margin: 0 auto 18px;
+    overflow: hidden;
+    position: relative;
+}
+
+.videoMarcoGrandeCurioso {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.35);
+    transform-origin: center center;
+    display: block;
+}
+
+.textoCargandoCurioso {
+    color: #356b40;
+    font-weight: 700;
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.puntosCargaCurioso {
+    color: #6fba7d;
+    font-size: 16px;
+    letter-spacing: 6px;
+    animation: puntosCurioso 1.2s infinite;
+}
+
+@keyframes puntosCurioso {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.escenaPersonajeCuriosa {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 22px;
+    text-align: left;
+}
+
+.contenedorVideoPequenoCurioso {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    border: 4px solid #4f9860;
+    box-shadow: 0 6px 16px rgba(40, 90, 50, 0.18);
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    background: #ffffff;
+}
+
+.videoMarcoPequenoCurioso {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.35);
+    transform-origin: center center;
+    display: block;
+}
+
+.burbujaTextoCurioso {
+    background: #ffffff;
+    border: 2px solid #a4dcad;
+    border-radius: 22px;
+    padding: 22px 24px;
+    font-size: 16.5px;
+    color: #1e3c26;
+    line-height: 1.55;
+    position: relative;
+    flex-grow: 1;
+    min-height: 105px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.burbujaTextoCurioso::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 9px 12px 9px 0;
+    border-style: solid;
+    border-color: transparent #a4dcad transparent transparent;
+}
+
+.burbujaTextoCurioso::after {
+    content: '🍃';
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    font-size: 16px;
+    background: #ffffff;
+    padding: 0 4px;
+}
+
+.contenedorBotonesModalCurioso {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.btnOtroDatoCurioso,
+.cerrarModalCurioso {
+    flex: 1;
+    border: none;
+    color: white;
+    padding: 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btnOtroDatoCurioso {
+    background: linear-gradient(135deg, #387546, #295733);
+    box-shadow: 0 6px 16px rgba(40, 90, 50, 0.25);
+}
+
+.btnOtroDatoCurioso:hover {
+    background: linear-gradient(135deg, #2b5e37, #1f4227);
+    transform: translateY(-2px);
+}
+
+.cerrarModalCurioso {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    box-shadow: 0 6px 16px rgba(200, 50, 40, 0.22);
+}
+
+.cerrarModalCurioso:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(-2px);
+}
+
+@media(max-width:550px) {
+    .escenaPersonajeCuriosa {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .burbujaTextoCurioso::before {
+        display: none;
+    }
+
+    .contenedorBotonesModalCurioso {
+        flex-direction: column;
+    }
+
+    .contenidoCurioso {
+        padding: 25px 20px;
+    }
+}
+
+
+/* ===== AJUSTE FINAL DE TARJETAS DE RESULTADOS ===== */
+.resultadoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    align-items: stretch;
+}
+
+#panelCuidadosResultados {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 0;
+}
+
+#panelMicroorganismosResultados {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    margin-bottom: 0;
+}
+
+/* Consejo de observación: unificado con la estética exacta de .panel */
+#tarjetaConsejoResultados {
+    grid-column: 1;
+    grid-row: 2;
+    background: white;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 7px 20px rgba(40, 90, 50, 0.08);
+    border: none;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#tarjetaConsejoResultados h2 {
+    color: #356b40;
+    margin-top: 0;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#tarjetaConsejoResultados h2 span:first-child {
+    line-height: 1;
+}
+
+.cajaTextoConsejoResultados {
+    background: #f3faf4;
+    border-radius: 12px;
+    padding: 13px;
+    box-sizing: border-box;
+}
+
+.cajaTextoConsejoResultados p {
+    font-size: 15px;
+    color: #526458;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+    .resultadoGrid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    #panelCuidadosResultados,
+    #tarjetaConsejoResultados,
+    #panelMicroorganismosResultados {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     PANTALLA DE CARGA
+================================ -->
+
+<div
+    id="cargando"
+    class="oculto">
+
+    <div class="cargaContenido">
+
+        <video
+            id="videoCarga"
+            class="videoCarga"
+            autoplay
+            muted
+            playsinline>
+
+            <source
+                src="bacteria.mp4"
+                type="video/mp4">
+
+        </video>
+
+        <div
+            id="textoCarga"
+            class="textoCarga">
+
+            Preparando MiBiCUBE²...
+
+        </div>
+
+        <div class="puntosCarga">
+
+            ● ● ●
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================
+     INICIO
+================================ -->
+
+<section
+    id="inicio"
+    class="pantalla">
+
+
+    <!-- 20 partículas -->
+
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+    <div class="particula"></div>
+
+
+    <div class="inicioContenido">
+
+
+        <img
+            src="logo.png"
+            alt="MiBiCUBE²"
+            class="logoInicio aparecer">
+
+
+        <div
+            class="subtitulo aparecer delay2">
+
+            Explora la relación entre los árboles,
+            su ambiente y los microorganismos.
+
+        </div>
+
+
+        <button
+            id="botonInicio"
+            class="boton aparecer delay4"
+            onclick="comenzar()">
+
+            COMENZAR
+
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================
+     MENÚ DE ÁRBOLES
+================================ -->
+
+<section
+    id="menuArboles"
+    class="pantalla oculto">
+
+    <div class="encabezado aparecer">
+        <div class="miniLogo">
+            <img
+                src="logo.png"
+                alt="MiBiCUBE²">
+        </div>
+    </div>
+
+    <h1
+        class="titulo aparecer delay1">
+        🌲 Árbol a analizar
+    </h1>
+
+    <p
+        class="descripcionTitulo aparecer delay2">
+        Selecciona el ciprés para conocerlo
+        y realizar un análisis.
+    </p>
+
+    <div class="arboles">
+
+        <div
+            class="tarjetaArbol aparecer delay3"
+            onclick="mostrarArbol('cipres')">
+
+            <div class="iconoArbol">
+                <img
+                    src="hojas-cipres.jpeg"
+                    alt="Hojas de ciprés">
+            </div>
+
+            <h2>
+                Ciprés
+            </h2>
+
+            <p>
+                Ver información de la especie
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     FICHA DEL ÁRBOL
+================================ -->
+
+<section
+    id="fichaArbol"
+    class="pantalla oculto">
+
+
+    <div class="encabezado aparecer">
+
+        <div class="miniLogo">
+
+            <img
+                src="logo.png"
+                alt="MiBiCUBE²">
+
+        </div>
+
+
+        <button
+            class="volver"
+            onclick="volverMenu()">
+
+            ← Árboles
+
+        </button>
+
+    </div>
+
+
+    <div class="ficha">
+
+
+        <div
+            id="fotoArbol"
+            class="fotoArbol aparecer delay1">
+
+            <img
+                src="cipres.jpeg"
+                alt="Ciprés">
+
+        </div>
+
+
+        <div class="fichaContenido">
+
+
+            <h2
+                id="nombreArbol"
+                class="aparecer delay2">
+
+                Fresno
+
+            </h2>
+
+
+            <p
+                id="descripcionArbol"
+                class="aparecer delay3">
+
+            </p>
+
+
+            <div
+                id="infoRapida"
+                class="infoRapida aparecer delay4">
+
+            </div>
+
+
+            <!-- ================================
+                 DISTRIBUCIÓN GEOGRÁFICA
+            ================================ -->
+
+            <div class="distribucionGeografica aparecer delay5">
+
+                <h2 class="distribucionTitulo">🌎 Distribución geográfica</h2>
+
+                <p class="distribucionIntro">
+                    Los cipreses se encuentran en distintas regiones del mundo.
+                    Como “ciprés” puede referirse a varias especies, estos mapas
+                    se presentan como una referencia general de su distribución.
+                </p>
+
+                <div class="mapaTarjeta" data-mapa>
+                    <div class="mapaEncabezado">
+                        <h3>🌍 Distribución mundial</h3>
+                        <p>Presencia general de cipreses en distintas regiones.</p>
+                    </div>
+
+                    <div class="mapaMarco">
+                        <img
+                            class="mapaImagen"
+                            src="mapa-cipres-mundo.jpeg"
+                            alt="Mapa de distribución mundial del ciprés">
+                        <div class="mapaPuntos">
+                            <span class="mapaPunto punto1" style="left:32%;top:37%"></span>
+                            <span class="mapaPunto punto2" style="left:56%;top:40%"></span>
+                            <span class="mapaPunto punto3" style="left:68%;top:48%"></span>
+                        </div>
+                    </div>
+
+                    <p class="mapaNota">
+                        Representación general; la distribución exacta cambia según la especie.
+                    </p>
+                </div>
+
+                <div class="mapaTarjeta" data-mapa>
+                    <div class="mapaEncabezado">
+                        <h3>🇲🇽 Distribución en México</h3>
+                        <p>Presencia de diferentes especies de ciprés en el país.</p>
+                    </div>
+
+                    <div class="mapaMarco">
+                        <img
+                            class="mapaImagen"
+                            src="mapa-cipres-mexico.jpeg"
+                            alt="Mapa de distribución del ciprés en México">
+                        <div class="mapaPuntos">
+                            <span class="mapaPunto punto1" style="left:48%;top:45%"></span>
+                            <span class="mapaPunto punto2" style="left:55%;top:55%"></span>
+                            <span class="mapaPunto punto3" style="left:40%;top:57%"></span>
+                        </div>
+                    </div>
+
+                    <p class="mapaNota">
+                        La presencia varía según la especie y su área natural o cultivada.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <button
+                class="boton botonAnalizarArbol aparecer delay6"
+                onclick="comenzarAnalisis()">
+
+                🔬 ANALIZAR ESTE ÁRBOL
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================
+     ANÁLISIS
+================================ -->
+
+<section
+    id="pantallaAnalisis"
+    class="pantalla oculto">
+
+
+    <div class="encabezado aparecer">
+
+        <div class="miniLogo">
+
+            <img
+                src="logo.png"
+                alt="MiBiCUBE²">
+
+        </div>
+
+
+        <button
+            class="volver"
+            onclick="volverFicha()">
+
+            ← Árbol
+
+        </button>
+
+    </div>
+
+
+    <div class="analisis">
+
+
+        <h1
+            class="titulo aparecer delay1">
+
+            🔬 Análisis
+
+        </h1>
+
+
+        <p
+            id="tituloAnalisis"
+            class="descripcionTitulo aparecer delay2">
+
+        </p>
+
+
+        <div
+            class="progreso aparecer delay3">
+
+            <div
+                id="progresoBarra"
+                class="progresoBarra">
+
+            </div>
+
+        </div>
+
+
+        <div class="seccionCuestionario aparecer delay3">
+
+            <h2>🌲 Aspectos físicos u observables</h2>
+
+            <p>
+                Observa directamente el ciprés y responde según las características
+                que puedas identificar a simple vista.
+            </p>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay3">
+
+            <h3>
+                🍃 ¿El follaje del ciprés presenta una coloración verde uniforme?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="follajeColor" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="follajeColor" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay4">
+
+            <h3>
+                🟤 ¿El follaje presenta zonas cafés, amarillentas o secas?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="follajeSeco" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="follajeSeco" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay5">
+
+            <h3>
+                🔎 ¿Se observan manchas, decoloraciones o lesiones en el follaje?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="manchas" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="manchas" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay6">
+
+            <h3>
+                🌿 ¿Hay pérdida de follaje o zonas con menor densidad de ramillas?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="perdidaFollaje" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="perdidaFollaje" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay3">
+
+            <h3>
+                🌳 ¿El tronco presenta grietas, heridas, desprendimiento de corteza o deterioro visible?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="tronco" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="tronco" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay4">
+
+            <h3>
+                🍄 ¿Se observa crecimiento de hongos u otras estructuras biológicas sobre el tronco o ramas?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="hongosVisibles" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="hongosVisibles" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Puedes dejar esta pregunta sin responder si no puedes identificar algo con claridad.
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay5">
+
+            <h3>
+                🐛 ¿Se observan insectos, galerías, perforaciones u otros indicios visibles de plagas?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="plagas" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="plagas" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Puedes dejarla en blanco si no se observa ningún indicio claro.
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay6">
+
+            <h3>
+                🌰 ¿Se observan conos o estructuras reproductivas del ciprés?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="conos" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="conos" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Es opcional porque su presencia puede variar según la especie y la época del año.
+            </div>
+
+        </div>
+
+
+        <div class="seccionCuestionario aparecer delay3">
+
+            <h2>🌦️ Factores del ambiente o externos</h2>
+
+            <p>
+                Registra las condiciones del lugar donde se encuentra el ciprés.
+                Las preguntas esenciales deben contestarse para generar el análisis.
+            </p>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay3">
+
+            <h3>
+                💧 ¿El suelo alrededor del ciprés presenta humedad excesiva?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="humedadSuelo" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="humedadSuelo" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay4">
+
+            <h3>
+                🌡️ ¿La temperatura del lugar se encuentra dentro de condiciones habituales para el entorno?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="temperatura" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="temperatura" value="no" onchange="actualizarProgreso()">
+                    <span>No / extrema</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Si cuentas con un termómetro, puedes utilizar la medición; de lo contrario, responde según las condiciones observadas.
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay5">
+
+            <h3>
+                💦 ¿La humedad ambiental es alta?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="humedadAmbiental" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="humedadAmbiental" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Si no tienes un sensor, puedes usar una estimación del ambiente; una medición sería preferible.
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay6">
+
+            <h3>
+                ☀️ ¿El ciprés recibe una cantidad adecuada de luz solar?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="luz" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="luz" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay3">
+
+            <h3>
+                🍂 ¿Hay abundante materia orgánica alrededor del ciprés?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="materia" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="materia" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay4">
+
+            <h3>
+                🌱 ¿El suelo tiene un drenaje adecuado?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="drenaje" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="drenaje" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay5">
+
+            <h3>
+                🌬️ ¿El ciprés está expuesto a viento fuerte de manera frecuente?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="viento" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="viento" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay6">
+
+            <h3>
+                🌧️ ¿Ha llovido recientemente en el lugar?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="lluvia" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="lluvia" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay3">
+
+            <h3>
+                📏 ¿Hay suficiente espacio para el desarrollo de las raíces?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="espacioRaices" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="espacioRaices" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="pregunta aparecer delay4">
+
+            <h3>
+                🌬️ ¿La presión atmosférica registrada es normal para el lugar?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="presion" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="presion" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Solo responde si dispones de una medición o dato confiable.
+            </div>
+
+        </div>
+
+
+        <button
+            class="boton aparecer delay6"
+            style="width:100%;"
+            onclick="analizar()">
+
+            🔬 OBTENER RESULTADOS
+
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================
+     RESULTADOS
+================================ -->
+
+<section
+    id="pantallaResultados"
+    class="pantalla oculto">
+
+
+    <div class="encabezado aparecer">
+
+        <div class="miniLogo">
+
+            <img
+                src="logo.png"
+                alt="MiBiCUBE²">
+
+        </div>
+
+
+        <button
+            class="volver"
+            onclick="volverAnalisis()">
+
+            ← Análisis
+
+        </button>
+
+    </div>
+
+
+    <div class="resultados">
+
+
+        <h1
+            class="titulo aparecer delay1">
+
+            Resultados
+
+        </h1>
+
+
+        <p
+            id="resultadoArbol"
+            class="descripcionTitulo aparecer delay2">
+
+        </p>
+
+
+        <div
+            class="estadoGeneral aparecer delay3">
+
+
+            <h2>
+                🌳 Estado general
+            </h2>
+
+
+            <div
+                id="porcentajeEstado"
+                class="porcentaje">
+
+                0%
+
+            </div>
+
+
+            <div class="barraFondo">
+
+                <div
+                    id="barraEstado"
+                    class="barraResultado">
+
+                </div>
+
+            </div>
+
+
+            <p
+                id="mensajeEstado">
+
+            </p>
+
+
+        </div>
+
+
+        <div class="resultadoGrid">
+
+            <!-- COLUMNA IZQUIERDA: CUIDADOS -->
+            <div class="panel aparecer delay4" id="panelCuidadosResultados">
+                <h2>🌱 Cuidados</h2>
+                <div id="cuidados"></div>
+            </div>
+
+            <!-- COLUMNA IZQUIERDA: OBSERVACIÓN -->
+            <div class="panel tarjetaConsejoResultados" id="tarjetaConsejoResultados">
+                <h2>
+                    <span id="iconoConsejoResultados">🌿</span>
+                    <span id="tituloConsejoResultados">Consejo de observación</span>
+                </h2>
+
+                <div class="cajaTextoConsejoResultados">
+                    <p id="textoConsejoResultados"></p>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: MICROORGANISMOS -->
+            <div class="panel aparecer delay5" id="panelMicroorganismosResultados">
+                <h2>🦠 Posibles microorganismos</h2>
+                <p style="color:#718374; font-size:14px; margin-bottom:12px;">
+                    Asociaciones hipotéticas basadas en las características proporcionadas durante el análisis.
+                </p>
+                <div id="microorganismos"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BOTÓN AL FINAL DE TODOS LOS RESULTADOS Y MEDIDAS -->
+    <div class="contenedorBotonDatosCuriososFinal">
+
+        <button
+            class="boton botonCurioso botonDatosCuriososFinal"
+            onclick="mostrarSolo('pantallaDatosCuriosos')">
+
+            💡 Datos curiosos
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     PANTALLA DE DATOS CURIOSOS
+================================ -->
+
+<section
+    id="pantallaDatosCuriosos"
+    class="pantalla oculto">
+
+    <div class="encabezado aparecer">
+
+        <div class="miniLogo">
+
+            <img
+                src="logo.png"
+                alt="MiBiCUBE²">
+
+        </div>
+
+        <button
+            class="volver"
+            onclick="mostrarSolo('pantallaResultados')">
+
+            ← Resultados
+
+        </button>
+
+    </div>
+
+    <div class="resultados datosCuriososPantalla">
+
+        <h1 class="titulo aparecer delay1">
+            💡 Datos curiosos
+        </h1>
+
+        <p class="descripcionTitulo aparecer delay2">
+            Descubre un dato curioso sobre el ciprés.
+        </p>
+
+        <div class="contenedorOpcionAudioCurioso aparecer delay3">
+
+            <label class="tarjetaAudioCurioso" for="checkAudio">
+
+                <span class="iconoAudioCurioso">🔊</span>
+
+                <span class="textoAudioCurioso">
+                    <strong>¿Quieres escuchar la voz del personaje?</strong>
+                    <small>Puedes activar o desactivar la narración de los datos curiosos.</small>
+                </span>
+
+                <input type="checkbox" id="checkAudio" checked>
+
+            </label>
+
+        </div>
+
+        <button
+            class="boton botonCurioso aparecer delay4"
+            onclick="abrirDatosCuriosos()">
+
+            💡 ¿Sabías que...?
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     MODAL DE DATOS CURIOSOS
+================================ -->
+
+<div id="modalCurioso" class="oculto">
+
+    <div class="contenidoCurioso">
+
+        <div class="tituloModalCurioso">
+            💡 ¿Sabías esto sobre el ciprés?
+        </div>
+
+        <div id="vistaCargaCuriosa">
+
+            <div class="contenedorVideoGrandeCurioso">
+
+                <video
+                    class="videoMarcoGrandeCurioso"
+                    autoplay
+                    loop
+                    muted
+                    playsinline>
+
+                    <source src="personaje.mp4" type="video/mp4">
+
+                </video>
+
+            </div>
+
+            <div class="textoCargandoCurioso">
+                Buscando un dato curioso...
+            </div>
+
+            <div class="puntosCargaCurioso">
+                ● ● ●
+            </div>
+
+        </div>
+
+        <div id="vistaHablandoCuriosa" class="oculto">
+
+            <div class="escenaPersonajeCuriosa">
+
+                <div class="contenedorVideoPequenoCurioso">
+
+                    <video
+                        id="videoHablandoCurioso"
+                        class="videoMarcoPequenoCurioso"
+                        muted
+                        playsinline>
+
+                        <source src="personaje.mp4" type="video/mp4">
+
+                    </video>
+
+                </div>
+
+                <div
+                    class="burbujaTextoCurioso"
+                    id="textoBurbujaCurioso">
+                </div>
+
+            </div>
+
+            <div class="contenedorBotonesModalCurioso">
+
+                <button
+                    class="btnOtroDatoCurioso"
+                    onclick="abrirDatosCuriosos()">
+
+                    🔄 OTRO DATO
+
+                </button>
+
+                <button
+                    class="cerrarModalCurioso"
+                    onclick="cerrarModalCurioso()">
+
+                    ✖ CERRAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================
+     MODAL ORIGINAL
+================================ -->
+
+<div
+    id="modalMicro"
+    class="oculto"
+    onclick="cerrarModal(event)">
+
+
+    <div
+        class="modalContenido"
+        onclick="event.stopPropagation()">
+
+
+        <div
+            id="modalIcono"
+            class="modalIcono">
+
+            🦠
+
+        </div>
+
+
+        <h2
+            id="modalNombre">
+
+            Microorganismo
+
+        </h2>
+
+
+        <p
+            id="modalTipo">
+
+        </p>
+
+
+        <p
+            id="modalDescripcion">
+
+        </p>
+
+
+        <p
+            id="modalCondiciones">
+
+        </p>
+
+
+        <button
+            class="cerrarModal"
+            onclick="cerrarModal()">
+
+            CERRAR
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* ================================
+   DATOS
+================================ */
+
+const arboles = {
+
+    cipres: {
+
+        nombre: "Ciprés",
+
+        foto: "cipres.jpeg",
+
+        descripcion:
+        "Árbol perenne utilizado con frecuencia en espacios urbanos, escolares y ornamentales. Sus características y las condiciones del ambiente pueden relacionarse con distintas comunidades de microorganismos presentes en el suelo, las raíces y las partes externas del árbol.",
+
+        info: [
+
+            ["Tipo","Árbol perenne"],
+
+            ["Ambiente","Urbano y ornamental"],
+
+            ["Interés","Follaje, tronco y suelo"]
+
+        ]
+
+    }
+
+};
+
+
+const microDatos = {
+
+    bacillus: {
+
+        nombre: "Bacillus sp.",
+
+        icono: "🦠",
+
+        tipo: "Bacteria del suelo",
+
+        descripcion:
+        "Algunas bacterias del género Bacillus se encuentran en el suelo y pueden establecer interacciones con plantas.",
+
+        condiciones:
+        "Puede encontrarse asociado a suelos con materia orgánica y zonas cercanas a las raíces."
+
+    },
+
+
+    pseudomonas: {
+
+        nombre: "Pseudomonas sp.",
+
+        icono: "🦠",
+
+        tipo: "Bacteria asociada a la rizosfera",
+
+        descripcion:
+        "El género Pseudomonas incluye bacterias presentes en ambientes asociados a raíces.",
+
+        condiciones:
+        "Puede encontrarse en ambientes asociados a raíces donde existe humedad y materia orgánica."
+
+    },
+
+
+    trichoderma: {
+
+        nombre: "Trichoderma sp.",
+
+        icono: "🍄",
+
+        tipo: "Hongo del suelo",
+
+        descripcion:
+        "Trichoderma es un género de hongos del suelo estudiado por sus interacciones con las raíces.",
+
+        condiciones:
+        "Puede encontrarse en diferentes tipos de suelo y ambientes asociados a materia orgánica."
+
+    },
+
+
+    hongosFoliares: {
+
+        nombre: "Hongos fitopatógenos",
+
+        icono: "🍄",
+
+        tipo: "Grupo potencialmente asociado a enfermedades",
+
+        descripcion:
+        "Algunos hongos pueden producir enfermedades en las hojas. Observar manchas no permite confirmar por sí solo una infección.",
+
+        condiciones:
+        "Algunos pueden verse favorecidos por determinadas condiciones de humedad."
+
+    },
+
+
+    descomponedores: {
+
+        nombre: "Microorganismos descomponedores",
+
+        icono: "🧬",
+
+        tipo: "Grupo funcional",
+
+        descripcion:
+        "Participan en la descomposición de materia orgánica y en el reciclaje de nutrientes.",
+
+        condiciones:
+        "La presencia de materia orgánica puede proporcionar recursos para este tipo de comunidades."
+
+    }
+
+};
+
+
+let arbolActual = null;
+
+
+/* ================================
+   CAMBIAR PANTALLA
+================================ */
+
+function mostrarSolo(id) {
+
+    const pantallas = [
+
+        "inicio",
+        "menuArboles",
+        "fichaArbol",
+        "pantallaAnalisis",
+        "pantallaResultados",
+        "pantallaDatosCuriosos"
+
+    ];
+
+
+    pantallas.forEach(
+        function(pantalla) {
+
+            document
+            .getElementById(pantalla)
+            .classList.add("oculto");
+
+        }
+    );
+
+
+    document
+    .getElementById(id)
+    .classList.remove("oculto");
+
+
+    reiniciarAnimaciones(id);
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ================================
+   ANIMACIONES DE ENTRADA
+================================ */
+
+function reiniciarAnimaciones(pantalla) {
+
+    const elementos =
+        document
+        .getElementById(pantalla)
+        .querySelectorAll(".aparecer");
+
+
+    elementos.forEach(
+        function(elemento) {
+
+            elemento.classList.remove(
+                "aparecer"
+            );
+
+            void elemento.offsetWidth;
+
+            elemento.classList.add(
+                "aparecer"
+            );
+
+        }
+    );
+
+}
+
+
+/* ================================
+   CARGA
+================================ */
+
+function mostrarCarga(
+    texto,
+    siguientePantalla
+) {
+
+    const carga =
+        document.getElementById(
+            "cargando"
+        );
+
+
+    const textoCarga =
+        document.getElementById(
+            "textoCarga"
+        );
+
+
+    const video =
+        document.getElementById(
+            "videoCarga"
+        );
+
+
+    textoCarga.textContent =
+        texto;
+
+
+    carga.classList.remove(
+        "oculto"
+    );
+
+
+    video.currentTime = 0;
+
+
+    video.play().catch(
+        function(){}
+    );
+
+
+    setTimeout(
+        function() {
+
+            carga.classList.add(
+                "oculto"
+            );
+
+
+            mostrarSolo(
+                siguientePantalla
+            );
+
+        },
+        2500
+    );
+
+}
+
+
+/* ================================
+   COMENZAR
+================================ */
+
+function comenzar() {
+
+    const boton =
+        document.getElementById(
+            "botonInicio"
+        );
+
+
+    boton.classList.remove(
+        "animando"
+    );
+
+
+    void boton.offsetWidth;
+
+
+    boton.classList.add(
+        "animando"
+    );
+
+
+    crearGotas(boton);
+
+
+    setTimeout(
+        function() {
+
+            mostrarCarga(
+                "Preparando MiBiCUBE²...",
+                "menuArboles"
+            );
+
+        },
+        700
+    );
+
+}
+
+
+/* ================================
+   GOTAS
+================================ */
+
+function crearGotas(boton) {
+
+    const posiciones = [
+
+        [-35,-30],
+        [-15,-45],
+        [15,-45],
+        [35,-30],
+        [0,-55],
+        [-40,5],
+        [40,5]
+
+    ];
+
+
+    posiciones.forEach(
+        function(pos) {
+
+            const gota =
+                document.createElement(
+                    "span"
+                );
+
+
+            gota.className =
+                "gota";
+
+
+            gota.style.left =
+                "50%";
+
+
+            gota.style.top =
+                "50%";
+
+
+            gota.style.setProperty(
+                "--x",
+                pos[0] + "px"
+            );
+
+
+            gota.style.setProperty(
+                "--y",
+                pos[1] + "px"
+            );
+
+
+            boton.appendChild(
+                gota
+            );
+
+
+            setTimeout(
+                function() {
+
+                    gota.remove();
+
+                },
+                750
+            );
+
+        }
+    );
+
+}
+
+
+/* ================================
+   ÁRBOL
+================================ */
+
+function mostrarArbol(id) {
+
+    arbolActual = id;
+
+
+    const arbol =
+        arboles[id];
+
+
+    document
+    .getElementById(
+        "nombreArbol"
+    )
+    .textContent =
+    arbol.nombre;
+
+
+    document
+    .getElementById(
+        "descripcionArbol"
+    )
+    .textContent =
+    arbol.descripcion;
+
+
+    document
+    .getElementById(
+        "fotoArbol"
+    )
+    .innerHTML = `
+        <img
+            src="${arbol.foto}"
+            alt="${arbol.nombre}">
+    `;
+
+
+    let html = "";
+
+
+    arbol.info.forEach(
+        function(item) {
+
+            html += `
+
+                <div class="infoItem">
+
+                    <strong>
+                        ${item[0]}
+                    </strong>
+
+                    ${item[1]}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    document
+    .getElementById(
+        "infoRapida"
+    )
+    .innerHTML =
+    html;
+
+
+    mostrarCarga(
+        "Cargando información del árbol...",
+        "fichaArbol"
+    );
+
+}
+
+
+/* ================================
+   ANÁLISIS
+================================ */
+
+// Activa las animaciones de los mapas cuando entran en pantalla.
+const observadorMapas = new IntersectionObserver(
+    function(entradas) {
+        entradas.forEach(function(entrada) {
+            if (entrada.isIntersecting) {
+                entrada.target.classList.add("mapaVisible");
+            }
+        });
+    },
+    { threshold: 0.18 }
+);
+
+document.querySelectorAll("[data-mapa]").forEach(function(mapa) {
+    observadorMapas.observe(mapa);
+});
+
+
+function comenzarAnalisis() {
+
+    document
+    .getElementById(
+        "tituloAnalisis"
+    )
+    .textContent =
+    "Analizando características del " +
+    arboles[
+        arbolActual
+    ].nombre;
+
+
+    actualizarProgreso();
+
+
+    mostrarCarga(
+        "Preparando análisis...",
+        "pantallaAnalisis"
+    );
+
+}
+
+
+/* ================================
+   RESPUESTAS
+================================ */
+
+function respuesta(nombre) {
+
+    const elemento =
+        document.querySelector(
+            'input[name="' +
+            nombre +
+            '"]:checked'
+        );
+
+
+    return elemento
+        ? elemento.value
+        : null;
+
+}
+
+
+/* ================================
+   PROGRESO DEL ANÁLISIS
+================================ */
+
+function actualizarProgreso() {
+
+    const esenciales = [
+
+        "follajeColor",
+        "follajeSeco",
+        "manchas",
+        "perdidaFollaje",
+        "tronco",
+        "humedadSuelo",
+        "temperatura",
+        "humedadAmbiental",
+        "luz",
+        "materia",
+        "drenaje"
+
+    ];
+
+
+    let contestadas = 0;
+
+
+    esenciales.forEach(
+        function(nombre) {
+
+            if (
+                document.querySelector(
+                    'input[name="' +
+                    nombre +
+                    '"]:checked'
+                )
+            ) {
+
+                contestadas++;
+
+            }
+
+        }
+    );
+
+
+    document
+    .getElementById(
+        "progresoBarra"
+    )
+    .style.width =
+
+        (
+            contestadas /
+            esenciales.length *
+            100
+        ) + "%";
+
+}
+
+
+/* ================================
+   ANALIZAR
+================================ */
+
+function analizar() {
+
+    const datos = {
+
+        follajeColor:
+            respuesta("follajeColor"),
+
+        follajeSeco:
+            respuesta("follajeSeco"),
+
+        manchas:
+            respuesta("manchas"),
+
+        perdidaFollaje:
+            respuesta("perdidaFollaje"),
+
+        tronco:
+            respuesta("tronco"),
+
+        hongosVisibles:
+            respuesta("hongosVisibles"),
+
+        plagas:
+            respuesta("plagas"),
+
+        conos:
+            respuesta("conos"),
+
+        humedadSuelo:
+            respuesta("humedadSuelo"),
+
+        temperatura:
+            respuesta("temperatura"),
+
+        humedadAmbiental:
+            respuesta("humedadAmbiental"),
+
+        luz:
+            respuesta("luz"),
+
+        materia:
+            respuesta("materia"),
+
+        drenaje:
+            respuesta("drenaje"),
+
+        viento:
+            respuesta("viento"),
+
+        lluvia:
+            respuesta("lluvia"),
+
+        espacioRaices:
+            respuesta("espacioRaices"),
+
+        presion:
+            respuesta("presion")
+
+    };
+
+
+    const esenciales = [
+
+        "follajeColor",
+        "follajeSeco",
+        "manchas",
+        "perdidaFollaje",
+        "tronco",
+        "humedadSuelo",
+        "temperatura",
+        "humedadAmbiental",
+        "luz",
+        "materia",
+        "drenaje"
+
+    ];
+
+
+    for (
+        const clave of esenciales
+    ) {
+
+        if (
+            datos[clave] === null
+        ) {
+
+            alert(
+                "Responde todas las preguntas marcadas como ESENCIALES antes de continuar."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    let estado = 100;
+
+
+    if (
+        datos.follajeColor === "no"
+    )
+        estado -= 10;
+
+
+    if (
+        datos.follajeSeco === "si"
+    )
+        estado -= 12;
+
+
+    if (
+        datos.manchas === "si"
+    )
+        estado -= 12;
+
+
+    if (
+        datos.perdidaFollaje === "si"
+    )
+        estado -= 12;
+
+
+    if (
+        datos.tronco === "si"
+    )
+        estado -= 18;
+
+
+    if (
+        datos.humedadSuelo === "si"
+    )
+        estado -= 8;
+
+
+    if (
+        datos.temperatura === "no"
+    )
+        estado -= 5;
+
+
+    if (
+        datos.humedadAmbiental === "si"
+    )
+        estado -= 4;
+
+
+    if (
+        datos.luz === "no"
+    )
+        estado -= 8;
+
+
+    if (
+        datos.materia === "si"
+    )
+        estado += 4;
+
+
+    if (
+        datos.drenaje === "no"
+    )
+        estado -= 8;
+
+
+    if (
+        datos.hongosVisibles === "si"
+    )
+        estado -= 5;
+
+
+    if (
+        datos.plagas === "si"
+    )
+        estado -= 5;
+
+
+    if (
+        datos.viento === "si"
+    )
+        estado -= 2;
+
+
+    estado =
+        Math.max(
+            20,
+            Math.min(
+                100,
+                estado
+            )
+        );
+
+
+    let cuidados = [];
+
+
+    if (
+        datos.humedadSuelo === "si"
+    ) {
+
+        cuidados.push(
+            "💧 Vigilar que el suelo del ciprés no permanezca excesivamente húmedo y comprobar que exista un drenaje adecuado."
+        );
+
+    }
+
+
+    if (
+        datos.humedadSuelo === "no"
+    ) {
+
+        cuidados.push(
+            "💧 Revisar periódicamente la humedad del suelo y evitar periodos prolongados de sequedad."
+        );
+
+    }
+
+
+    if (
+        datos.manchas === "si" ||
+        datos.follajeSeco === "si"
+    ) {
+
+        cuidados.push(
+            "🍃 Observar la evolución de las zonas afectadas del follaje y registrar si aumentan o cambian."
+        );
+
+    }
+
+
+    if (
+        datos.tronco === "si"
+    ) {
+
+        cuidados.push(
+            "🌳 Vigilar las zonas deterioradas del tronco y evitar causar nuevas heridas."
+        );
+
+    }
+
+
+    if (
+        datos.luz === "no"
+    ) {
+
+        cuidados.push(
+            "☀️ Revisar las condiciones de iluminación del lugar donde se encuentra el ciprés."
+        );
+
+    }
+
+
+    if (
+        datos.drenaje === "no"
+    ) {
+
+        cuidados.push(
+            "🌱 Revisar el drenaje del suelo para evitar acumulación prolongada de agua."
+        );
+
+    }
+
+
+    if (
+        datos.materia === "si"
+    ) {
+
+        cuidados.push(
+            "🍂 Mantener la materia orgánica de manera equilibrada alrededor del árbol."
+        );
+
+    }
+
+
+    if (
+        cuidados.length === 0
+    ) {
+
+        cuidados.push(
+            "🌱 Realizar observaciones periódicas del ciprés y mantener registradas sus condiciones ambientales."
+        );
+
+    }
+
+
+    /* ================================
+       MICROORGANISMOS
+    ================================= */
+
+    let microorganismos = [];
+
+
+    let bacillus = 30;
+
+    if (
+        datos.materia === "si"
+    )
+        bacillus += 25;
+
+    if (
+        datos.humedadSuelo === "si"
+    )
+        bacillus += 15;
+
+
+    microorganismos.push({
+
+        id: "bacillus",
+
+        score:
+            Math.min(
+                bacillus,
+                95
+            )
+
+    });
+
+
+    let pseudomonas = 25;
+
+    if (
+        datos.humedadSuelo === "si"
+    )
+        pseudomonas += 25;
+
+    if (
+        datos.materia === "si"
+    )
+        pseudomonas += 20;
+
+
+    microorganismos.push({
+
+        id: "pseudomonas",
+
+        score:
+            Math.min(
+                pseudomonas,
+                95
+            )
+
+    });
+
+
+    let trichoderma = 25;
+
+    if (
+        datos.materia === "si"
+    )
+        trichoderma += 30;
+
+    if (
+        datos.humedadSuelo === "si"
+    )
+        trichoderma += 15;
+
+
+    microorganismos.push({
+
+        id: "trichoderma",
+
+        score:
+            Math.min(
+                trichoderma,
+                95
+            )
+
+    });
+
+
+    let hongos = 15;
+
+    if (
+        datos.manchas === "si"
+    )
+        hongos += 40;
+
+    if (
+        datos.follajeSeco === "si"
+    )
+        hongos += 15;
+
+    if (
+        datos.humedadAmbiental === "si"
+    )
+        hongos += 20;
+
+    if (
+        datos.hongosVisibles === "si"
+    )
+        hongos += 10;
+
+
+    microorganismos.push({
+
+        id: "hongosFoliares",
+
+        score:
+            Math.min(
+                hongos,
+                90
+            )
+
+    });
+
+
+    let descomponedores = 20;
+
+    if (
+        datos.materia === "si"
+    )
+        descomponedores += 45;
+
+    if (
+        datos.humedadSuelo === "si"
+    )
+        descomponedores += 10;
+
+
+    microorganismos.push({
+
+        id: "descomponedores",
+
+        score:
+            Math.min(
+                descomponedores,
+                95
+            )
+
+    });
+
+
+    microorganismos.sort(
+        function(a,b) {
+
+            return b.score -
+                   a.score;
+
+        }
+    );
+
+
+    mostrarCarga(
+        "Analizando características...",
+        "pantallaResultados"
+    );
+
+
+    setTimeout(
+        function() {
+
+            mostrarResultados(
+                estado,
+                cuidados,
+                microorganismos,
+                datos
+            );
+
+        },
+        100
+    );
+
+}
+
+
+/* ================================
+   CONSEJO DE OBSERVACIÓN DINÁMICO
+================================ */
+
+function obtenerConsejoObservacion(estado, datos, microorganismos) {
+
+    if (datos.humedadSuelo === "si" && datos.drenaje === "no") {
+        return {
+            icono: "💧",
+            titulo: "Observa primero el suelo",
+            texto: "Vigila la humedad y el drenaje. Si el suelo permanece saturado, registra los cambios del follaje y del estado general del ciprés."
+        };
+    }
+
+    if (datos.manchas === "si" || datos.follajeSeco === "si") {
+        return {
+            icono: "🍃",
+            titulo: "Observa el follaje",
+            texto: "Revisa las manchas o zonas secas y observa si se mantienen, aumentan o aparecen en nuevas partes del árbol."
+        };
+    }
+
+    if (datos.tronco === "si") {
+        return {
+            icono: "🌳",
+            titulo: "Observa el tronco",
+            texto: "Da seguimiento a las zonas deterioradas y evita nuevas heridas. Compara su aspecto en observaciones posteriores."
+        };
+    }
+
+    if (datos.luz === "no") {
+        return {
+            icono: "☀️",
+            titulo: "Observa la iluminación",
+            texto: "Comprueba cómo recibe luz el ciprés durante el día y registra si la exposición cambia con el tiempo."
+        };
+    }
+
+    if (datos.hongosVisibles === "si" || datos.plagas === "si") {
+        return {
+            icono: "🔎",
+            titulo: "Busca cambios visibles",
+            texto: "Revisa follaje, tronco y ramas con frecuencia para detectar si las señales visibles aumentan o cambian."
+        };
+    }
+
+    if (estado >= 80) {
+        return {
+            icono: "🌿",
+            titulo: "Mantén la observación",
+            texto: "Las condiciones registradas son favorables. Continúa revisando suelo, follaje y tronco para detectar cambios a tiempo."
+        };
+    }
+
+    if (estado >= 55) {
+        return {
+            icono: "👀",
+            titulo: "Observa los cambios",
+            texto: "Las condiciones son intermedias. Conviene repetir la observación y comparar los cambios en suelo, follaje y tronco."
+        };
+    }
+
+    return {
+        icono: "⚠️",
+        titulo: "Haz un seguimiento cercano",
+        texto: "El resultado indica varias condiciones para vigilar. Registra los cambios del árbol y revisa especialmente las zonas señaladas."
+    };
+}
+
+function ajustarTarjetaConsejoResultados() {
+
+    const grid = document.querySelector(".resultadoGrid");
+    const tarjeta = document.getElementById("tarjetaConsejoResultados");
+    const cuidadosPanel = document.getElementById("panelCuidadosResultados");
+    const microPanel = document.getElementById("panelMicroorganismosResultados");
+
+    if (!grid || !tarjeta || !cuidadosPanel || !microPanel) return;
+
+    if (window.innerWidth > 700) {
+        tarjeta.style.height = "auto";
+
+        requestAnimationFrame(function() {
+            const espacio = microPanel.offsetHeight - cuidadosPanel.offsetHeight - 20;
+            if (espacio > 0) {
+                tarjeta.style.height = `${espacio}px`;
+            }
+        });
+    } else {
+        tarjeta.style.height = "auto";
+    }
+}
+
+/* ================================
+   MOSTRAR RESULTADOS
+================================ */
+
+function mostrarResultados(
+    estado,
+    cuidados,
+    microorganismos,
+    datos
+) {
+
+    document
+    .getElementById(
+        "resultadoArbol"
+    )
+    .textContent =
+    arboles[
+        arbolActual
+    ].nombre;
+
+
+    animarPorcentaje(
+        estado
+    );
+
+
+    let mensaje;
+
+
+    if (
+        estado >= 80
+    ) {
+
+        mensaje =
+        "🟢 El árbol presenta condiciones generales favorables.";
+
+    }
+
+    else if (
+        estado >= 55
+    ) {
+
+        mensaje =
+        "🟡 Se observan algunas condiciones que conviene vigilar.";
+
+    }
+
+    else {
+
+        mensaje =
+        "🔴 Se observan varias condiciones que requieren atención.";
+
+    }
+
+
+    document
+    .getElementById(
+        "mensajeEstado"
+    )
+    .textContent =
+    mensaje;
+
+
+    let htmlCuidados = "";
+
+
+    cuidados.forEach(
+        function(cuidado) {
+
+            htmlCuidados += `
+
+                <div class="recomendacion">
+
+                    ${cuidado}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    document
+    .getElementById(
+        "cuidados"
+    )
+    .innerHTML =
+    htmlCuidados;
+
+
+    let htmlMicro = "";
+
+
+    microorganismos.forEach(
+        function(micro,index) {
+
+            const info =
+                microDatos[
+                    micro.id
+                ];
+
+
+            htmlMicro += `
+
+                <div
+                    class="microorganismo"
+                    style="
+                    animation-delay:
+                    ${index * 0.15}s;
+                    "
+                    onclick="
+                    abrirMicro(
+                        '${micro.id}',
+                        ${micro.score}
+                    )">
+
+                    <div class="microNombre">
+
+                        ${info.icono}
+                        ${info.nombre}
+
+                    </div>
+
+
+                    <div class="microTipo">
+
+                        ${info.tipo}
+
+                    </div>
+
+
+                    <div class="microCompatibilidad">
+
+                        Asociación estimada:
+
+                        <strong
+                            class="contadorMicro"
+                            data-valor="${micro.score}">
+
+                            0%
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="miniBarra">
+
+                        <div
+                            data-valor="${micro.score}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    document
+    .getElementById(
+        "microorganismos"
+    )
+    .innerHTML =
+    htmlMicro;
+
+
+    const consejo = obtenerConsejoObservacion(
+        estado,
+        datos,
+        microorganismos
+    );
+
+    document
+    .getElementById("iconoConsejoResultados")
+    .textContent = consejo.icono;
+
+    document
+    .getElementById("tituloConsejoResultados")
+    .textContent = consejo.titulo;
+
+    document
+    .getElementById("textoConsejoResultados")
+    .textContent = consejo.texto;
+
+    requestAnimationFrame(
+        ajustarTarjetaConsejoResultados
+    );
+
+    setTimeout(
+        function() {
+
+            animarMicroorganismos();
+
+        },
+        300
+    );
+
+}
+
+
+/* ================================
+   ANIMAR PORCENTAJE GENERAL
+================================ */
+
+function animarPorcentaje(
+    valorFinal
+) {
+
+    const numero =
+        document.getElementById(
+            "porcentajeEstado"
+        );
+
+
+    const barra =
+        document.getElementById(
+            "barraEstado"
+        );
+
+
+    let actual = 0;
+
+
+    const duracion = 900;
+
+    const intervalo = 20;
+
+
+    const pasos =
+        duracion /
+        intervalo;
+
+
+    const incremento =
+        valorFinal /
+        pasos;
+
+
+    barra.style.width =
+        "0%";
+
+
+    numero.textContent =
+        "0%";
+
+
+    const animacion =
+        setInterval(
+            function() {
+
+                actual += incremento;
+
+
+                if (
+                    actual >= valorFinal
+                ) {
+
+                    actual =
+                        valorFinal;
+
+
+                    clearInterval(
+                        animacion
+                    );
+
+                }
+
+
+                const redondeado =
+                    Math.round(
+                        actual
+                    );
+
+
+                numero.textContent =
+                    redondeado + "%";
+
+
+                barra.style.width =
+                    redondeado + "%";
+
+            },
+            intervalo
+        );
+
+}
+
+
+/* ================================
+   ANIMAR MICROORGANISMOS
+================================ */
+
+function animarMicroorganismos() {
+
+    const contadores =
+        document.querySelectorAll(
+            ".contadorMicro"
+        );
+
+
+    const barras =
+        document.querySelectorAll(
+            ".miniBarra div"
+        );
+
+
+    contadores.forEach(
+        function(contador,index) {
+
+            const valor =
+                Number(
+                    contador
+                    .dataset
+                    .valor
+                );
+
+
+            const barra =
+                barras[index];
+
+
+            let actual = 0;
+
+
+            const duracion = 700;
+
+            const intervalo = 15;
+
+
+            const pasos =
+                duracion /
+                intervalo;
+
+
+            const incremento =
+                valor /
+                pasos;
+
+
+            const animacion =
+                setInterval(
+                    function() {
+
+                        actual +=
+                            incremento;
+
+
+                        if (
+                            actual >= valor
+                        ) {
+
+                            actual =
+                                valor;
+
+
+                            clearInterval(
+                                animacion
+                            );
+
+                        }
+
+
+                        const numero =
+                            Math.round(
+                                actual
+                            );
+
+
+                        contador.textContent =
+                            numero + "%";
+
+
+                        barra.style.width =
+                            numero + "%";
+
+                    },
+                    intervalo
+                );
+
+        }
+    );
+
+}
+
+
+/* ================================
+   MODAL
+================================ */
+
+function abrirMicro(
+    id,
+    score
+) {
+
+    const micro =
+        microDatos[id];
+
+
+    document
+    .getElementById(
+        "modalIcono"
+    )
+    .textContent =
+    micro.icono;
+
+
+    document
+    .getElementById(
+        "modalNombre"
+    )
+    .textContent =
+    micro.nombre;
+
+
+    document
+    .getElementById(
+        "modalTipo"
+    )
+    .innerHTML =
+
+        "<strong>Tipo:</strong> " +
+        micro.tipo +
+        "<br><br>" +
+
+        "<strong>Asociación estimada:</strong> " +
+        score +
+        "%";
+
+
+    document
+    .getElementById(
+        "modalDescripcion"
+    )
+    .innerHTML =
+
+        "<strong>Información:</strong><br>" +
+        micro.descripcion;
+
+
+    document
+    .getElementById(
+        "modalCondiciones"
+    )
+    .innerHTML =
+
+        "<strong>Condiciones:</strong><br>" +
+        micro.condiciones;
+
+
+    document
+    .getElementById(
+        "modalMicro"
+    )
+    .classList.remove(
+        "oculto"
+    );
+
+}
+
+
+function cerrarModal(evento) {
+
+    if (
+        evento &&
+        evento.target !==
+        document.getElementById(
+            "modalMicro"
+        )
+    ) {
+
+        return;
+    }
+
+
+    document
+    .getElementById(
+        "modalMicro"
+    )
+    .classList.add(
+        "oculto"
+    );
+
+}
+
+
+/* ================================
+   NAVEGACIÓN
+================================ */
+
+function volverMenu() {
+
+    mostrarSolo(
+        "menuArboles"
+    );
+
+}
+
+
+function volverFicha() {
+
+    mostrarSolo(
+        "fichaArbol"
+    );
+
+}
+
+
+function volverAnalisis() {
+
+    mostrarSolo(
+        "pantallaAnalisis"
+    );
+
+}
+
+
+
+/* ================================
+   DATOS CURIOSOS
+================================ */
+
+const datosCuriosos = [
+    "El ciprés puede vivir más de mil años gracias a su madera extremadamente resistente.",
+    "Sus aceites esenciales se han utilizado históricamente para calmar problemas respiratorios.",
+    "En la antigüedad, el ciprés se asociaba con la eternidad y la inmortalidad.",
+    "Su madera resiste la descomposición y el agua, por lo que se usa en construcciones marinas.",
+    "Las hojas de ciprés no son finas como agujas, sino pequeñas escamas superpuestas.",
+    "Ayuda a prevenir la erosión del suelo gracias a su profundo sistema de raíces.",
+    "Produce piñas o conos femeninos globosos que tardan hasta dos años en madurar.",
+    "Es un excelente cortavientos natural utilizado para proteger cultivos en zonas rurales."
+];
+
+let intervaloEscrituraCurioso = null;
+let vocesDisponiblesCurioso = [];
+
+function cargarVocesCurioso() {
+
+    if ('speechSynthesis' in window) {
+        vocesDisponiblesCurioso = window.speechSynthesis.getVoices();
+    }
+
+}
+
+cargarVocesCurioso();
+
+if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = cargarVocesCurioso;
+}
+
+function abrirDatosCuriosos() {
+
+    const modal =
+        document.getElementById("modalCurioso");
+
+    const vistaCarga =
+        document.getElementById("vistaCargaCuriosa");
+
+    const vistaHablando =
+        document.getElementById("vistaHablandoCuriosa");
+
+    const videoHablando =
+        document.getElementById("videoHablandoCurioso");
+
+    const burbuja =
+        document.getElementById("textoBurbujaCurioso");
+
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+    }
+
+    clearInterval(intervaloEscrituraCurioso);
+
+    burbuja.textContent = "";
+
+    vistaCarga.classList.remove("oculto");
+    vistaHablando.classList.add("oculto");
+
+    modal.classList.remove("oculto");
+
+    setTimeout(() => {
+
+        vistaCarga.classList.add("oculto");
+        vistaHablando.classList.remove("oculto");
+
+        videoHablando.currentTime = 0;
+        videoHablando.play().catch(() => {});
+
+        const datoAzar =
+            datosCuriosos[
+                Math.floor(
+                    Math.random() *
+                    datosCuriosos.length
+                )
+            ];
+
+        const activarAudio =
+            document.getElementById("checkAudio").checked;
+
+        if (activarAudio) {
+
+            reproducirConVozCurioso(
+                datoAzar,
+                burbuja
+            );
+
+        } else {
+
+            escribirTexto6SegundosCurioso(
+                datoAzar,
+                burbuja
+            );
+
+        }
+
+    }, 1500);
+
+}
+
+function reproducirConVozCurioso(texto, elemento) {
+
+    clearInterval(intervaloEscrituraCurioso);
+
+    elemento.textContent = "";
+
+    if ('speechSynthesis' in window) {
+
+        window.speechSynthesis.cancel();
+
+        const locucion =
+            new SpeechSynthesisUtterance(texto);
+
+        locucion.lang = 'es-MX';
+
+        if (vocesDisponiblesCurioso.length === 0) {
+            vocesDisponiblesCurioso =
+                window.speechSynthesis.getVoices();
+        }
+
+        const vozNatural =
+            vocesDisponiblesCurioso.find(v =>
+                v.lang.startsWith('es') &&
+                (
+                    v.name.includes('Natural') ||
+                    v.name.includes('Google') ||
+                    v.name.includes('Neural') ||
+                    v.name.includes('Paulina') ||
+                    v.name.includes('Monica')
+                )
+            ) ||
+            vocesDisponiblesCurioso.find(v =>
+                v.lang.startsWith('es')
+            );
+
+        if (vozNatural) {
+            locucion.voice = vozNatural;
+        }
+
+        locucion.rate = 1.0;
+        locucion.pitch = 1.05;
+
+        const duracionTotal = 6000;
+        const tiempoPorLetra =
+            duracionTotal / texto.length;
+
+        let i = 0;
+
+        intervaloEscrituraCurioso =
+            setInterval(() => {
+
+                if (i < texto.length) {
+
+                    elemento.textContent +=
+                        texto.charAt(i);
+
+                    i++;
+
+                } else {
+
+                    clearInterval(
+                        intervaloEscrituraCurioso
+                    );
+
+                }
+
+            }, tiempoPorLetra);
+
+        locucion.onend = () => {
+
+            clearInterval(
+                intervaloEscrituraCurioso
+            );
+
+            elemento.textContent = texto;
+
+        };
+
+        window.speechSynthesis.speak(locucion);
+
+    } else {
+
+        escribirTexto6SegundosCurioso(
+            texto,
+            elemento
+        );
+
+    }
+
+}
+
+function escribirTexto6SegundosCurioso(texto, elemento) {
+
+    clearInterval(intervaloEscrituraCurioso);
+
+    elemento.textContent = "";
+
+    let i = 0;
+
+    const tiempoPorLetra =
+        6000 / texto.length;
+
+    intervaloEscrituraCurioso =
+        setInterval(() => {
+
+            if (i < texto.length) {
+
+                elemento.textContent +=
+                    texto.charAt(i);
+
+                i++;
+
+            } else {
+
+                clearInterval(
+                    intervaloEscrituraCurioso
+                );
+
+            }
+
+        }, timepoPorLetra);
+
+}
+
+function cerrarModalCurioso() {
+
+    clearInterval(
+        intervaloEscrituraCurioso
+    );
+
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+    }
+
+    document
+        .getElementById("modalCurioso")
+        .classList.add("oculto");
+
+    const video =
+        document.getElementById(
+            "videoHablandoCurioso"
+        );
+
+    video.pause();
+
+}
+
+
+
+window.addEventListener(
+    "resize",
+    ajustarTarjetaConsejoResultados
+);
+
+window.addEventListener("load", function() {
+    ajustarTarjetaConsejoResultados();
+});
+
+</script>
+</body>
+</html>
