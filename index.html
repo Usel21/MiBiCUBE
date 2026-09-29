@@ -2544,6 +2544,124 @@ body {
 #resultadoFotoAnalisis.resultadoFotoSoloIdentificacion .contenedorBotonDatosCuriososFinal {
     display:none !important;
 }
+
+/* ================================
+   ELEGIR FUENTE DE FOTO + CÁMARA
+================================ */
+#modalElegirFoto,
+#modalCamaraFoto {
+    position: fixed;
+    inset: 0;
+    background: rgba(25, 55, 30, 0.40);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 7000;
+}
+.modalFotoCaja {
+    background: white;
+    border-radius: 22px;
+    padding: 26px 24px;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    text-align: center;
+    animation: entrarModal 0.28s ease;
+}
+.modalFotoCaja h3 {
+    margin: 0 0 8px;
+    color: #356b40;
+    font-size: 20px;
+}
+.modalFotoCaja p {
+    margin: 0 0 18px;
+    color: #718374;
+    font-size: 13px;
+    line-height: 1.45;
+}
+.botonesFuenteFoto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.botonFuenteFoto {
+    border: 1px solid #d6ead9;
+    background: #f3faf4;
+    color: #356b40;
+    padding: 14px 16px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.botonFuenteFoto:hover {
+    background: #e4f4e7;
+    border-color: #9bd2a5;
+}
+.botonFuenteFoto.camara {
+    background: #4f9860;
+    color: white;
+    border-color: #4f9860;
+}
+.botonFuenteFoto.camara:hover {
+    background: #3d7c4b;
+}
+.botonFuenteCancelar {
+    border: none;
+    background: transparent;
+    color: #7a8c7d;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+.modalCamaraCaja {
+    background: white;
+    border-radius: 22px;
+    padding: 18px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.modalCamaraCaja h3 {
+    margin: 0 0 12px;
+    color: #356b40;
+    font-size: 18px;
+}
+#videoCamaraFoto {
+    width: 100%;
+    max-height: 320px;
+    border-radius: 16px;
+    background: #1a2e1c;
+    object-fit: cover;
+}
+.accionesCamaraFoto {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+.accionesCamaraFoto button {
+    flex: 1;
+    border: none;
+    border-radius: 14px;
+    padding: 13px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+.btnCapturarFoto {
+    background: #4f9860;
+    color: white;
+}
+.btnCapturarFoto:hover { background: #3d7c4b; }
+.btnCerrarCamara {
+    background: #f0f0f0;
+    color: #555;
+}
+
 </style>
 </head>
 
@@ -2978,14 +3096,18 @@ body {
                 solo sirve como referencia visual mientras contestas.
             </p>
             <div class="selectorFotoCuestionario">
-                <label class="zonaFotoMini" for="inputFotoCuestionario">
+                <div class="zonaFotoMini" role="button" tabindex="0"
+                     onclick="abrirSelectorFoto('cuestionario')"
+                     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirSelectorFoto('cuestionario');}">
                     <img id="imgFotoCuestionario" class="oculto" src="" alt="Fotografía del árbol">
-                    <span id="placeholderFotoCuestionario" class="placeholderFoto">📷<br>Seleccionar fotografía</span>
-                </label>
+                    <span id="placeholderFotoCuestionario" class="placeholderFoto">📷<br>Galería o cámara</span>
+                </div>
                 <input id="inputFotoCuestionario" type="file" accept="image/*"
                        style="display:none" onchange="cargarFotoCuestionario(event)">
+                <input id="inputFotoCuestionarioCamara" type="file" accept="image/*" capture="environment"
+                       style="display:none" onchange="cargarFotoCuestionario(event)">
                 <div id="infoFotoCuestionario" class="infoFotoSeleccionada">
-                    La foto es opcional. El análisis del cuestionario seguirá utilizando tus respuestas.
+                    Opcional: sube una foto de la galería o tómala con la cámara. El análisis del cuestionario sigue basándose en tus respuestas.
                 </div>
             </div>
         </div>
@@ -3002,6 +3124,7 @@ body {
         </div>
 
 
+        
         <div class="seccionCuestionario aparecer delay3">
 
             <h2>🌲 Aspectos físicos u observables</h2>
@@ -3013,8 +3136,7 @@ body {
 
         </div>
 
-
-        <div class="pregunta aparecer delay3">
+<div class="pregunta aparecer delay3">
 
             <h3>
                 🍃 ¿El follaje del ciprés presenta una coloración verde uniforme?
@@ -3036,9 +3158,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay4">
+<div class="pregunta aparecer delay4">
 
             <h3>
                 🟤 ¿El follaje presenta zonas cafés, amarillentas o secas?
@@ -3060,9 +3180,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay5">
+<div class="pregunta aparecer delay5">
 
             <h3>
                 🔎 ¿Se observan manchas, decoloraciones o lesiones en el follaje?
@@ -3084,9 +3202,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay6">
+<div class="pregunta aparecer delay6">
 
             <h3>
                 🌿 ¿Hay pérdida de follaje o zonas con menor densidad de ramillas?
@@ -3108,9 +3224,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay3">
+<div class="pregunta aparecer delay3">
 
             <h3>
                 🌳 ¿El tronco presenta grietas, heridas, desprendimiento de corteza o deterioro visible?
@@ -3132,9 +3246,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay4">
+<div class="pregunta aparecer delay4">
 
             <h3>
                 🍄 ¿Se observa crecimiento de hongos u otras estructuras biológicas sobre el tronco o ramas?
@@ -3160,9 +3272,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay5">
+<div class="pregunta aparecer delay5">
 
             <h3>
                 🐛 ¿Se observan insectos, galerías, perforaciones u otros indicios visibles de plagas?
@@ -3188,9 +3298,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay6">
+<div class="pregunta aparecer delay6">
 
             <h3>
                 🌰 ¿Se observan conos o estructuras reproductivas del ciprés?
@@ -3216,7 +3324,172 @@ body {
             </div>
 
         </div>
+<div class="pregunta aparecer delay3">
 
+            <h3>
+                🪵 ¿La corteza se ve continua, sin zonas blandas, hundidas o con desprendimiento abundante?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="cortezaSaludable" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="cortezaSaludable" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Si hay corteza suelta solo en una zona pequeña, responde «No».
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay4">
+
+            <h3>
+                ⬇️ ¿La base del tronco (primeros 30–40 cm) presenta huecos, podrido, heridas grandes o tierra acumulada contra el tronco?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="baseTronco" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="baseTronco" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay5">
+
+            <h3>
+                📐 ¿El ciprés se ve inclinado de forma notoria o con el tronco torcido?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="inclinacion" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="inclinacion" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay6">
+
+            <h3>
+                🌿 ¿El follaje se mantiene denso desde la base hasta la parte alta (sin «claros» interiores marcados)?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="densidadFollaje" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="densidadFollaje" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay3">
+
+            <h3>
+                🌱 ¿El crecimiento nuevo (puntas o brotes recientes) tiene un color verde sano y uniforme?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="crecimientoNuevo" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="crecimientoNuevo" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Si no hay crecimiento visible en esta época, puedes dejarla en blanco.
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay4">
+
+            <h3>
+                🪵 ¿Hay ramas secas, quebradizas o sin hojas en el interior de la copa?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="ramasSecas" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="ramasSecas" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Es opcional si no puedes revisar el interior con seguridad.
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay5">
+
+            <h3>
+                💧 ¿Se observan exudados, resina excesiva o líquidos en el tronco o ramas?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="exudados" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="exudados" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
 
         <div class="seccionCuestionario aparecer delay3">
 
@@ -3229,8 +3502,7 @@ body {
 
         </div>
 
-
-        <div class="pregunta aparecer delay3">
+<div class="pregunta aparecer delay3">
 
             <h3>
                 💧 ¿El suelo alrededor del ciprés presenta humedad excesiva?
@@ -3252,9 +3524,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay4">
+<div class="pregunta aparecer delay4">
 
             <h3>
                 🌡️ ¿La temperatura del lugar se encuentra dentro de condiciones habituales para el entorno?
@@ -3280,9 +3550,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay5">
+<div class="pregunta aparecer delay5">
 
             <h3>
                 💦 ¿La humedad ambiental es alta?
@@ -3308,9 +3576,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay6">
+<div class="pregunta aparecer delay6">
 
             <h3>
                 ☀️ ¿El ciprés recibe una cantidad adecuada de luz solar?
@@ -3332,9 +3598,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay3">
+<div class="pregunta aparecer delay3">
 
             <h3>
                 🍂 ¿Hay abundante materia orgánica alrededor del ciprés?
@@ -3356,9 +3620,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay4">
+<div class="pregunta aparecer delay4">
 
             <h3>
                 🌱 ¿El suelo tiene un drenaje adecuado?
@@ -3380,9 +3642,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay5">
+<div class="pregunta aparecer delay5">
 
             <h3>
                 🌬️ ¿El ciprés está expuesto a viento fuerte de manera frecuente?
@@ -3404,9 +3664,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay6">
+<div class="pregunta aparecer delay6">
 
             <h3>
                 🌧️ ¿Ha llovido recientemente en el lugar?
@@ -3428,9 +3686,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay3">
+<div class="pregunta aparecer delay3">
 
             <h3>
                 📏 ¿Hay suficiente espacio para el desarrollo de las raíces?
@@ -3452,9 +3708,7 @@ body {
             </div>
 
         </div>
-
-
-        <div class="pregunta aparecer delay4">
+<div class="pregunta aparecer delay4">
 
             <h3>
                 🌬️ ¿La presión atmosférica registrada es normal para el lugar?
@@ -3480,9 +3734,192 @@ body {
             </div>
 
         </div>
+<div class="pregunta aparecer delay3">
 
+            <h3>
+                🚶 ¿El suelo alrededor está muy compactado (pisoteo frecuente, estacionamiento o pavimento cercano)?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
 
-        <button
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="compactacion" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="compactacion" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay4">
+
+            <h3>
+                🚧 ¿El ciprés está junto a calles con tráfico intenso, polvo o contaminación notable?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="contaminacion" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="contaminacion" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay5">
+
+            <h3>
+                💦 ¿Recibe riego artificial de forma regular (manguera, aspersor o sistema automatizado)?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="riegoArtificial" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="riegoArtificial" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Ayuda a interpretar la humedad del suelo aunque no sea esencial.
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay6">
+
+            <h3>
+                🌳 ¿Hay otras plantas o árboles muy cerca que compitan por luz, agua o espacio de raíces?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="competencia" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="competencia" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay3">
+
+            <h3>
+                🏢 ¿Edificios, muros o estructuras proyectan sombra fuerte sobre el ciprés gran parte del día?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="sombraEstructuras" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="sombraEstructuras" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay4">
+
+            <h3>
+                🌡️ ¿En las últimas semanas hubo calor extremo, heladas o sequía prolongada en el lugar?
+                <span class="etiquetaPregunta esencial">ESENCIAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="climaExtremo" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="climaExtremo" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay5">
+
+            <h3>
+                ✂️ ¿Se realizaron podas recientes o heridas por obras cerca del árbol?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="podasRecientes" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="podasRecientes" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+        </div>
+<div class="pregunta aparecer delay6">
+
+            <h3>
+                🦠 ¿Has notado un olor a humedad, podrido o inusual cerca de la base o del suelo?
+                <span class="etiquetaPregunta opcional">OPCIONAL</span>
+            </h3>
+
+            <div class="opciones">
+
+                <label>
+                    <input type="radio" name="olorInusual" value="si" onchange="actualizarProgreso()">
+                    <span>Sí</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="olorInusual" value="no" onchange="actualizarProgreso()">
+                    <span>No</span>
+                </label>
+
+            </div>
+
+            <div class="notaOpcional">
+                Solo si lo has percibido con claridad.
+            </div>
+
+        </div>
+
+<button
             class="boton aparecer delay6"
             style="width:100%;"
             onclick="analizar()">
@@ -3522,13 +3959,17 @@ body {
                 <img id="previewFotoAnalisis" class="vistaPreviaMiBiCUBE" alt="Vista previa de la fotografía">
             </div>
 
-            <label for="inputFotoArbol" class="botonFotoMiBiCUBE">📷 Subir fotografía</label>
+            <button type="button" class="botonFotoMiBiCUBE" onclick="abrirSelectorFoto('analisis')">
+                📷 Agregar fotografía
+            </button>
             <input id="inputFotoArbol" type="file" accept="image/*"
-                   onchange="cargarFotoArbol(event)">
+                   style="display:none" onchange="cargarFotoArbol(event)">
+            <input id="inputFotoArbolCamara" type="file" accept="image/*" capture="environment"
+                   style="display:none" onchange="cargarFotoArbol(event)">
 
             <div class="accionesFotoMiBiCUBE">
                 <button id="cambiarFotoArbol" class="botonCambiarFoto" type="button"
-                        onclick="document.getElementById('inputFotoArbol').click()">
+                        onclick="abrirSelectorFoto('analisis')">
                     Cambiar fotografía
                 </button>
 
@@ -3597,7 +4038,7 @@ body {
                 <div class="panel" id="panelMicroorganismosFoto">
                     <h2>🧬 Compatibilidad con microorganismos</h2>
                     <p style="font-size:12px;color:#7a8c7d;margin-bottom:15px">
-                        Son asociaciones orientativas basadas en señales visuales y no indican que el microorganismo esté presente.
+                        Asociaciones orientativas según señales visuales (se muestran las de mayor compatibilidad estimada). No indican presencia confirmada.
                     </p>
                     <div id="microorganismosFoto"></div>
                 </div>
@@ -3612,7 +4053,7 @@ body {
             </div>
 
             <button class="boton botonSecundario" style="width:100%;margin-top:20px"
-                    onclick="volverAlAnalisisFotografico();">📷 Analizar otra fotografía</button>
+                    onclick="prepararAnalisisFoto(); mostrarSolo('pantallaFotoAnalisis');">📷 Analizar otra fotografía</button>
         </div>
     </div>
 </section>
@@ -3728,7 +4169,7 @@ body {
             <div class="panel aparecer delay5" id="panelMicroorganismosResultados">
                 <h2>🦠 Posibles microorganismos</h2>
                 <p style="color:#718374; font-size:14px; margin-bottom:12px;">
-                    Asociaciones hipotéticas basadas en las características proporcionadas durante el análisis.
+                    Asociaciones hipotéticas ordenadas por compatibilidad estimada. No confirman la presencia real de cada microorganismo.
                 </p>
                 <div id="microorganismos"></div>
             </div>
@@ -3742,7 +4183,7 @@ body {
 
         <button
             class="boton botonCurioso botonDatosCuriososFinal"
-            onclick="mostrarSolo('pantallaDatosCuriosos')">
+            onclick="mostrarDatosCuriososDesde('pantallaResultados')">
 
             💡 Datos curiosos
 
@@ -3773,7 +4214,7 @@ body {
 
         <button
             class="volver"
-            onclick="mostrarSolo(pantallaRegresoDatosCuriosos)">
+            onclick="mostrarSolo(pantallaRegresoDatosCuriosos || 'pantallaResultados')">
 
             ← Resultados
 
@@ -3916,6 +4357,46 @@ body {
      MODAL ORIGINAL
 ================================ -->
 
+
+<!-- ================================
+     MODAL ELEGIR FUENTE DE FOTO
+================================ -->
+<div id="modalElegirFoto" class="oculto" onclick="if(event.target===this)cerrarModalElegirFoto()">
+    <div class="modalFotoCaja" onclick="event.stopPropagation()">
+        <h3>📷 Agregar fotografía</h3>
+        <p>Elige si quieres tomarla con la cámara o seleccionarla de tu galería.</p>
+        <div class="botonesFuenteFoto">
+            <button type="button" class="botonFuenteFoto camara" onclick="elegirFuenteFoto('camara')">
+                📸 Tomar foto
+            </button>
+            <button type="button" class="botonFuenteFoto" onclick="elegirFuenteFoto('galeria')">
+                🖼️ Subir de la galería
+            </button>
+            <button type="button" class="botonFuenteCancelar" onclick="cerrarModalElegirFoto()">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ================================
+     MODAL CÁMARA EN VIVO
+================================ -->
+<div id="modalCamaraFoto" class="oculto">
+    <div class="modalCamaraCaja">
+        <h3>📸 Cámara</h3>
+        <video id="videoCamaraFoto" autoplay playsinline muted></video>
+        <canvas id="canvasCamaraFoto" style="display:none"></canvas>
+        <div class="accionesCamaraFoto">
+            <button type="button" class="btnCerrarCamara" onclick="cerrarCamaraFoto()">Cancelar</button>
+            <button type="button" class="btnCapturarFoto" onclick="capturarFotoCamara()">Capturar</button>
+        </div>
+        <p style="font-size:11px;color:#7a8c7d;margin:10px 0 0;line-height:1.4">
+            Si la cámara no abre en este dispositivo, usa la opción de galería.
+        </p>
+    </div>
+</div>
+
 <div
     id="modalMicro"
     class="oculto"
@@ -4012,87 +4493,143 @@ const arboles = {
 const microDatos = {
 
     bacillus: {
-
         nombre: "Bacillus sp.",
-
         icono: "🦠",
-
         tipo: "Bacteria del suelo",
-
         descripcion:
-        "Algunas bacterias del género Bacillus se encuentran en el suelo y pueden establecer interacciones con plantas.",
-
+        "Algunas bacterias del género Bacillus se encuentran en el suelo y pueden establecer interacciones con plantas, incluyendo efectos sobre el crecimiento y la competencia microbiana.",
         condiciones:
-        "Puede encontrarse asociado a suelos con materia orgánica y zonas cercanas a las raíces."
-
+        "Suelos con materia orgánica, buena aireación y zona cercana a las raíces."
     },
-
 
     pseudomonas: {
-
         nombre: "Pseudomonas sp.",
-
         icono: "🦠",
-
         tipo: "Bacteria asociada a la rizosfera",
-
         descripcion:
-        "El género Pseudomonas incluye bacterias presentes en ambientes asociados a raíces.",
-
+        "El género Pseudomonas incluye bacterias frecuentes en la rizosfera. Algunas cepas se asocian a raíces húmedas y materia orgánica.",
         condiciones:
-        "Puede encontrarse en ambientes asociados a raíces donde existe humedad y materia orgánica."
-
+        "Ambientes radiculares con humedad y materia orgánica disponibles."
     },
-
 
     trichoderma: {
-
         nombre: "Trichoderma sp.",
-
         icono: "🍄",
-
         tipo: "Hongo del suelo",
-
         descripcion:
-        "Trichoderma es un género de hongos del suelo estudiado por sus interacciones con las raíces.",
-
+        "Trichoderma es un género de hongos del suelo estudiado por sus interacciones con raíces y su presencia en suelos con residuos orgánicos.",
         condiciones:
-        "Puede encontrarse en diferentes tipos de suelo y ambientes asociados a materia orgánica."
-
+        "Suelos diversos con materia orgánica; suele favorecerse con humedad moderada."
     },
 
+    mycorrizas: {
+        nombre: "Hongos micorrízicos",
+        icono: "🕸️",
+        tipo: "Simbiontes de raíces",
+        descripcion:
+        "Los hongos micorrízicos forman asociaciones con raíces y participan en la absorción de agua y nutrientes. Su presencia se estima por condiciones del suelo, no por una foto.",
+        condiciones:
+        "Suelos no extremadamente compactados, con algo de materia orgánica y espacio para raíces."
+    },
+
+    streptomyces: {
+        nombre: "Streptomyces sp.",
+        icono: "🦠",
+        tipo: "Actinobacteria del suelo",
+        descripcion:
+        "Streptomyces es un grupo de actinobacterias del suelo implicadas en la descomposición de materia orgánica y en la microbiota edáfica.",
+        condiciones:
+        "Suelos aireados con materia orgánica; menos favorecidas por compactación extrema."
+    },
+
+    azospirillum: {
+        nombre: "Azospirillum sp.",
+        icono: "🦠",
+        tipo: "Bacteria asociada a raíces",
+        descripcion:
+        "Azospirillum incluye bacterias que pueden asociarse a la rizosfera y participar en procesos ligados al nitrógeno en la zona de raíces.",
+        condiciones:
+        "Zona radicular con humedad moderada y actividad biológica en el suelo."
+    },
 
     hongosFoliares: {
-
-        nombre: "Hongos fitopatógenos",
-
+        nombre: "Hongos fitopatógenos foliares",
         icono: "🍄",
-
-        tipo: "Grupo potencialmente asociado a enfermedades",
-
+        tipo: "Grupo potencialmente asociado a follaje",
         descripcion:
-        "Algunos hongos pueden producir enfermedades en las hojas. Observar manchas no permite confirmar por sí solo una infección.",
-
+        "Algunos hongos pueden relacionarse con manchas o decoloraciones en hojas. Una observación visual no confirma por sí sola una infección concreta.",
         condiciones:
-        "Algunos pueden verse favorecidos por determinadas condiciones de humedad."
-
+        "Humedad ambiental elevada, follaje denso y síntomas visibles en hojas o ramillas."
     },
 
+    seiridium: {
+        nombre: "Seiridium / cancro del ciprés",
+        icono: "🍂",
+        tipo: "Asociación potencial en cipreses",
+        descripcion:
+        "Hongos del tipo Seiridium se han relacionado históricamente con cancros en cipreses. Esta app solo estima compatibilidad por síntomas y ambiente; no diagnostica la enfermedad.",
+        condiciones:
+        "Ramas secas, lesiones en tronco/ramas, estrés hídrico o heridas, y a veces exudados."
+    },
+
+    phytophthora: {
+        nombre: "Phytophthora sp.",
+        icono: "💧",
+        tipo: "Oomiceto asociado a raíces / cuello",
+        descripcion:
+        "Phytophthora agrupa oomicetos que en condiciones de suelo saturado pueden asociarse a problemas en raíces y cuello del tronco. No se confirma solo con una foto o un cuestionario.",
+        condiciones:
+        "Suelo encharcado, mal drenaje, base del tronco húmeda o con deterioro."
+    },
+
+    fusarium: {
+        nombre: "Fusarium sp.",
+        icono: "🍄",
+        tipo: "Hongo del suelo y tejidos",
+        descripcion:
+        "Fusarium incluye especies frecuentes en suelo; algunas se asocian a estrés en plantas. La estimación se basa en condiciones y síntomas generales.",
+        condiciones:
+        "Suelos alterados, estrés hídrico, heridas o síntomas de decaimiento."
+    },
+
+    alternaria: {
+        nombre: "Alternaria sp.",
+        icono: "🍃",
+        tipo: "Hongo potencialmente foliar",
+        descripcion:
+        "Alternaria puede aparecer en restos vegetales y, en algunas situaciones, asociarse a manchas en tejidos aéreos. No equivale a un diagnóstico de laboratorio.",
+        condiciones:
+        "Manchas foliares, humedad ambiental y restos orgánicos cercanos."
+    },
+
+    armillaria: {
+        nombre: "Armillaria sp.",
+        icono: "🪵",
+        tipo: "Hongo asociado a raíces / madera",
+        descripcion:
+        "Armillaria se relaciona con pudriciones de raíces y madera en árboles. Solo se sugiere como compatibilidad cuando hay señales de base de tronco, olor o decaimiento estructural.",
+        condiciones:
+        "Deterioro en la base, olor inusual, debilidad estructural o materia leñosa en descomposición."
+    },
 
     descomponedores: {
-
         nombre: "Microorganismos descomponedores",
-
         icono: "🧬",
-
         tipo: "Grupo funcional",
-
         descripcion:
-        "Participan en la descomposición de materia orgánica y en el reciclaje de nutrientes.",
-
+        "Participan en la descomposición de materia orgánica y en el reciclaje de nutrientes en suelo y restos vegetales.",
         condiciones:
-        "La presencia de materia orgánica puede proporcionar recursos para este tipo de comunidades."
+        "Materia orgánica, ramas secas, restos vegetales y humedad moderada."
+    },
 
+    botryosphaeria: {
+        nombre: "Botryosphaeria sp.",
+        icono: "🌳",
+        tipo: "Hongo asociado a ramas y estrés",
+        descripcion:
+        "Hongos del grupo Botryosphaeria se asocian a menudo a ramas bajo estrés hídrico, heridas o calor. La app solo estima compatibilidad ambiental y sintomática.",
+        condiciones:
+        "Estrés por sequía o calor, podas, heridas, ramas secas o pérdida de follaje."
     }
 
 };
@@ -4106,6 +4643,9 @@ let arbolActual = null;
 ================================ */
 
 function mostrarSolo(id) {
+
+    try { cerrarCamaraFoto(true); } catch (e) {}
+    try { cerrarModalElegirFoto(); } catch (e) {}
 
     const pantallas = [
 
@@ -4487,8 +5027,6 @@ let archivoFotoArbol = null;
 let datosFotoAnalisis = null;
 
 function prepararAnalisisFoto() {
-    const pantalla = document.getElementById("pantallaFotoAnalisis");
-    const cargaResultado = document.getElementById("cargandoFotoResultado");
     const input = document.getElementById("inputFotoArbol");
     const preview = document.getElementById("previewFotoAnalisis");
     const mensaje = document.getElementById("mensajeFotoMiBiCUBE");
@@ -4496,61 +5034,180 @@ function prepararAnalisisFoto() {
     const analizarBtn = document.getElementById("botonAnalizarFoto");
     const estado = document.getElementById("estadoCargaFoto");
     const resultados = document.getElementById("resultadoFotoAnalisis");
+    const cargaPanel = document.getElementById("pantallaFotoCarga");
 
     if (input) input.value = "";
     if (preview) {
+        preview.removeAttribute("src");
         preview.src = "";
         preview.style.display = "none";
     }
     if (mensaje) mensaje.style.display = "block";
     if (cambiar) cambiar.style.display = "none";
-    if (analizarBtn) analizarBtn.style.display = "none";
-    if (estado) estado.style.display = "none";
-    if (resultados) resultados.classList.add("oculto");
-    if (cargaResultado) cargaResultado.classList.add("oculto");
-    if (pantalla) pantalla.classList.remove("oculto");
-
-    archivoFotoArbol = null;
-    datosFotoAnalisis = null;
-}
-
-function volverAlAnalisisFotografico() {
-    // Primero aseguramos que la pantalla correcta quede visible.
-    mostrarSolo("pantallaFotoAnalisis");
-
-    // Después reiniciamos completamente el formulario fotográfico.
-    const pantalla = document.getElementById("pantallaFotoAnalisis");
-    const carga = document.getElementById("pantallaFotoCarga");
-    const resultados = document.getElementById("resultadoFotoAnalisis");
-    const cargaResultado = document.getElementById("cargandoFotoResultado");
-    const input = document.getElementById("inputFotoArbol");
-    const preview = document.getElementById("previewFotoAnalisis");
-    const mensaje = document.getElementById("mensajeFotoMiBiCUBE");
-    const cambiar = document.getElementById("cambiarFotoArbol");
-    const analizarBtn = document.getElementById("botonAnalizarFoto");
-    const estado = document.getElementById("estadoCargaFoto");
-
-    if (pantalla) pantalla.classList.remove("oculto");
-    if (carga) carga.classList.remove("oculto");
-    if (resultados) resultados.classList.add("oculto");
-    if (cargaResultado) cargaResultado.classList.add("oculto");
-    if (input) input.value = "";
-    if (preview) {
-        preview.removeAttribute("src");
-        preview.style.display = "none";
+    if (analizarBtn) {
+        analizarBtn.style.display = "none";
+        analizarBtn.disabled = false;
     }
-    if (mensaje) mensaje.style.display = "block";
-    if (cambiar) cambiar.style.display = "none";
-    if (analizarBtn) analizarBtn.style.display = "none";
     if (estado) {
         estado.style.display = "none";
         estado.textContent = "Ninguna fotografía seleccionada.";
     }
+    if (resultados) {
+        resultados.classList.add("oculto");
+        resultados.classList.remove("resultadoFotoSoloIdentificacion");
+    }
+    // Volver a mostrar el panel de subida tras un análisis previo
+    if (cargaPanel) cargaPanel.classList.remove("oculto");
 
     archivoFotoArbol = null;
     datosFotoAnalisis = null;
-    window.scrollTo(0, 0);
 }
+
+
+/* ================================
+   SELECTOR GALERÍA / CÁMARA
+================================ */
+let origenFotoPendiente = null; // "analisis" | "cuestionario"
+let streamCamaraFoto = null;
+
+function abrirSelectorFoto(origen) {
+    origenFotoPendiente = origen || "analisis";
+    const modal = document.getElementById("modalElegirFoto");
+    if (modal) modal.classList.remove("oculto");
+}
+
+function cerrarModalElegirFoto() {
+    const modal = document.getElementById("modalElegirFoto");
+    if (modal) modal.classList.add("oculto");
+}
+
+function elegirFuenteFoto(fuente) {
+    cerrarModalElegirFoto();
+    const origen = origenFotoPendiente || "analisis";
+
+    if (fuente === "galeria") {
+        const id = origen === "cuestionario" ? "inputFotoCuestionario" : "inputFotoArbol";
+        const input = document.getElementById(id);
+        if (input) {
+            input.value = "";
+            input.click();
+        }
+        return;
+    }
+
+    if (fuente === "camara") {
+        abrirCamaraFoto(origen);
+    }
+}
+
+async function abrirCamaraFoto(origen) {
+    origenFotoPendiente = origen || origenFotoPendiente || "analisis";
+    cerrarCamaraFoto(false);
+
+    const modal = document.getElementById("modalCamaraFoto");
+    const video = document.getElementById("videoCamaraFoto");
+    if (!modal || !video) return;
+
+    // Preferir getUserMedia (abre cámara real en escritorio y muchos móviles)
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+            streamCamaraFoto = await navigator.mediaDevices.getUserMedia({
+                audio: false,
+                video: {
+                    facingMode: { ideal: "environment" },
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }
+            });
+            video.srcObject = streamCamaraFoto;
+            modal.classList.remove("oculto");
+            try { await video.play(); } catch (e) {}
+            return;
+        } catch (err) {
+            console.warn("getUserMedia no disponible, se usa captura del sistema:", err);
+        }
+    }
+
+    // Respaldo: input file con capture (abre cámara nativa en muchos móviles)
+    const id = origenFotoPendiente === "cuestionario"
+        ? "inputFotoCuestionarioCamara"
+        : "inputFotoArbolCamara";
+    const input = document.getElementById(id);
+    if (input) {
+        input.value = "";
+        input.click();
+    } else {
+        alert("No se pudo abrir la cámara en este dispositivo. Prueba con la galería.");
+    }
+}
+
+function cerrarCamaraFoto(ocultarModal) {
+    if (typeof ocultarModal === "undefined") ocultarModal = true;
+    const video = document.getElementById("videoCamaraFoto");
+    if (streamCamaraFoto) {
+        streamCamaraFoto.getTracks().forEach(function (t) { t.stop(); });
+        streamCamaraFoto = null;
+    }
+    if (video) {
+        video.srcObject = null;
+    }
+    if (ocultarModal) {
+        const modal = document.getElementById("modalCamaraFoto");
+        if (modal) modal.classList.add("oculto");
+    }
+}
+
+function capturarFotoCamara() {
+    const video = document.getElementById("videoCamaraFoto");
+    const canvas = document.getElementById("canvasCamaraFoto");
+    if (!video || !canvas || !video.videoWidth) {
+        alert("La cámara aún no está lista. Espera un segundo e inténtalo de nuevo.");
+        return;
+    }
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob(function (blob) {
+        if (!blob) {
+            alert("No se pudo capturar la imagen.");
+            return;
+        }
+        const archivo = new File([blob], "foto-camara-" + Date.now() + ".jpg", {
+            type: "image/jpeg"
+        });
+        const origen = origenFotoPendiente || "analisis";
+        cerrarCamaraFoto(true);
+
+        if (origen === "cuestionario") {
+            aplicarArchivoFotoCuestionario(archivo);
+        } else {
+            aplicarArchivoFotoAnalisis(archivo);
+        }
+    }, "image/jpeg", 0.92);
+}
+
+function aplicarArchivoFotoAnalisis(archivo) {
+    if (!archivo) return;
+    // Reutiliza el mismo flujo que el input file
+    const dt = new DataTransfer();
+    dt.items.add(archivo);
+    const input = document.getElementById("inputFotoArbol");
+    if (input) input.files = dt.files;
+    cargarFotoArbol({ target: { files: dt.files } });
+}
+
+function aplicarArchivoFotoCuestionario(archivo) {
+    if (!archivo) return;
+    const dt = new DataTransfer();
+    dt.items.add(archivo);
+    const input = document.getElementById("inputFotoCuestionario");
+    if (input) input.files = dt.files;
+    cargarFotoCuestionario({ target: { files: dt.files } });
+}
+
 
 function cargarFotoArbol(evento) {
     const archivo = evento.target.files && evento.target.files[0];
@@ -4674,6 +5331,7 @@ function analizarFoto() {
     const estadoCarga = document.getElementById("estadoCargaFoto");
     const preview = document.getElementById("previewFotoAnalisis");
     boton.disabled = true;
+    estadoCarga.style.display = "block";
     estadoCarga.textContent = "Analizando la fotografía…";
 
     // Primera y más fiable vía: usar la imagen que ya consiguió mostrar
@@ -4699,6 +5357,7 @@ function analizarFoto() {
                 document.getElementById("resultadoFotoAnalisis").classList.remove("oculto");
                 reiniciarAnimaciones("pantallaFotoAnalisis");
                 window.scrollTo(0,0);
+                boton.disabled = false;
             }, 2500);
             return true;
         } catch (error) {
@@ -4766,181 +5425,682 @@ function rgbToHsv(r,g,b) {
 
 function extraerIndicadoresFoto(img) {
     /*
-     * Analizador fotográfico sencillo y robusto.
-     * Prioriza que el navegador pueda terminar el análisis antes que hacer
-     * cálculos muy pesados. Trabaja sobre una copia pequeña de la fotografía.
+     * Motor visual multicapa para fotografía.
+     * No usa una sola regla: combina color, segmentación vegetal, textura
+     * multiescala, orientación de bordes, geometría de copa, continuidad,
+     * distribución espacial y un pequeño análisis de "unidades foliares".
+     * Todo sigue siendo inferencia visual heurística, no identificación
+     * botánica certificada ni un modelo de aprendizaje profundo.
      */
-    const maxSide = 500;
-    const ow = Number(img.naturalWidth || img.width || 0);
-    const oh = Number(img.naturalHeight || img.height || 0);
-    if (!ow || !oh) throw new Error("No se pudieron obtener las dimensiones de la imagen.");
-
-    const escala = Math.min(1, maxSide / Math.max(ow, oh));
-    const w = Math.max(1, Math.round(ow * escala));
-    const h = Math.max(1, Math.round(oh * escala));
+    const maxSide = 900;
+    const anchoOriginal = Number(img.naturalWidth || img.width || 0);
+    const altoOriginal = Number(img.naturalHeight || img.height || 0);
+    if (!anchoOriginal || !altoOriginal) {
+        throw new Error("La imagen no tiene dimensiones legibles para el análisis.");
+    }
+    const escala = Math.min(1, maxSide / Math.max(anchoOriginal, altoOriginal));
+    const w = Math.max(1, Math.round(anchoOriginal * escala));
+    const h = Math.max(1, Math.round(altoOriginal * escala));
     const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext("2d", {willReadFrequently:true});
-    if (!ctx) throw new Error("El navegador no permite leer los píxeles.");
-    ctx.drawImage(img, 0, 0, w, h);
-
-    const data = ctx.getImageData(0, 0, w, h).data;
-    const total = w * h;
-    let verde=0, verdeOscuro=0, marron=0, amarillo=0, oscuro=0, claro=0;
-    let variacion=0, muestrasTextura=0;
-
-    function hsv(r,g,b){
-        r/=255; g/=255; b/=255;
-        const mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn;
-        let h=0;
-        if(d){
-            if(mx===r) h=((g-b)/d)%6;
-            else if(mx===g) h=(b-r)/d+2;
-            else h=(r-g)/d+4;
-            h*=60; if(h<0) h+=360;
-        }
-        return {h:h,s:mx?d/mx:0,v:mx};
+    canvas.width=w; canvas.height=h;
+    const ctx=canvas.getContext("2d",{willReadFrequently:true});
+    if (!ctx) {
+        throw new Error("No se pudo crear el contexto de dibujo 2D en este navegador.");
     }
+    try {
+        ctx.drawImage(img,0,0,w,h);
+    } catch (e) {
+        throw new Error("No se pudo dibujar la imagen en el canvas para analizarla.");
+    }
+    let data;
+    try {
+        data = ctx.getImageData(0,0,w,h).data;
+    } catch (e) {
+        // Algunos orígenes o formatos pueden bloquear la lectura de píxeles.
+        throw new Error("El navegador no permitió leer los píxeles de esta imagen.");
+    }
+    const N=w*h;
+    const gray=new Float32Array(N);
+    const sat=new Float32Array(N);
+    const hue=new Float32Array(N);
+    const val=new Float32Array(N);
+    const green=new Uint8Array(N);
+    const plant=new Uint8Array(N);
 
-    /* Muestreamos cada pocos píxeles para que incluso fotografías grandes
-       sean rápidas de procesar y no agoten la memoria del navegador. */
-    const paso=Math.max(1,Math.floor(Math.max(w,h)/450));
-    for(let y=0;y<h;y+=paso){
-        for(let x=0;x<w;x+=paso){
-            const i=(y*w+x)*4;
-            const q=hsv(data[i],data[i+1],data[i+2]);
-            const r=data[i],g=data[i+1],b=data[i+2];
-            if(q.h>=65&&q.h<=170&&q.s>=0.10&&q.v>=0.10){
-                verde++;
-                if(q.v<0.45) verdeOscuro++;
-            }
-            if(((q.h<55||q.h>330)&&q.s>=0.15&&q.v<0.78&&r>=g*0.80&&g>b*1.02)) marron++;
-            if(q.h>=35&&q.h<72&&q.s>=0.18&&q.v>=0.30) amarillo++;
-            if(q.v<0.18) oscuro++;
-            if(q.v>0.90&&q.s<0.20) claro++;
+    let total=0, vegetacion=0, verde=0, verdeOscuro=0, verdeMedio=0;
+    let marron=0, amarillo=0, oscuro=0, claro=0, saturado=0;
+    let sumaV=0, sumaV2=0;
 
-            /* Textura muy ligera: diferencia con el píxel vecino. */
-            if(x+paso<w){
-                const j=(y*w+x+paso)*4;
-                const a=(data[i]*.299+data[i+1]*.587+data[i+2]*.114);
-                const z=(data[j]*.299+data[j+1]*.587+data[j+2]*.114);
-                variacion+=Math.abs(a-z)/255;
-                muestrasTextura++;
-            }
+    for(let y=0;y<h;y++){
+        for(let x=0;x<w;x++){
+            const i=(y*w+x)*4, r=data[i], g=data[i+1], b=data[i+2];
+            const q=rgbToHsv(r,g,b), idx=y*w+x;
+            const isGreen=((q.h>=52&&q.h<=175&&q.s>=0.08&&q.v>=0.08&&(g+10)>=r&&(g+8)>=b)||(q.h>=70&&q.h<=160&&q.s>=0.06&&q.v>=0.10&&g>=r*0.92&&g>=b*0.92));
+            const isBrown=((q.h<58||q.h>=330)&&q.s>=0.16&&q.v>=0.10&&q.v<=0.76&&r>g*0.78&&g>b*1.03);
+            const isYellow=(q.h>=38&&q.h<72&&q.s>=0.18&&q.v>=0.32);
+            gray[idx]=(r*.299+g*.587+b*.114)/255;
+            sat[idx]=q.s; hue[idx]=q.h; val[idx]=q.v;
+            green[idx]=isGreen?1:0;
+            plant[idx]=(isGreen||isBrown||isYellow)?1:0;
+            total++; sumaV+=q.v; sumaV2+=q.v*q.v;
+            if(isGreen){ vegetacion++; verde++; if(q.v<.42) verdeOscuro++; else verdeMedio++; }
+            if(isBrown) marron++; if(isYellow) amarillo++;
+            if(q.v<.18) oscuro++; if(q.v>.88&&q.s<.20) claro++; if(q.s>.35) saturado++;
         }
     }
 
-    const muestras=Math.max(1,Math.ceil(w/paso)*Math.ceil(h/paso));
-    const verdePct=verde/muestras*100;
-    const verdeOscuroPct=verdeOscuro/muestras*100;
-    const marronPct=marron/muestras*100;
-    const amarilloPct=amarillo/muestras*100;
-    const oscuroPct=oscuro/muestras*100;
-    const claroPct=claro/muestras*100;
-    const texturaPct=variacion/Math.max(1,muestrasTextura)*100;
+    const T=Math.max(1,total);
+    const vegetacionPct=vegetacion/T*100, verdePct=verde/T*100;
+    const verdeOscuroPct=verdeOscuro/T*100, verdeMedioPct=verdeMedio/T*100;
+    const marronPct=marron/T*100, amarilloPct=amarillo/T*100;
+    const oscuroPct=oscuro/T*100, claroPct=claro/T*100;
+    const mediaV=sumaV/T, varV=Math.max(0,sumaV2/T-mediaV*mediaV);
 
-    /* Una cuadrícula pequeña evita confundir un pequeño parche verde con
-       una fotografía dominada por vegetación. */
-    const G=8;
-    let celdasVerdes=0, celdasFuertes=0;
-    for(let gy=0;gy<G;gy++){
-        for(let gx=0;gx<G;gx++){
-            let v=0,n=0;
-            const x0=Math.floor(gx*w/G), x1=Math.max(x0+1,Math.floor((gx+1)*w/G));
-            const y0=Math.floor(gy*h/G), y1=Math.max(y0+1,Math.floor((gy+1)*h/G));
-            for(let y=y0;y<Math.min(h,y1);y+=Math.max(1,Math.floor((y1-y0)/12))){
-                for(let x=x0;x<Math.min(w,x1);x+=Math.max(1,Math.floor((x1-x0)/12))){
-                    const i=(y*w+x)*4,q=hsv(data[i],data[i+1],data[i+2]);
-                    n++; if(q.h>=65&&q.h<=170&&q.s>=.10&&q.v>=.10)v++;
-                }
+    /* Segmentación espacial: 16x16 celdas. Permite saber si el verde forma
+       una masa de copa, una franja de césped, pequeños parches o ruido. */
+    const G=16;
+    const gGreen=new Float32Array(G*G), gPlant=new Float32Array(G*G), gCount=new Uint16Array(G*G);
+    for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+        const gy=Math.min(G-1,Math.floor(y/h*G)), gx=Math.min(G-1,Math.floor(x/w*G)), k=gy*G+gx;
+        gCount[k]++; gGreen[k]+=green[y*w+x]; gPlant[k]+=plant[y*w+x];
+    }
+    let greenCells=0, strongGreenCells=0, patchAdj=0, patchPairs=0;
+    const cellGreen=new Float32Array(G*G);
+    for(let k=0;k<G*G;k++){
+        cellGreen[k]=gGreen[k]/Math.max(1,gCount[k]);
+        if(cellGreen[k]>.08) greenCells++;
+        if(cellGreen[k]>.28) strongGreenCells++;
+    }
+    for(let y=0;y<G;y++) for(let x=0;x<G;x++){
+        const k=y*G+x;
+        if(x<G-1){patchPairs++; if(cellGreen[k]>.08&&cellGreen[k+1]>.08) patchAdj++;}
+        if(y<G-1){patchPairs++; if(cellGreen[k]>.08&&cellGreen[k+G]>.08) patchAdj++;}
+    }
+    const patchContinuity=patchAdj/Math.max(1,patchPairs)*100;
+    const occupiedCells=greenCells/(G*G)*100;
+
+    /* Perfiles y geometría de copa. */
+    const rows=24, cols=24;
+    const rowGreen=new Float32Array(rows), colGreen=new Float32Array(cols), rowN=new Uint32Array(rows), colN=new Uint32Array(cols);
+    for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+        const ry=Math.min(rows-1,Math.floor(y/h*rows)), cx=Math.min(cols-1,Math.floor(x/w*cols));
+        rowN[ry]++; colN[cx]++;
+        if(green[y*w+x]){rowGreen[ry]++;colGreen[cx]++;}
+    }
+    const rp=rowGreen.map((v,i)=>v/Math.max(1,rowN[i])), cp=colGreen.map((v,i)=>v/Math.max(1,colN[i]));
+    const avgR=rp.reduce((a,b)=>a+b,0)/rows, avgC=cp.reduce((a,b)=>a+b,0)/cols;
+    const anchoFoliar=cp.filter(v=>v>=Math.max(.08,avgC*.50)).length/cols*100;
+    const continuidadVertical=rp.filter(v=>v>=Math.max(.08,avgR*.50)).length/rows*100;
+    const estrechezVertical=Math.max(0,100-anchoFoliar);
+    let centroVerde=0, centroN=0, bordeVerde=0, bordeN=0;
+    for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+        const cx=x/w, cy=y/h, isG=green[y*w+x];
+        if(Math.abs(cx-.5)<.30&&Math.abs(cy-.5)<.35){centroN++;if(isG)centroVerde++;}
+        if(cx<.18||cx>.82||cy<.12||cy>.88){bordeN++;if(isG)bordeVerde++;}
+    }
+    const centroVerdePct=centroVerde/Math.max(1,centroN)*100, bordeVerdePct=bordeVerde/Math.max(1,bordeN)*100;
+
+    /* Bordes y orientación. Separamos orientación vertical, horizontal y
+       diagonal: la textura de ramillas/escamas genera una firma distinta a
+       grandes hojas planas y a césped. */
+    const step=Math.max(2,Math.round(Math.min(w,h)/240));
+    let edge=0, edgeV=0, edgeH=0, edgeD=0, edgeSamples=0;
+    for(let y=step;y<h-step;y+=step) for(let x=step;x<w-step;x+=step){
+        const p=y*w+x;
+        const gx=Math.abs(gray[p+step]-gray[p-step]);
+        const gy=Math.abs(gray[p+step*w]-gray[p-step*w]);
+        const mag=gx+gy;
+        if(mag>.075){edge++; if(gx>gy*1.35)edgeV++; else if(gy>gx*1.35)edgeH++; else edgeD++;}
+        edgeSamples++;
+    }
+    const texturaPct=edge/Math.max(1,edgeSamples)*100;
+    const orientV=edgeV/Math.max(1,edge)*100, orientH=edgeH/Math.max(1,edge)*100, orientD=edgeD/Math.max(1,edge)*100;
+
+    /* Textura multiescala + LBP simplificado. Se buscan microcontrastes
+       repetitivos dentro de zonas verdes, no una sola "textura mágica". */
+    let microTextura=0, microContraste=0, verdeTexturado=0, verdeCompacto=0;
+    let hojaPequena=0, hojaAncha=0, nervaduraAparente=0, microN=0;
+    let lbpConcentrado=0, lbpN=0, localRidge=0, localFlat=0;
+    const scales=[1,2,4];
+    for(const s of scales){
+        for(let y=3*s;y<h-3*s;y+=s) for(let x=3*s;x<w-3*s;x+=s){
+            const p=y*w+x; if(!green[p]) continue;
+            let sum=0,sum2=0,vg=0,n=0;
+            for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++){
+                const q=(y+dy*s)*w+(x+dx*s), z=gray[q]; sum+=z;sum2+=z*z;n++;vg+=green[q];
             }
-            const p=v/Math.max(1,n);
-            if(p>.08)celdasVerdes++;
-            if(p>.30)celdasFuertes++;
+            const m=sum/n, sd=Math.sqrt(Math.max(0,sum2/n-m*m)), dgx=Math.abs(gray[p+2*s]-gray[p-2*s]), dgy=Math.abs(gray[p+2*s*w]-gray[p-2*s*w]);
+            const dens=vg/n, grad=dgx+dgy;
+            microN++; microContraste+=Math.min(1,sd*6);
+            if(sd>.025&&sd<.22)microTextura++; if(dens>.68&&sd>.025)verdeTexturado++; if(dens>.88&&sd<.045)verdeCompacto++;
+            if(grad>.075&&grad<.50&&dens>.50)hojaPequena++; if(grad<.065&&dens>.78)hojaAncha++; if(grad>.16&&grad<.62&&dens>.45)nervaduraAparente++;
+            /* LBP: número de vecinos más brillantes que el centro. */
+            let brighter=0; const pts=[[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]];
+            for(const [dx,dy] of pts) if(gray[(y+dy*s)*w+(x+dx*s)]>gray[p]+.018) brighter++;
+            if(brighter>=3&&brighter<=5)lbpConcentrado++; if(brighter<=1||brighter>=7) localRidge++; else localFlat++;
+            lbpN++;
         }
     }
+    const microTexturaPct=microTextura/Math.max(1,microN)*100;
+    const microContrastePct=microContraste/Math.max(1,microN)*100;
+    const verdeTexturadoPct=verdeTexturado/Math.max(1,microN)*100;
+    const verdeCompactoPct=verdeCompacto/Math.max(1,microN)*100;
+    const hojaPequenaPct=hojaPequena/Math.max(1,microN)*100;
+    const hojaAnchaPct=hojaAncha/Math.max(1,microN)*100;
+    const nervaduraPct=nervaduraAparente/Math.max(1,microN)*100;
+    const lbpPct=lbpConcentrado/Math.max(1,lbpN)*100;
+    const ridgePct=localRidge/Math.max(1,lbpN)*100;
 
-    /* Forma aproximada: una masa verde alta y relativamente estrecha suma
-       evidencia de conífera/ciprés; se evita depender de una sola señal. */
-    const col=new Array(G).fill(0), row=new Array(G).fill(0);
-    for(let y=0;y<h;y+=paso){
-        for(let x=0;x<w;x+=paso){
-            const i=(y*w+x)*4,q=hsv(data[i],data[i+1],data[i+2]);
-            if(q.h>=65&&q.h<=170&&q.s>=.10&&q.v>=.10){
-                col[Math.min(G-1,Math.floor(x/w*G))]++;
-                row[Math.min(G-1,Math.floor(y/h*G))]++;
+    /* Análisis de "unidades foliares": contamos pequeños componentes verdes
+       después de una reducción 3x3. Esto ayuda a separar una masa de hojas
+       grandes de un follaje formado por muchas unidades pequeñas. */
+    const sx=3, sw=Math.max(1,Math.ceil(w/sx)), sh=Math.max(1,Math.ceil(h/sx));
+    const small=new Uint8Array(sw*sh);
+    for(let yy=0;yy<sh;yy++) for(let xx=0;xx<sw;xx++){
+        let cnt=0,n=0;
+        for(let dy=0;dy<sx;dy++) for(let dx=0;dx<sx;dx++){
+            const X=xx*sx+dx,Y=yy*sx+dy;if(X<w&&Y<h){n++;cnt+=green[Y*w+X];}
+        }
+        small[yy*sw+xx]=cnt>=Math.ceil(n*.45)?1:0;
+    }
+    const seen=new Uint8Array(sw*sh); let comps=0, compSmall=0, compLarge=0, largest=0;
+    for(let yy=0;yy<sh;yy++) for(let xx=0;xx<sw;xx++){
+        const st=yy*sw+xx;if(!small[st]||seen[st])continue;
+        comps++; let count=0, stack=[st]; seen[st]=1;
+        while(stack.length){const q=stack.pop(), qy=Math.floor(q/sw), qx=q-qy*sw;count++;
+            const ns=[q-1,q+1,q-sw,q+sw];
+            for(const z of ns){if(z<0||z>=sw*sh)continue;const zy=Math.floor(z/sw),zx=z-zy*sw;if(Math.abs(zx-qx)+Math.abs(zy-qy)!==1||!small[z]||seen[z])continue;seen[z]=1;stack.push(z);}
+        }
+        largest=Math.max(largest,count); if(count<=8)compSmall++; if(count>=35)compLarge++;
+    }
+    const componentDensity=comps/Math.max(1,occupiedCells)*10;
+    const smallComponentRatio=compSmall/Math.max(1,comps)*100;
+    const largeComponentRatio=compLarge/Math.max(1,comps)*100;
+
+    /* Proporciones cromáticas por regiones: ciprés suele mantener un verde
+       relativamente consistente en la masa foliar; se penalizan patrones que
+       parecen césped horizontal o una sola hoja enorme. */
+    let topGreen=0, midGreen=0, botGreen=0, topN=0, midN=0, botN=0;
+    for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+        const q=y/h, isG=green[y*w+x];
+        if(q<.33){topN++;if(isG)topGreen++;} else if(q<.66){midN++;if(isG)midGreen++;} else {botN++;if(isG)botGreen++;}
+    }
+    const topPct=topGreen/Math.max(1,topN)*100, midPct=midGreen/Math.max(1,midN)*100, botPct=botGreen/Math.max(1,botN)*100;
+    const verticalMass=(Math.min(topPct,midPct,botPct)+Math.min(topPct,midPct)+Math.min(midPct,botPct))/3;
+
+    /* Evidencia de árbol: cobertura conectada, masa vertical y mezcla de
+       follaje/tronco/sombras. Se evita declarar árbol por un parche verde. */
+    const evidenciaArbol=Math.min(100,
+        vegetacionPct*1.05 + patchContinuity*.38 + continuidadVertical*.22 +
+        verticalMass*.16 + texturaPct*.45 + Math.min(12,occupiedCells*.18)
+    );
+
+    /* Firma de conífera/ciprés: ninguna señal decide sola. Las hojas anchas,
+       césped, arbustos bajos y fondos uniformes reducen la puntuación. */
+    const firmaConifera=Math.max(0,
+        Math.min(20,microTexturaPct*.25)+
+        Math.min(16,verdeTexturadoPct*.18)+
+        Math.min(14,hojaPequenaPct*.16)+
+        Math.min(10,nervaduraPct*.09)+
+        Math.min(8,lbpPct*.08)+
+        Math.min(8,smallComponentRatio*.07)+
+        Math.min(7,componentDensity*.20)+
+        Math.min(7,ridgePct*.06)
+        -Math.min(14,hojaAnchaPct*.20)
+        -Math.min(10,largeComponentRatio*.12)
+    );
+    const geometriaCipres=Math.min(25,
+        Math.max(0,estrechezVertical*.18)+
+        Math.max(0,continuidadVertical*.12)+
+        Math.max(0,patchContinuity*.07)+
+        Math.max(0,Math.min(100,verticalMass)*.08)
+    );
+    const contrasteCopa=Math.abs(centroVerdePct-bordeVerdePct);
+    const penalizaciones=Math.min(18,Math.max(0,hojaAnchaPct-18)*.22)+Math.min(10,Math.max(0,100-patchContinuity)*.08)+Math.min(8,Math.max(0,topPct-botPct-35)*.10);
+    const puntuacionCipres=Math.max(0,
+        Math.min(18,verdeOscuroPct*.72)+Math.min(13,texturaPct*.82)+Math.min(12,continuidadVertical*.13)+
+        Math.min(10,continuidadVertical*.10)+geometriaCipres+firmaConifera+
+        (verdePct>=18?7:verdePct*.34)+(patchContinuity>35?5:patchContinuity*.10)-penalizaciones
+    );
+
+    /* CAPA AVANZADA: análisis morfológico y estadístico multiescala.
+       No intenta "adivinar" una especie con una sola regla: construye una
+       huella compuesta de estructura, textura, distribución y microformas. */
+    let entropiaTextura=0, simetriaVertical=0, bordeVegetal=0, interiorVegetal=0;
+    let orientEntropia=0, radialCompacidad=0, copaPiramidal=0, copaColumna=0;
+    let verdeCaliente=0, verdeFrio=0, tonosFoliar=0, contrasteLocal=0, contrasteN=0;
+
+    /* Histograma de microtextura y entropía: superficies de hojas grandes,
+       césped y follaje de conífera producen distribuciones diferentes. */
+    const hist=new Uint32Array(16);
+    const radial=new Float32Array(8), radialN=new Uint32Array(8);
+    const orientHist=new Uint32Array(4);
+    const texStep=Math.max(2,Math.floor(Math.min(w,h)/180));
+    for(let y=2*texStep;y<h-2*texStep;y+=texStep){
+        for(let x=2*texStep;x<w-2*texStep;x+=texStep){
+            const p=y*w+x;
+            if(!green[p]) continue;
+            const vals=[];
+            for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++) vals.push(gray[(y+dy*texStep)*w+(x+dx*texStep)]);
+            vals.sort((a,b)=>a-b);
+            const med=vals[12], q1=vals[6], q3=vals[18];
+            const iqr=q3-q1;
+            hist[Math.max(0,Math.min(15,Math.floor(iqr*48)))]++;
+            contrasteLocal+=iqr; contrasteN++;
+            const dx=Math.abs(gray[p+2*texStep]-gray[p-2*texStep]);
+            const dy=Math.abs(gray[p+2*texStep*w]-gray[p-2*texStep*w]);
+            const diag=Math.abs(gray[p+2*texStep+2*texStep*w]-gray[p-2*texStep-2*texStep*w]);
+            const anti=Math.abs(gray[p-2*texStep+2*texStep*w]-gray[p+2*texStep-2*texStep*w]);
+            const m=Math.max(dx,dy,diag,anti);
+            if(m>0.045){
+                if(m===dx)orientHist[0]++; else if(m===dy)orientHist[1]++; else if(m===diag)orientHist[2]++; else orientHist[3]++;
             }
+            const nx=x/w-.5, ny=y/h-.5, rr=Math.min(7,Math.floor(Math.sqrt(nx*nx+ny*ny)*16));
+            radial[rr]+=1; radialN[rr]++;
+            if(q3-q1>.035) tonosFoliar++;
+            if(q1>.18&&q3<.72) verdeFrio++;
+            if(med>.48&&med<.82) verdeCaliente++;
         }
     }
-    const maxCol=Math.max.apply(null,col), maxRow=Math.max.apply(null,row);
-    const anchoRel=col.filter(v=>v>=maxCol*.35).length/G;
-    const altoRel=row.filter(v=>v>=maxRow*.35).length/G;
-    const formaEstrecha=Math.max(0,Math.min(100,(1-anchoRel)*100));
-    const continuidad=Math.max(0,Math.min(100,altoRel*100));
+    const histTotal=hist.reduce((a,b)=>a+b,0);
+    if(histTotal){for(const n of hist){const q=n/histTotal;if(q>0)entropiaTextura-=q*Math.log2(q);}}
+    const ohTotal=orientHist.reduce((a,b)=>a+b,0);
+    if(ohTotal){for(const n of orientHist){const q=n/ohTotal;if(q>0)orientEntropia-=q*Math.log2(q);}}
+    contrasteLocal=contrasteLocal/Math.max(1,contrasteN)*100;
+    bordeVegetal=(greenCells/(G*G))*100;
+    interiorVegetal=centroVerdePct;
 
-    const hayVegetacion=verdePct>=4 || (celdasVerdes>=5 && verdePct>=2);
-    const vegetacionFuerte=verdePct>=18 && celdasVerdes>=10;
-    const demasiadaPocaVegetacion=verdePct<2.5 && celdasVerdes<4;
+    /* Simetría aproximada: un árbol aislado suele presentar cierta coherencia
+       global; fondos de hojas, césped o objetos generan asimetrías distintas. */
+    let symErr=0,symN=0;
+    for(let y=0;y<h;y+=Math.max(1,Math.floor(h/80))) for(let x=0;x<Math.floor(w/2);x+=Math.max(1,Math.floor(w/80))){
+        const a=green[y*w+x], b=green[y*w+(w-1-x)]; symErr+=Math.abs(a-b); symN++;
+    }
+    simetriaVertical=Math.max(0,100-(symErr/Math.max(1,symN))*100);
 
-    let tipoImagen="noVegetal";
-    let confianzaTipo=72;
-    if(hayVegetacion){
-        if(vegetacionFuerte){
-            const senalCipres =
-                Math.min(35,verdeOscuroPct*1.3)+
-                Math.min(25,formaEstrecha*.35)+
-                Math.min(20,continuidad*.20)+
-                Math.min(20,texturaPct*.8)-
-                Math.min(20,marronPct*.20);
-            if(senalCipres>=58){
-                tipoImagen="probableCipres";
-                confianzaTipo=Math.round(Math.min(92,58+senalCipres*.35));
-            }else{
-                tipoImagen="otroArbol";
-                confianzaTipo=Math.round(Math.min(90,60+verdePct*.25));
+    /* Forma radial de la masa verde: compara centro, anillos y distribución
+       vertical para separar copa arbórea de manchas verdes planas. */
+    let radialVals=[];
+    for(let i=0;i<8;i++) radialVals.push(radial[i]/Math.max(1,radialN[i]));
+    const r0=radialVals[0]||0, r7=radialVals[7]||0;
+    radialCompacidad=Math.max(0,Math.min(100,(r0-r7+0.5)*100));
+    copaPiramidal=Math.max(0,Math.min(100,(topPct*.8+midPct*1.2-botPct*.5)+50));
+    copaColumna=Math.max(0,100-Math.abs(anchoFoliar-52)*1.6-Math.abs(continuidadVertical-65)*.45);
+
+    /* Aproximación de "hojas anchas" vs. unidades finas mediante componentes
+       a varias resoluciones. Las mismas formas deben persistir al cambiar de escala. */
+    function componentesEscala(factor){
+        const cw=Math.max(1,Math.ceil(w/factor)), ch=Math.max(1,Math.ceil(h/factor));
+        const mask=new Uint8Array(cw*ch);
+        for(let yy=0;yy<ch;yy++) for(let xx=0;xx<cw;xx++){
+            let c=0,n=0;
+            for(let dy=0;dy<factor;dy++) for(let dx=0;dx<factor;dx++){
+                const X=xx*factor+dx,Y=yy*factor+dy;
+                if(X<w&&Y<h){n++;c+=green[Y*w+X];}
             }
-        }else{
-            tipoImagen="vegetal";
-            confianzaTipo=Math.round(Math.min(88,58+verdePct*.5));
+            mask[yy*cw+xx]=c>=Math.ceil(n*.42)?1:0;
         }
-    }else if(!demasiadaPocaVegetacion){
-        tipoImagen="vegetal";
-        confianzaTipo=55;
+        const seen=new Uint8Array(mask.length); let c=0,small=0,large=0,area=0;
+        for(let i=0;i<mask.length;i++) if(mask[i]&&!seen[i]){
+            c++; let stack=[i],a=0;seen[i]=1;
+            while(stack.length){const z=stack.pop(),zy=Math.floor(z/cw),zx=z-zy*cw;a++;
+                const ns=[z-1,z+1,z-cw,z+cw];
+                for(const q of ns){if(q<0||q>=mask.length||seen[q]||!mask[q])continue;const qy=Math.floor(q/cw),qx=q-qy*cw;if(Math.abs(qx-zx)+Math.abs(qy-zy)!==1)continue;seen[q]=1;stack.push(q);}
+            }
+            area+=a;if(a<=6)small++;if(a>=30)large++;
+        }
+        return {c,small,large,area};
+    }
+    const c2=componentesEscala(2), c4=componentesEscala(4), c6=componentesEscala(6);
+    const persistenciaMicro=Math.min(100,(c2.small/Math.max(1,c2.c))*.35*100+(c4.small/Math.max(1,c4.c))*.35*100+(c6.small/Math.max(1,c6.c))*.30*100);
+    const persistenciaGrandes=Math.min(100,(c2.large/Math.max(1,c2.c))*.35*100+(c4.large/Math.max(1,c4.c))*.35*100+(c6.large/Math.max(1,c6.c))*.30*100);
+
+    /* Huella cromática de follaje: estabilidad del verde dentro de la masa. */
+    let hSum=0,h2=0,hN=0,sSum=0,s2=0;
+    for(let i=0;i<N;i++) if(green[i]){hSum+=hue[i];h2+=hue[i]*hue[i];sSum+=sat[i];s2+=sat[i]*sat[i];hN++;}
+    const hMean=hSum/Math.max(1,hN), hStd=Math.sqrt(Math.max(0,h2/Math.max(1,hN)-hMean*hMean));
+    const sMean=sSum/Math.max(1,hN), sStd=Math.sqrt(Math.max(0,s2/Math.max(1,hN)-sMean*sMean));
+    const estabilidadVerde=Math.max(0,Math.min(100,100-hStd*.8-sStd*35));
+
+    /* ================================================================
+       MOTOR FOREST-CV EXTREMO: descriptor multiescala, HOG-like,
+       Gabor-like, autocorrelación, rugosidad y consistencia regional.
+       Todo se calcula localmente en el navegador.
+       ================================================================ */
+    const S=48;
+    const ds=new Float32Array(S*S), gm=new Uint8Array(S*S);
+    for(let yy=0;yy<S;yy++) for(let xx=0;xx<S;xx++){
+        let sg=0,sgm=0,n=0;
+        const y0=Math.floor(yy*h/S), y1=Math.max(y0+1,Math.floor((yy+1)*h/S));
+        const x0=Math.floor(xx*w/S), x1=Math.max(x0+1,Math.floor((xx+1)*w/S));
+        for(let y=y0;y<Math.min(h,y1);y++) for(let x=x0;x<Math.min(w,x1);x++){const z=y*w+x;sg+=gray[z];sgm+=green[z];n++;}
+        const k=yy*S+xx; ds[k]=sg/Math.max(1,n); gm[k]=sgm/Math.max(1,n)>.35?1:0;
+    }
+    let gradSum=0, edgeGreen=0, edgeAll=0, dirV=0,dirH=0,dirD=0,dirN=0;
+    const grad=new Float32Array(S*S);
+    for(let y=1;y<S-1;y++) for(let x=1;x<S-1;x++){
+        const k=y*S+x, gx=-ds[k-S-1]-2*ds[k-1]-ds[k+S-1]+ds[k-S+1]+2*ds[k+1]+ds[k+S+1];
+        const gy=-ds[k-S-1]-2*ds[k-S]-ds[k-S+1]+ds[k+S-1]+2*ds[k+S]+ds[k+S+1];
+        const mag=Math.min(1,Math.sqrt(gx*gx+gy*gy)); grad[k]=mag; gradSum+=mag; edgeAll++;
+        if(gm[k]){edgeGreen+=mag;const a=Math.atan2(Math.abs(gy),Math.abs(gx));if(a>1.15)dirV++;else if(a<.40)dirH++;else dirD++;dirN++;}
+    }
+    const edgeDensity=gradSum/Math.max(1,edgeAll)*100;
+    const greenEdgeDensity=edgeGreen/Math.max(1,dirN)*100;
+    const dirTotal=Math.max(1,dirV+dirH+dirD);
+    const hogV=dirV/dirTotal*100,hogH=dirH/dirTotal*100,hogD=dirD/dirTotal*100;
+
+    let localVar=0, localVarN=0, textureRepeat=0, textureRepeatN=0;
+    for(let y=2;y<S-2;y++) for(let x=2;x<S-2;x++){
+        const k=y*S+x, c=ds[k]; let sum=0,sum2=0,n=0;
+        for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++){const v=ds[(y+dy)*S+x+dx];sum+=v;sum2+=v*v;n++;}
+        const vv=Math.max(0,sum2/n-(sum/n)*(sum/n)); localVar+=vv;localVarN++;
+        const d1=Math.abs(ds[k]-ds[k-3])+Math.abs(ds[k]-ds[k+3]);
+        const d2=Math.abs(ds[k]-ds[k-3*S])+Math.abs(ds[k]-ds[k+3*S]);
+        if((d1+d2)<.16)textureRepeat++;
+        textureRepeatN++;
+    }
+    const texturaLocal=localVar/Math.max(1,localVarN)*1000;
+    const repeticionTextura=textureRepeat/Math.max(1,textureRepeatN)*100;
+
+    /* Autocorrelación de la máscara: el follaje con unidades pequeñas y
+       repetitivas deja una firma distinta a superficies lisas. */
+    function autocorr(dx,dy){let a=0,b=0,c=0,n=0;for(let y=2;y<S-2;y++)for(let x=2;x<S-2;x++){const p=ds[y*S+x],q=ds[(y+dy)*S+x+dx];a+=p*q;b+=p*p;c+=q*q;n++;}const den=Math.sqrt(Math.max(1,a*b));return Math.max(-1,Math.min(1,(a/Math.max(1,n))/Math.sqrt(Math.max(1,(b/Math.max(1,n))*(c/Math.max(1,n))))));}
+    const ac1=autocorr(2,0),ac2=autocorr(0,2),ac3=autocorr(3,1),ac4=autocorr(4,0);
+    const autocorrMedia=(ac1+ac2+ac3+ac4)/4;
+    const periodicidadFina=Math.max(0,Math.min(100,(1-autocorrMedia)*100));
+
+    /* Perfil radial y vertical de la masa verde. */
+    let radialBins=new Float32Array(8), radialN2=new Uint32Array(8);
+    let topMass2=0,midMass2=0,botMass2=0,topN2=0,midN2=0,botN2=0;
+    for(let y=0;y<S;y++)for(let x=0;x<S;x++){
+        const on=gm[y*S+x], dx=x/(S-1)-.5,dy=y/(S-1)-.5,r=Math.min(0.707,Math.sqrt(dx*dx+dy*dy));
+        const rb=Math.min(7,Math.floor(r/0.707*8));radialN2[rb]++;if(on)radialBins[rb]++;
+        if(y<S/3){topN2++;if(on)topMass2++;}else if(y<2*S/3){midN2++;if(on)midMass2++;}else{botN2++;if(on)botMass2++;}
+    }
+    const radialProfile=radialBins.map((v,i)=>v/Math.max(1,radialN2[i]));
+    const radialCompact=radialProfile.slice(0,4).reduce((a,b)=>a+b,0)/4;
+    const radialOuter=radialProfile.slice(4).reduce((a,b)=>a+b,0)/4;
+    const gradienteVertical=(topMass2/Math.max(1,topN2))*100-(botMass2/Math.max(1,botN2))*100;
+    const centroExterior=Math.max(0,Math.min(100,(radialCompact-radialOuter+0.5)*100));
+
+    /* Coherencia por regiones: una clasificación fuerte debe repetirse en
+       distintas partes de la imagen y no depender de un solo parche. */
+    const regionScores=[];
+    for(let ry=0;ry<3;ry++)for(let rx=0;rx<3;rx++){
+        let gg=0,tt=0,ee=0;
+        const xa=Math.floor(rx*S/3),xb=Math.floor((rx+1)*S/3),ya=Math.floor(ry*S/3),yb=Math.floor((ry+1)*S/3);
+        for(let y=ya;y<yb;y++)for(let x=xa;x<xb;x++){const k=y*S+x;tt++;gg+=gm[k];ee+=grad[k];}
+        regionScores.push({g:gg/Math.max(1,tt),e:ee/Math.max(1,tt)});
+    }
+    const regMean=regionScores.reduce((a,r)=>a+r.g,0)/9;
+    const regVar=regionScores.reduce((a,r)=>a+(r.g-regMean)*(r.g-regMean),0)/9;
+    const coherenciaRegional=Math.max(0,Math.min(100,(regMean*100)*(1-Math.min(1,regVar*8))));
+
+    /* Silueta aproximada: proporción de cambios verde/no-verde en columnas y
+       filas. Una copa compacta produce transiciones diferentes a césped. */
+    let transV2=0,transH2=0,colN2=0,rowN2=0;
+    for(let x=0;x<S;x++){for(let y=1;y<S;y++)if(gm[y*S+x]!==gm[(y-1)*S+x])transV2++;colN2+=S-1;}
+    for(let y=0;y<S;y++){for(let x=1;x<S;x++)if(gm[y*S+x]!==gm[y*S+x-1])transH2++;rowN2+=S-1;}
+    const transVertical=transV2/Math.max(1,colN2)*100,transHorizontal=transH2/Math.max(1,rowN2)*100;
+    const siluetaCompacta=Math.max(0,Math.min(100,100-Math.abs(transVertical-transHorizontal)*2));
+
+    /* Puntaje final: señales independientes deben coincidir.
+       IMPORTANTE: definir primero las firmas base y después las que dependen de ellas. */
+    const estructuraCopa=Math.max(0,Math.min(100,
+        continuidadVertical*.34+patchContinuity*.20+anchoFoliar*.12+copaColumna*.12+
+        Math.min(100,simetriaVertical)*.06+Math.min(100,radialCompacidad)*.16
+    ));
+    const firmaMicro=Math.max(0,Math.min(100,
+        microTexturaPct*.32+hojaPequenaPct*.24+lbpPct*.12+persistenciaMicro*.18+
+        entropiaTextura*6+contrasteLocal*.35
+    ));
+    const firmaHojaAncha=Math.max(0,Math.min(100,
+        hojaAnchaPct*.55+persistenciaGrandes*.25+nervaduraPct*.12+(orientEntropia*8)+
+        Math.max(0,100-estabilidadVerde)*.08
+    ));
+    const firmaCipresAvanzada=Math.max(0,Math.min(100,
+        firmaConifera*2.1+estructuraCopa*.38+firmaMicro*.42+estabilidadVerde*.18+
+        (verdeOscuroPct>=4?7:0)+(verdeCompactoPct>=10?6:0)-firmaHojaAncha*.34
+    ));
+
+    const firmaFoliarExtrema=Math.max(0,Math.min(100,
+        microTexturaPct*.18+hojaPequenaPct*.18+repeticionTextura*.16+
+        periodicidadFina*.16+Math.min(100,texturaLocal*3)*.10+
+        greenEdgeDensity*.08+hogV*.07+coherenciaRegional*.07));
+    const firmaArbolExtrema=Math.max(0,Math.min(100,
+        evidenciaArbol*.28+estructuraCopa*.22+coherenciaRegional*.16+
+        siluetaCompacta*.10+Math.max(0,100-Math.abs(gradienteVertical)*1.5)*.08+
+        Math.min(100,radialCompact*100)*.16));
+    const firmaNoHojaAncha=Math.max(0,Math.min(100,
+        100-firmaHojaAncha*.55+firmaFoliarExtrema*.25+periodicidadFina*.20));
+    const firmaCipresMax=Math.max(0,Math.min(100,
+        firmaCipresAvanzada*.30+firmaFoliarExtrema*.25+firmaArbolExtrema*.20+
+        firmaNoHojaAncha*.12+hogV*.05+Math.min(100,greenEdgeDensity)*.04+
+        Math.min(100,centroExterior)*.04));
+
+    const consistenciaCipres=Math.max(0,Math.min(100,
+        (firmaCipresMax*.55)+(Math.min(100,puntuacionCipres*1.25)*.20)+
+        (firmaConifera*1.4*.15)+(Math.max(0,100-firmaHojaAncha)*.10)
+    ));
+
+    /* ================================================================
+       CLASIFICADOR ENSEMBLE MULTICAPA (ciprés vs otros)
+       Combina firmas positivas de conífera/ciprés con penalizaciones
+       de césped, hoja ancha, cielo y objetos no vegetales.
+       No exige que TODAS las condiciones se cumplan a la vez.
+       ================================================================ */
+
+    // Señales positivas típicas de ciprés / conífera de escamas
+    const scoreFollajeFino = Math.max(0, Math.min(100,
+        microTexturaPct * 0.28 +
+        hojaPequenaPct * 0.22 +
+        persistenciaMicro * 0.18 +
+        lbpPct * 0.10 +
+        periodicidadFina * 0.12 +
+        Math.min(25, verdeTexturadoPct * 0.20) +
+        Math.min(15, firmaConifera * 1.1)
+    ));
+
+    const scoreSiluetaCipres = Math.max(0, Math.min(100,
+        continuidadVertical * 0.22 +
+        Math.max(0, 100 - Math.abs(anchoFoliar - 48) * 1.15) * 0.18 +
+        copaColumna * 0.14 +
+        Math.min(100, copaPiramidal) * 0.10 +
+        verticalMass * 0.12 +
+        Math.min(100, radialCompacidad) * 0.08 +
+        simetriaVertical * 0.08 +
+        Math.min(20, Math.max(0, centroVerdePct - bordeVerdePct) * 0.25)
+    ));
+
+    const scoreColorPerenne = Math.max(0, Math.min(100,
+        Math.min(40, verdePct * 0.55) +
+        Math.min(25, verdeOscuroPct * 1.4) +
+        Math.min(20, estabilidadVerde * 0.18) +
+        Math.min(15, Math.max(0, 18 - amarilloPct) * 0.9) +
+        (verdePct >= 10 && marronPct < 18 ? 10 : 0)
+    ));
+
+    const scoreEstructuraArborea = Math.max(0, Math.min(100,
+        evidenciaArbol * 0.30 +
+        estructuraCopa * 0.22 +
+        patchContinuity * 0.14 +
+        texturaPct * 1.1 +
+        Math.min(20, occupiedCells * 0.25) +
+        coherenciaRegional * 0.12 +
+        firmaArbolExtrema * 0.12
+    ));
+
+    // Penalizaciones: césped, hoja ancha, cielo, poca vegetación
+    const penalCesped = Math.max(0,
+        (botPct > topPct + 22 && continuidadVertical < 40 ? 18 : 0) +
+        (orientH > orientV + 12 && verticalMass < 35 ? 14 : 0) +
+        (verdePct > 40 && topPct < 16 && botPct > 38 ? 22 : 0) +
+        (anchoFoliar > 88 && continuidadVertical < 45 ? 12 : 0)
+    );
+
+    const penalHojaAncha = Math.max(0,
+        firmaHojaAncha * 0.38 +
+        Math.max(0, hojaAnchaPct - hojaPequenaPct) * 0.35 +
+        Math.max(0, persistenciaGrandes - persistenciaMicro) * 0.20 +
+        (nervaduraPct > 22 && hojaAnchaPct > 20 ? 10 : 0)
+    );
+
+    const penalCieloObjeto = Math.max(0,
+        (claroPct > 55 ? (claroPct - 55) * 0.55 : 0) +
+        (vegetacionPct < 6 ? 20 : 0) +
+        (verdePct < 5 ? 15 : 0) +
+        (texturaPct < 1.2 && vegetacionPct < 12 ? 10 : 0)
+    );
+
+    const penalDisperso = Math.max(0,
+        (patchContinuity < 18 && vegetacionPct > 8 ? 12 : 0) +
+        (occupiedCells < 8 && vegetacionPct > 10 ? 8 : 0) +
+        (comps > 40 && largeComponentRatio < 5 && continuidadVertical < 30 ? 10 : 0)
+    );
+
+    // Puntuación global de ciprés (0–100)
+    const scoreCipresBruto =
+        scoreFollajeFino * 0.28 +
+        scoreSiluetaCipres * 0.24 +
+        scoreColorPerenne * 0.18 +
+        scoreEstructuraArborea * 0.16 +
+        Math.min(100, puntuacionCipres) * 0.08 +
+        Math.min(100, firmaCipresMax) * 0.06 +
+        Math.min(100, consistenciaCipres) * 0.05 +
+        Math.min(100, firmaCipresAvanzada) * 0.05;
+
+    const scoreCipres = Math.max(0, Math.min(100,
+        scoreCipresBruto - penalCesped * 0.55 - penalHojaAncha * 0.45 -
+        penalCieloObjeto * 0.50 - penalDisperso * 0.35
+    ));
+
+    // Puntuación de "otro árbol" (arbóreo pero no ciprés)
+    const scoreOtroArbol = Math.max(0, Math.min(100,
+        scoreEstructuraArborea * 0.40 +
+        Math.min(100, evidenciaArbol) * 0.25 +
+        Math.min(100, vegetacionPct * 1.2) * 0.15 +
+        firmaHojaAncha * 0.12 +
+        Math.max(0, 100 - scoreFollajeFino) * 0.08 -
+        penalCieloObjeto * 0.40 - penalCesped * 0.25
+    ));
+
+    // Vegetación no arbórea
+    const scoreVegetal = Math.max(0, Math.min(100,
+        Math.min(100, vegetacionPct * 2.2) * 0.45 +
+        Math.min(100, verdePct * 2.0) * 0.30 +
+        (100 - Math.min(100, evidenciaArbol)) * 0.15 +
+        penalCesped * 0.10
+    ));
+
+    // Decisión por márgenes (ensemble), no por un único umbral rígido
+    let tipoImagen = "noVegetal";
+    const margenCipres = scoreCipres - Math.max(scoreOtroArbol, scoreVegetal, 28);
+    const margenArbol = scoreOtroArbol - Math.max(scoreVegetal, 30);
+
+    if (vegetacionPct < 2.5 && verdePct < 1.8) {
+        tipoImagen = "noVegetal";
+    } else if (
+        scoreCipres >= 42 &&
+        margenCipres >= 2 &&
+        scoreFollajeFino >= 20 &&
+        scoreSiluetaCipres >= 18 &&
+        verdePct >= 7 &&
+        vegetacionPct >= 6 &&
+        penalHojaAncha < 50 &&
+        penalCesped < 32
+    ) {
+        tipoImagen = "probableCipres";
+    } else if (
+        scoreCipres >= 50 &&
+        scoreFollajeFino >= 25 &&
+        scoreEstructuraArborea >= 28 &&
+        verdePct >= 10 &&
+        penalHojaAncha < 42
+    ) {
+        // Segunda vía: puntuación alta aunque el margen sea estrecho
+        tipoImagen = "probableCipres";
+    } else if (
+        (scoreOtroArbol >= 42 && margenArbol >= 2 && evidenciaArbol >= 22 && vegetacionPct >= 8) ||
+        (evidenciaArbol >= 28 && vegetacionPct >= 10 && texturaPct >= 1.6 && continuidadVertical >= 32)
+    ) {
+        tipoImagen = "otroArbol";
+    } else if (vegetacionPct >= 3.5 || verdePct >= 2.5) {
+        tipoImagen = "vegetal";
+    } else {
+        tipoImagen = "noVegetal";
     }
 
-    /* Estado general: no pretende diagnosticar; solo resume las señales
-       visuales básicas disponibles en la fotografía. */
-    let estado=50;
-    if(verdePct>=20) estado+=18;
-    else if(verdePct>=10) estado+=10;
-    else if(verdePct<4) estado-=8;
-    if(amarilloPct>=8) estado-=8;
-    if(marronPct>=8) estado-=8;
-    if(oscuroPct>=25) estado-=4;
-    if(claroPct>=45) estado-=5;
-    estado=Math.max(20,Math.min(95,Math.round(estado)));
+    // Confianza calibrada según margen entre clases
+    let confianzaTipo;
+    if (tipoImagen === "noVegetal") {
+        confianzaTipo = Math.round(Math.max(55, Math.min(92, 70 + (3 - vegetacionPct) * 4 + claroPct * 0.15)));
+    } else if (tipoImagen === "probableCipres") {
+        confianzaTipo = Math.round(Math.max(58, Math.min(96,
+            52 + scoreCipres * 0.38 + Math.max(0, margenCipres) * 0.55 + scoreFollajeFino * 0.08
+        )));
+    } else if (tipoImagen === "otroArbol") {
+        confianzaTipo = Math.round(Math.max(48, Math.min(88,
+            44 + scoreOtroArbol * 0.36 + evidenciaArbol * 0.18
+        )));
+    } else {
+        confianzaTipo = Math.round(Math.max(36, Math.min(78,
+            34 + scoreVegetal * 0.28 + vegetacionPct * 0.35
+        )));
+    }
 
-    const confianza=Math.round(Math.max(35,Math.min(90,
-        45 + Math.min(25,verdePct*.35) + Math.min(12,celdasFuertes*.7) - Math.min(10,claroPct*.08)
-    )));
+    let estado=60
+        +Math.min(18,vegetacionPct*.18)
+        +Math.min(10,verdePct*.12)
+        -Math.min(20,(marronPct*2.8+amarilloPct*1.6)*.30)
+        -Math.min(10,oscuroPct*.12)
+        +Math.min(8,scoreCipres*.06)
+        -Math.min(8,penalHojaAncha*.08)
+        -Math.min(6,penalCesped*.10);
+    if(verdePct>=18)estado+=4;if(verdePct>=32)estado+=3;
+    if(marronPct<4&&amarilloPct<6)estado+=5;
+    if(vegetacionPct<8)estado-=8;
+    if(tipoImagen==="probableCipres"&&marronPct<8)estado+=3;
+    if(tipoImagen==="noVegetal")estado=Math.min(estado,45);
+    estado=Math.round(Math.max(18,Math.min(96,estado)));
+    let nivelConfianza=35;if(vegetacionPct>=12)nivelConfianza+=15;if(vegetacionPct>=25)nivelConfianza+=15;if(texturaPct>=5)nivelConfianza+=10;if(anchoOriginal>=900&&altoOriginal>=700)nivelConfianza+=10;if(claroPct>60||vegetacionPct<3)nivelConfianza-=15;
+    nivelConfianza=Math.round(Math.max(15,Math.min(88,nivelConfianza)));
 
     return {
-        estado:estado,
-        tipoImagen:tipoImagen,
-        confianzaTipo:confianzaTipo,
-        confianza:confianza,
-        verde:Math.round(verdePct*10)/10,
-        vegetacion:Math.round(verdePct*10)/10,
-        verdeOscuro:Math.round(verdeOscuroPct*10)/10,
-        marron:Math.round(marronPct*10)/10,
-        amarillo:Math.round(amarilloPct*10)/10,
-        oscuro:Math.round(oscuroPct*10)/10,
-        claro:Math.round(claroPct*10)/10,
-        textura:Math.round(texturaPct*10)/10
+        width:w,height:h,estado,confianza:nivelConfianza,tipoImagen,confianzaTipo,
+        vegetacion:Math.round(vegetacionPct*10)/10,verde:Math.round(verdePct*10)/10,verdeOscuro:Math.round(verdeOscuroPct*10)/10,verdeMedio:Math.round(verdeMedioPct*10)/10,
+        marron:Math.round(marronPct*10)/10,amarillo:Math.round(amarilloPct*10)/10,oscuro:Math.round(oscuroPct*10)/10,claro:Math.round(claroPct*10)/10,
+        textura:Math.round(texturaPct*10)/10,continuidadFoliada:Math.round(patchContinuity*10)/10,continuidadVertical:Math.round(continuidadVertical*10)/10,
+        anchoFoliar:Math.round(anchoFoliar*10)/10,centroVerde:Math.round(centroVerdePct*10)/10,bordeVerde:Math.round(bordeVerdePct*10)/10,
+        puntuacionCipres:Math.round(puntuacionCipres*10)/10,firmaConifera:Math.round(firmaConifera*10)/10,
+        microTextura:Math.round(microTexturaPct*10)/10,microContraste:Math.round(microContrastePct*10)/10,verdeTexturado:Math.round(verdeTexturadoPct*10)/10,verdeCompacto:Math.round(verdeCompactoPct*10)/10,
+        hojaPequena:Math.round(hojaPequenaPct*10)/10,hojaAncha:Math.round(hojaAnchaPct*10)/10,nervaduraAparente:Math.round(nervaduraPct*10)/10,evidenciaArbol:Math.round(evidenciaArbol*10)/10,
+        ocupacionVerde:Math.round(occupiedCells*10)/10,continuidadParche:Math.round(patchContinuity*10)/10,componentesVerdes:comps,componentesPequenos:Math.round(smallComponentRatio*10)/10,
+        orientacionVertical:Math.round(orientV*10)/10,orientacionHorizontal:Math.round(orientH*10)/10,orientacionDiagonal:Math.round(orientD*10)/10,lbp:Math.round(lbpPct*10)/10,
+        masaVertical:Math.round(verticalMass*10)/10,mediaBrillo:Math.round(mediaV*100),varBrillo:Math.round(varV*10000)/100,
+        entropiaTextura:Math.round(entropiaTextura*100)/100,contrasteLocal:Math.round(contrasteLocal*10)/10,
+        simetriaVertical:Math.round(simetriaVertical*10)/10,radialCompacidad:Math.round(radialCompacidad*10)/10,
+        copaPiramidal:Math.round(copaPiramidal*10)/10,copaColumna:Math.round(copaColumna*10)/10,
+        persistenciaMicro:Math.round(persistenciaMicro*10)/10,persistenciaGrandes:Math.round(persistenciaGrandes*10)/10,
+        estabilidadVerde:Math.round(estabilidadVerde*10)/10,estructuraCopa:Math.round(estructuraCopa*10)/10,
+        firmaMicro:Math.round(firmaMicro*10)/10,firmaHojaAncha:Math.round(firmaHojaAncha*10)/10,
+        firmaCipresAvanzada:Math.round(firmaCipresAvanzada*10)/10,
+        firmaFoliarExtrema:Math.round(firmaFoliarExtrema*10)/10,firmaArbolExtrema:Math.round(firmaArbolExtrema*10)/10,
+        firmaCipresMax:Math.round(firmaCipresMax*10)/10,consistenciaCipres:Math.round(consistenciaCipres*10)/10,
+        hogVertical:Math.round(hogV*10)/10,hogHorizontal:Math.round(hogH*10)/10,hogDiagonal:Math.round(hogD*10)/10,
+        texturaLocal:Math.round(texturaLocal*100)/100,repeticionTextura:Math.round(repeticionTextura*10)/10,
+        periodicidadFina:Math.round(periodicidadFina*10)/10,coherenciaRegional:Math.round(coherenciaRegional*10)/10,
+        transicionVertical:Math.round(transVertical*10)/10,transicionHorizontal:Math.round(transHorizontal*10)/10,
+        centroExterior:Math.round(centroExterior*10)/10,
+        scoreCipres:Math.round(scoreCipres*10)/10,
+        scoreFollajeFino:Math.round(scoreFollajeFino*10)/10,
+        scoreSiluetaCipres:Math.round(scoreSiluetaCipres*10)/10,
+        scoreColorPerenne:Math.round(scoreColorPerenne*10)/10,
+        scoreEstructuraArborea:Math.round(scoreEstructuraArborea*10)/10,
+        scoreOtroArbol:Math.round(scoreOtroArbol*10)/10,
+        penalCesped:Math.round(penalCesped*10)/10,
+        penalHojaAncha:Math.round(penalHojaAncha*10)/10
     };
 }
-
 
 function renderizarResultadoFoto(d) {
     const resultadoFoto = document.getElementById("resultadoFotoAnalisis");
@@ -4965,7 +6125,12 @@ function renderizarResultadoFoto(d) {
     };
     const tipo = mensajesTipo[d.tipoImagen] || mensajesTipo.noVegetal;
     document.getElementById("tipoFotoResultado").innerHTML = `<strong>${tipo.titulo}</strong><br>${tipo.texto}`;
-    document.getElementById("confianzaTipoFoto").textContent = "Confianza de esta clasificación visual: " + d.confianzaTipo + "%.";
+    document.getElementById("confianzaTipoFoto").textContent =
+        "Confianza de esta clasificación visual: " + d.confianzaTipo + "%." +
+        (typeof d.scoreCipres === "number"
+            ? "  ·  Índice ciprés: " + d.scoreCipres + "/100" +
+              (typeof d.scoreOtroArbol === "number" ? "  ·  Otro árbol: " + d.scoreOtroArbol + "/100" : "")
+            : "");
 
     let cuidados=[];
     if(d.marron>=6 || d.amarillo>=8)
@@ -4994,12 +6159,21 @@ function renderizarResultadoFoto(d) {
         cuidados.push("🌱 No se detectaron patrones cromáticos fuertes asociados con sequedad o amarillamiento. Continúa observando el árbol y compara fotografías tomadas en condiciones similares.");
 
     const micros=[
-        {id:"bacillus",score:Math.round(Math.max(20,Math.min(85,45+d.verde*0.35-d.marron*0.5)))},
-        {id:"pseudomonas",score:Math.round(Math.max(15,Math.min(80,35+d.verde*0.45)))},
-        {id:"trichoderma",score:Math.round(Math.max(15,Math.min(85,38+0+d.vegetacion*0.15)))},
-        {id:"hongosFoliares",score:Math.round(Math.max(10,Math.min(90,20+d.marron*1.7+d.amarillo*0.8)))},
-        {id:"descomponedores",score:Math.round(Math.max(15,Math.min(75,25+d.marron*0.5+d.oscuro*0.15)))}
-    ].sort((a,b)=>b.score-a.score);
+        {id:"bacillus",score:Math.round(Math.max(12,Math.min(88,40+d.verde*0.32-d.marron*0.35+(d.scoreEstructuraArborea||0)*0.05)))},
+        {id:"pseudomonas",score:Math.round(Math.max(12,Math.min(86,34+d.verde*0.40+(d.vegetacion||0)*0.08)))},
+        {id:"trichoderma",score:Math.round(Math.max(12,Math.min(86,36+d.vegetacion*0.14-d.marron*0.15)))},
+        {id:"mycorrizas",score:Math.round(Math.max(10,Math.min(84,32+d.verde*0.25+(d.scoreEstructuraArborea||0)*0.12-(d.oscuro||0)*0.2)))},
+        {id:"streptomyces",score:Math.round(Math.max(10,Math.min(82,30+d.verde*0.18-(d.oscuro||0)*0.1)))},
+        {id:"azospirillum",score:Math.round(Math.max(10,Math.min(80,28+d.verde*0.22+(d.vegetacion||0)*0.1)))},
+        {id:"hongosFoliares",score:Math.round(Math.max(8,Math.min(92,16+d.marron*1.5+d.amarillo*0.9+(d.oscuro||0)*0.15)))},
+        {id:"seiridium",score:Math.round(Math.max(6,Math.min(90,10+d.marron*1.3+d.amarillo*0.7+(d.tipoImagen==="probableCipres"?12:0)+(d.oscuro||0)*0.2)))},
+        {id:"phytophthora",score:Math.round(Math.max(6,Math.min(88,8+d.oscuro*0.55+d.marron*0.4+(d.claro>50?0:6))))},
+        {id:"fusarium",score:Math.round(Math.max(8,Math.min(86,12+d.marron*0.9+d.amarillo*0.5+(d.vegetacion<15?8:0))))},
+        {id:"alternaria",score:Math.round(Math.max(6,Math.min(88,10+d.amarillo*1.2+d.marron*0.6)) )},
+        {id:"armillaria",score:Math.round(Math.max(6,Math.min(88,8+d.oscuro*0.7+d.marron*0.5)) )},
+        {id:"descomponedores",score:Math.round(Math.max(10,Math.min(86,22+d.marron*0.55+d.oscuro*0.25)) )},
+        {id:"botryosphaeria",score:Math.round(Math.max(6,Math.min(88,10+d.marron*1.0+d.amarillo*0.5+(d.verde<18?8:0)) )) }
+    ].sort((a,b)=>b.score-a.score).slice(0, 8);
 
     const microHTML=micros.map((m,i)=>{
         const info=microDatos[m.id];
@@ -5036,6 +6210,10 @@ function renderizarResultadoFoto(d) {
         <div class="indicadorFoto"><strong>Tonos cafés</strong>${d.marron}%</div>
         <div class="indicadorFoto"><strong>Tonos amarillos</strong>${d.amarillo}%</div>
         <div class="indicadorFoto"><strong>Zonas oscuras</strong>${d.oscuro}%</div>
+        <div class="indicadorFoto"><strong>Follaje fino (conífera)</strong>${d.scoreFollajeFino != null ? d.scoreFollajeFino : "—"}/100</div>
+        <div class="indicadorFoto"><strong>Silueta vertical</strong>${d.scoreSiluetaCipres != null ? d.scoreSiluetaCipres : "—"}/100</div>
+        <div class="indicadorFoto"><strong>Estructura arbórea</strong>${d.scoreEstructuraArborea != null ? d.scoreEstructuraArborea : "—"}/100</div>
+        <div class="indicadorFoto"><strong>Penalización hoja ancha</strong>${d.penalHojaAncha != null ? d.penalHojaAncha : "—"}/100</div>
     `;
 
     setTimeout(()=>{
@@ -5092,12 +6270,18 @@ function actualizarProgreso() {
         "manchas",
         "perdidaFollaje",
         "tronco",
+        "cortezaSaludable",
+        "baseTronco",
+        "inclinacion",
+        "densidadFollaje",
         "humedadSuelo",
         "temperatura",
         "humedadAmbiental",
         "luz",
         "materia",
-        "drenaje"
+        "drenaje",
+        "compactacion",
+        "climaExtremo"
 
     ];
 
@@ -5147,59 +6331,39 @@ function analizar() {
 
     const datos = {
 
-        follajeColor:
-            respuesta("follajeColor"),
-
-        follajeSeco:
-            respuesta("follajeSeco"),
-
-        manchas:
-            respuesta("manchas"),
-
-        perdidaFollaje:
-            respuesta("perdidaFollaje"),
-
-        tronco:
-            respuesta("tronco"),
-
-        hongosVisibles:
-            respuesta("hongosVisibles"),
-
-        plagas:
-            respuesta("plagas"),
-
-        conos:
-            respuesta("conos"),
-
-        humedadSuelo:
-            respuesta("humedadSuelo"),
-
-        temperatura:
-            respuesta("temperatura"),
-
-        humedadAmbiental:
-            respuesta("humedadAmbiental"),
-
-        luz:
-            respuesta("luz"),
-
-        materia:
-            respuesta("materia"),
-
-        drenaje:
-            respuesta("drenaje"),
-
-        viento:
-            respuesta("viento"),
-
-        lluvia:
-            respuesta("lluvia"),
-
-        espacioRaices:
-            respuesta("espacioRaices"),
-
-        presion:
-            respuesta("presion")
+        follajeColor: respuesta("follajeColor"),
+        follajeSeco: respuesta("follajeSeco"),
+        manchas: respuesta("manchas"),
+        perdidaFollaje: respuesta("perdidaFollaje"),
+        tronco: respuesta("tronco"),
+        hongosVisibles: respuesta("hongosVisibles"),
+        plagas: respuesta("plagas"),
+        conos: respuesta("conos"),
+        cortezaSaludable: respuesta("cortezaSaludable"),
+        baseTronco: respuesta("baseTronco"),
+        inclinacion: respuesta("inclinacion"),
+        densidadFollaje: respuesta("densidadFollaje"),
+        crecimientoNuevo: respuesta("crecimientoNuevo"),
+        ramasSecas: respuesta("ramasSecas"),
+        exudados: respuesta("exudados"),
+        humedadSuelo: respuesta("humedadSuelo"),
+        temperatura: respuesta("temperatura"),
+        humedadAmbiental: respuesta("humedadAmbiental"),
+        luz: respuesta("luz"),
+        materia: respuesta("materia"),
+        drenaje: respuesta("drenaje"),
+        viento: respuesta("viento"),
+        lluvia: respuesta("lluvia"),
+        espacioRaices: respuesta("espacioRaices"),
+        presion: respuesta("presion"),
+        compactacion: respuesta("compactacion"),
+        contaminacion: respuesta("contaminacion"),
+        riegoArtificial: respuesta("riegoArtificial"),
+        competencia: respuesta("competencia"),
+        sombraEstructuras: respuesta("sombraEstructuras"),
+        climaExtremo: respuesta("climaExtremo"),
+        podasRecientes: respuesta("podasRecientes"),
+        olorInusual: respuesta("olorInusual")
 
     };
 
@@ -5211,12 +6375,18 @@ function analizar() {
         "manchas",
         "perdidaFollaje",
         "tronco",
+        "cortezaSaludable",
+        "baseTronco",
+        "inclinacion",
+        "densidadFollaje",
         "humedadSuelo",
         "temperatura",
         "humedadAmbiental",
         "luz",
         "materia",
-        "drenaje"
+        "drenaje",
+        "compactacion",
+        "climaExtremo"
 
     ];
 
@@ -5240,351 +6410,319 @@ function analizar() {
     }
 
 
+    /* ================================================================
+       MOTOR DE PUNTUACIÓN DEL CUESTIONARIO (multicapa)
+       Combina señales de follaje, estructura, suelo y entorno.
+       Las interacciones (p. ej. humedad + mal drenaje) pesan más
+       que la suma simple de respuestas aisladas.
+       ================================================================ */
+
     let estado = 100;
+    let riesgoFollaje = 0;
+    let riesgoEstructura = 0;
+    let riesgoSuelo = 0;
+    let riesgoEntorno = 0;
 
+    // --- Follaje ---
+    if (datos.follajeColor === "no") { estado -= 9; riesgoFollaje += 12; }
+    if (datos.follajeSeco === "si") { estado -= 11; riesgoFollaje += 16; }
+    if (datos.manchas === "si") { estado -= 11; riesgoFollaje += 18; }
+    if (datos.perdidaFollaje === "si") { estado -= 12; riesgoFollaje += 16; }
+    if (datos.densidadFollaje === "no") { estado -= 8; riesgoFollaje += 10; }
+    if (datos.crecimientoNuevo === "no") { estado -= 6; riesgoFollaje += 8; }
+    if (datos.ramasSecas === "si") { estado -= 5; riesgoFollaje += 7; }
 
-    if (
-        datos.follajeColor === "no"
-    )
-        estado -= 10;
+    // --- Estructura / tronco ---
+    if (datos.tronco === "si") { estado -= 14; riesgoEstructura += 20; }
+    if (datos.cortezaSaludable === "no") { estado -= 10; riesgoEstructura += 14; }
+    if (datos.baseTronco === "si") { estado -= 12; riesgoEstructura += 18; }
+    if (datos.inclinacion === "si") { estado -= 7; riesgoEstructura += 10; }
+    if (datos.exudados === "si") { estado -= 5; riesgoEstructura += 8; }
+    if (datos.hongosVisibles === "si") { estado -= 6; riesgoEstructura += 9; }
+    if (datos.podasRecientes === "si") { estado -= 3; riesgoEstructura += 4; }
 
+    // --- Suelo y agua ---
+    if (datos.humedadSuelo === "si") { estado -= 7; riesgoSuelo += 12; }
+    if (datos.drenaje === "no") { estado -= 9; riesgoSuelo += 14; }
+    if (datos.compactacion === "si") { estado -= 7; riesgoSuelo += 11; }
+    if (datos.espacioRaices === "no") { estado -= 5; riesgoSuelo += 8; }
+    if (datos.materia === "si") { estado += 3; riesgoSuelo -= 3; }
+    if (datos.materia === "no") { estado -= 2; }
+    if (datos.olorInusual === "si") { estado -= 6; riesgoSuelo += 10; }
 
-    if (
-        datos.follajeSeco === "si"
-    )
-        estado -= 12;
+    // --- Ambiente y entorno ---
+    if (datos.temperatura === "no") { estado -= 5; riesgoEntorno += 7; }
+    if (datos.humedadAmbiental === "si") { estado -= 3; riesgoEntorno += 5; }
+    if (datos.luz === "no") { estado -= 8; riesgoEntorno += 10; }
+    if (datos.viento === "si") { estado -= 3; riesgoEntorno += 4; }
+    if (datos.contaminacion === "si") { estado -= 4; riesgoEntorno += 6; }
+    if (datos.competencia === "si") { estado -= 3; riesgoEntorno += 4; }
+    if (datos.sombraEstructuras === "si") { estado -= 4; riesgoEntorno += 5; }
+    if (datos.climaExtremo === "si") { estado -= 6; riesgoEntorno += 8; }
+    if (datos.plagas === "si") { estado -= 6; riesgoFollaje += 8; }
 
-
-    if (
-        datos.manchas === "si"
-    )
-        estado -= 12;
-
-
-    if (
-        datos.perdidaFollaje === "si"
-    )
-        estado -= 12;
-
-
-    if (
-        datos.tronco === "si"
-    )
-        estado -= 18;
-
-
-    if (
-        datos.humedadSuelo === "si"
-    )
+    // Interacciones: el estrés compuesto reduce más el estado
+    if (datos.humedadSuelo === "si" && datos.drenaje === "no") {
         estado -= 8;
-
-
-    if (
-        datos.temperatura === "no"
-    )
-        estado -= 5;
-
-
-    if (
-        datos.humedadAmbiental === "si"
-    )
+        riesgoSuelo += 12;
+    }
+    if (datos.humedadSuelo === "si" && datos.humedadAmbiental === "si" && (datos.manchas === "si" || datos.follajeSeco === "si")) {
+        estado -= 6;
+        riesgoFollaje += 8;
+    }
+    if (datos.luz === "no" && datos.densidadFollaje === "no") {
         estado -= 4;
-
-
-    if (
-        datos.luz === "no"
-    )
-        estado -= 8;
-
-
-    if (
-        datos.materia === "si"
-    )
+        riesgoEntorno += 5;
+    }
+    if (datos.compactacion === "si" && datos.espacioRaices === "no") {
+        estado -= 5;
+        riesgoSuelo += 8;
+    }
+    if (datos.baseTronco === "si" && datos.olorInusual === "si") {
+        estado -= 6;
+        riesgoEstructura += 10;
+    }
+    if (datos.tronco === "si" && datos.cortezaSaludable === "no") {
+        estado -= 5;
+        riesgoEstructura += 8;
+    }
+    if (datos.riegoArtificial === "si" && datos.drenaje === "no") {
+        estado -= 4;
+        riesgoSuelo += 6;
+    }
+    if (datos.climaExtremo === "si" && datos.follajeSeco === "si") {
+        estado -= 4;
+        riesgoFollaje += 5;
+    }
+    // Señales favorables combinadas
+    if (datos.follajeColor === "si" && datos.follajeSeco === "no" && datos.manchas === "no" && datos.densidadFollaje === "si") {
+        estado += 5;
+        riesgoFollaje = Math.max(0, riesgoFollaje - 8);
+    }
+    if (datos.drenaje === "si" && datos.humedadSuelo === "no" && datos.compactacion === "no") {
         estado += 4;
+        riesgoSuelo = Math.max(0, riesgoSuelo - 6);
+    }
+    if (datos.cortezaSaludable === "si" && datos.tronco === "no" && datos.baseTronco === "no") {
+        estado += 3;
+        riesgoEstructura = Math.max(0, riesgoEstructura - 5);
+    }
 
-
-    if (
-        datos.drenaje === "no"
-    )
-        estado -= 8;
-
-
-    if (
-        datos.hongosVisibles === "si"
-    )
-        estado -= 5;
-
-
-    if (
-        datos.plagas === "si"
-    )
-        estado -= 5;
-
-
-    if (
-        datos.viento === "si"
-    )
-        estado -= 2;
-
-
-    estado =
-        Math.max(
-            20,
-            Math.min(
-                100,
-                estado
-            )
-        );
-
+    estado = Math.max(18, Math.min(100, Math.round(estado)));
 
     let cuidados = [];
 
-
-    if (
-        datos.humedadSuelo === "si"
-    ) {
-
-        cuidados.push(
-            "💧 Vigilar que el suelo del ciprés no permanezca excesivamente húmedo y comprobar que exista un drenaje adecuado."
-        );
-
+    if (datos.humedadSuelo === "si" && datos.drenaje === "no") {
+        cuidados.push("💧 Prioridad: exceso de humedad y drenaje deficiente. Revisa encharcamiento y evita riegos adicionales hasta que el suelo airee.");
+    } else if (datos.humedadSuelo === "si") {
+        cuidados.push("💧 Vigila que el suelo no permanezca saturado; comprueba el drenaje y reduce el riego si es artificial.");
+    } else if (datos.humedadSuelo === "no") {
+        cuidados.push("💧 Revisa la humedad del suelo en periodos secos y evita sequedad prolongada en la zona de raíces.");
     }
 
-
-    if (
-        datos.humedadSuelo === "no"
-    ) {
-
-        cuidados.push(
-            "💧 Revisar periódicamente la humedad del suelo y evitar periodos prolongados de sequedad."
-        );
-
+    if (datos.drenaje === "no") {
+        cuidados.push("🌱 Mejora o verifica el drenaje: el ciprés tolera mal el agua estancada de forma continua.");
     }
-
-
-    if (
-        datos.manchas === "si" ||
-        datos.follajeSeco === "si"
-    ) {
-
-        cuidados.push(
-            "🍃 Observar la evolución de las zonas afectadas del follaje y registrar si aumentan o cambian."
-        );
-
+    if (datos.compactacion === "si") {
+        cuidados.push("🚶 El suelo compactado limita oxígeno y raíces. Reduce el pisoteo cerca del tronco y considera airear superficialmente el suelo (sin dañar raíces gruesas).");
     }
-
-
-    if (
-        datos.tronco === "si"
-    ) {
-
-        cuidados.push(
-            "🌳 Vigilar las zonas deterioradas del tronco y evitar causar nuevas heridas."
-        );
-
+    if (datos.manchas === "si" || datos.follajeSeco === "si") {
+        cuidados.push("🍃 Observa la evolución de manchas o zonas secas del follaje y registra si se expanden hacia nuevas ramas.");
     }
-
-
-    if (
-        datos.luz === "no"
-    ) {
-
-        cuidados.push(
-            "☀️ Revisar las condiciones de iluminación del lugar donde se encuentra el ciprés."
-        );
-
+    if (datos.perdidaFollaje === "si" || datos.densidadFollaje === "no") {
+        cuidados.push("🌿 La pérdida o baja densidad de follaje merece seguimiento: compara fotografías del mismo ángulo cada 2–4 semanas.");
     }
-
-
-    if (
-        datos.drenaje === "no"
-    ) {
-
-        cuidados.push(
-            "🌱 Revisar el drenaje del suelo para evitar acumulación prolongada de agua."
-        );
-
+    if (datos.tronco === "si" || datos.cortezaSaludable === "no") {
+        cuidados.push("🌳 Evita nuevas heridas en el tronco y supervisa las zonas deterioradas de la corteza.");
     }
-
-
-    if (
-        datos.materia === "si"
-    ) {
-
-        cuidados.push(
-            "🍂 Mantener la materia orgánica de manera equilibrada alrededor del árbol."
-        );
-
+    if (datos.baseTronco === "si" || datos.olorInusual === "si") {
+        cuidados.push("⬇️ Revisa con cuidado la base del tronco: humedad acumulada, heridas o mal olor pueden indicar deterioro; no acumules tierra ni mantillo contra el tronco.");
     }
-
-
-    if (
-        cuidados.length === 0
-    ) {
-
-        cuidados.push(
-            "🌱 Realizar observaciones periódicas del ciprés y mantener registradas sus condiciones ambientales."
-        );
-
+    if (datos.inclinacion === "si") {
+        cuidados.push("📐 Un ciprés muy inclinado puede tener problemas de anclaje; evita cargas extra y observa si la inclinación aumenta.");
     }
-
+    if (datos.luz === "no" || datos.sombraEstructuras === "si") {
+        cuidados.push("☀️ La luz insuficiente debilita el follaje. Evalúa si se puede reducir sombra de estructuras o competencia cercana.");
+    }
+    if (datos.plagas === "si") {
+        cuidados.push("🐛 Hay indicios de plagas: inspecciona ramas y follaje y registra su localización para un seguimiento ordenado.");
+    }
+    if (datos.hongosVisibles === "si" || datos.exudados === "si") {
+        cuidados.push("🍄 Hongos visibles o exudados en tronco/ramas merecen observación cercana; no retires tejidos sin orientación adecuada.");
+    }
+    if (datos.climaExtremo === "si") {
+        cuidados.push("🌡️ Tras calor, heladas o sequía extrema, el ciprés puede mostrar retraso en síntomas: mantén el seguimiento unas semanas.");
+    }
+    if (datos.contaminacion === "si") {
+        cuidados.push("🚧 En sitios con tráfico o polvo, el follaje puede acumular partículas; una inspección visual periódica ayuda a distinguir estrés ambiental de enfermedad.");
+    }
+    if (datos.competencia === "si") {
+        cuidados.push("🌳 Reduce competencia de malezas o plantas muy cercanas en la zona de goteo del ciprés.");
+    }
+    if (datos.riegoArtificial === "si" && datos.drenaje === "no") {
+        cuidados.push("💦 Si hay riego artificial y mal drenaje, ajusta frecuencia y cantidad para no saturar el suelo.");
+    }
+    if (datos.podasRecientes === "si") {
+        cuidados.push("✂️ Tras podas u obras, vigila cortes y heridas: deben secarse sin ampliarse ni mostrar exudados anormales.");
+    }
+    if (datos.ramasSecas === "si") {
+        cuidados.push("🪵 Las ramas secas interiores pueden ser naturales en parte, pero si aumentan junto con pérdida de color, eleva la frecuencia de observación.");
+    }
+    if (cuidados.length === 0) {
+        cuidados.push("🌱 Las condiciones registradas son en general favorables. Continúa con observaciones periódicas de follaje, tronco y suelo.");
+    }
+    // Ordenar: máximo 8 recomendaciones para no saturar
+    if (cuidados.length > 8) cuidados = cuidados.slice(0, 8);
 
     /* ================================
-       MICROORGANISMOS
+       MICROORGANISMOS (asociaciones estimadas)
     ================================= */
 
+    /* Asociación estimada de microorganismos según respuestas.
+       No indica presencia confirmada: solo compatibilidad relativa. */
     let microorganismos = [];
 
+    function clampScore(v, lo, hi) {
+        return Math.max(lo, Math.min(hi, Math.round(v)));
+    }
 
-    let bacillus = 30;
+    let bacillus = 26;
+    if (datos.materia === "si") bacillus += 20;
+    if (datos.humedadSuelo === "si") bacillus += 10;
+    if (datos.drenaje === "si") bacillus += 8;
+    if (datos.compactacion === "si") bacillus -= 12;
+    if (datos.climaExtremo === "si") bacillus -= 4;
+    if (datos.espacioRaices === "si") bacillus += 5;
+    microorganismos.push({ id: "bacillus", score: clampScore(bacillus, 10, 94) });
 
-    if (
-        datos.materia === "si"
-    )
-        bacillus += 25;
+    let pseudomonas = 22;
+    if (datos.humedadSuelo === "si") pseudomonas += 20;
+    if (datos.materia === "si") pseudomonas += 14;
+    if (datos.humedadAmbiental === "si") pseudomonas += 8;
+    if (datos.drenaje === "no") pseudomonas += 6;
+    if (datos.compactacion === "si") pseudomonas -= 8;
+    if (datos.riegoArtificial === "si") pseudomonas += 4;
+    microorganismos.push({ id: "pseudomonas", score: clampScore(pseudomonas, 10, 94) });
 
-    if (
-        datos.humedadSuelo === "si"
-    )
-        bacillus += 15;
+    let trichoderma = 22;
+    if (datos.materia === "si") trichoderma += 24;
+    if (datos.humedadSuelo === "si") trichoderma += 10;
+    if (datos.drenaje === "si") trichoderma += 8;
+    if (datos.olorInusual === "si") trichoderma -= 6;
+    if (datos.compactacion === "no") trichoderma += 5;
+    microorganismos.push({ id: "trichoderma", score: clampScore(trichoderma, 10, 94) });
 
+    let mycorrizas = 30;
+    if (datos.compactacion === "no") mycorrizas += 14;
+    if (datos.espacioRaices === "si") mycorrizas += 12;
+    if (datos.materia === "si") mycorrizas += 10;
+    if (datos.drenaje === "si") mycorrizas += 8;
+    if (datos.humedadSuelo === "si" && datos.drenaje === "no") mycorrizas -= 14;
+    if (datos.contaminacion === "si") mycorrizas -= 6;
+    if (datos.baseTronco === "si") mycorrizas -= 4;
+    microorganismos.push({ id: "mycorrizas", score: clampScore(mycorrizas, 10, 92) });
 
-    microorganismos.push({
+    let streptomyces = 24;
+    if (datos.materia === "si") streptomyces += 18;
+    if (datos.drenaje === "si") streptomyces += 10;
+    if (datos.compactacion === "si") streptomyces -= 14;
+    if (datos.humedadSuelo === "no") streptomyces += 6;
+    microorganismos.push({ id: "streptomyces", score: clampScore(streptomyces, 10, 90) });
 
-        id: "bacillus",
+    let azospirillum = 22;
+    if (datos.materia === "si") azospirillum += 12;
+    if (datos.humedadSuelo === "si") azospirillum += 8;
+    if (datos.luz === "si") azospirillum += 6;
+    if (datos.compactacion === "si") azospirillum -= 8;
+    if (datos.espacioRaices === "si") azospirillum += 8;
+    microorganismos.push({ id: "azospirillum", score: clampScore(azospirillum, 10, 88) });
 
-        score:
-            Math.min(
-                bacillus,
-                95
-            )
+    let hongos = 12;
+    if (datos.manchas === "si") hongos += 28;
+    if (datos.follajeSeco === "si") hongos += 10;
+    if (datos.humedadAmbiental === "si") hongos += 14;
+    if (datos.hongosVisibles === "si") hongos += 12;
+    if (datos.humedadSuelo === "si" && datos.drenaje === "no") hongos += 8;
+    if (datos.exudados === "si") hongos += 6;
+    if (datos.lluvia === "si") hongos += 4;
+    if (datos.densidadFollaje === "si" && datos.humedadAmbiental === "si") hongos += 5;
+    microorganismos.push({ id: "hongosFoliares", score: clampScore(hongos, 8, 92) });
 
+    let seiridium = 10;
+    if (datos.ramasSecas === "si") seiridium += 22;
+    if (datos.follajeSeco === "si") seiridium += 14;
+    if (datos.perdidaFollaje === "si") seiridium += 12;
+    if (datos.tronco === "si") seiridium += 10;
+    if (datos.exudados === "si") seiridium += 12;
+    if (datos.climaExtremo === "si") seiridium += 8;
+    if (datos.podasRecientes === "si") seiridium += 8;
+    if (datos.cortezaSaludable === "no") seiridium += 10;
+    if (datos.viento === "si") seiridium += 4;
+    microorganismos.push({ id: "seiridium", score: clampScore(seiridium, 6, 93) });
+
+    let phytophthora = 8;
+    if (datos.humedadSuelo === "si") phytophthora += 22;
+    if (datos.drenaje === "no") phytophthora += 24;
+    if (datos.baseTronco === "si") phytophthora += 16;
+    if (datos.olorInusual === "si") phytophthora += 12;
+    if (datos.riegoArtificial === "si" && datos.drenaje === "no") phytophthora += 10;
+    if (datos.compactacion === "si") phytophthora += 6;
+    if (datos.inclinacion === "si") phytophthora += 4;
+    microorganismos.push({ id: "phytophthora", score: clampScore(phytophthora, 6, 94) });
+
+    let fusarium = 12;
+    if (datos.follajeSeco === "si") fusarium += 12;
+    if (datos.perdidaFollaje === "si") fusarium += 10;
+    if (datos.humedadSuelo === "si") fusarium += 8;
+    if (datos.drenaje === "no") fusarium += 8;
+    if (datos.climaExtremo === "si") fusarium += 8;
+    if (datos.tronco === "si") fusarium += 6;
+    if (datos.compactacion === "si") fusarium += 5;
+    microorganismos.push({ id: "fusarium", score: clampScore(fusarium, 8, 90) });
+
+    let alternaria = 10;
+    if (datos.manchas === "si") alternaria += 24;
+    if (datos.humedadAmbiental === "si") alternaria += 12;
+    if (datos.materia === "si") alternaria += 8;
+    if (datos.lluvia === "si") alternaria += 6;
+    if (datos.follajeColor === "no") alternaria += 6;
+    microorganismos.push({ id: "alternaria", score: clampScore(alternaria, 6, 90) });
+
+    let armillaria = 8;
+    if (datos.baseTronco === "si") armillaria += 24;
+    if (datos.olorInusual === "si") armillaria += 18;
+    if (datos.inclinacion === "si") armillaria += 10;
+    if (datos.tronco === "si") armillaria += 8;
+    if (datos.ramasSecas === "si") armillaria += 6;
+    if (datos.materia === "si") armillaria += 5;
+    if (datos.humedadSuelo === "si") armillaria += 6;
+    microorganismos.push({ id: "armillaria", score: clampScore(armillaria, 6, 93) });
+
+    let descomponedores = 16;
+    if (datos.materia === "si") descomponedores += 32;
+    if (datos.humedadSuelo === "si") descomponedores += 8;
+    if (datos.ramasSecas === "si") descomponedores += 10;
+    if (datos.baseTronco === "si") descomponedores += 8;
+    if (datos.olorInusual === "si") descomponedores += 10;
+    if (datos.podasRecientes === "si") descomponedores += 4;
+    microorganismos.push({ id: "descomponedores", score: clampScore(descomponedores, 10, 94) });
+
+    let botryosphaeria = 10;
+    if (datos.climaExtremo === "si") botryosphaeria += 16;
+    if (datos.follajeSeco === "si") botryosphaeria += 12;
+    if (datos.ramasSecas === "si") botryosphaeria += 14;
+    if (datos.podasRecientes === "si") botryosphaeria += 12;
+    if (datos.tronco === "si") botryosphaeria += 8;
+    if (datos.perdidaFollaje === "si") botryosphaeria += 8;
+    if (datos.luz === "si" && datos.humedadSuelo === "no") botryosphaeria += 5;
+    if (datos.exudados === "si") botryosphaeria += 6;
+    microorganismos.push({ id: "botryosphaeria", score: clampScore(botryosphaeria, 6, 92) });
+
+    microorganismos.sort(function(a, b) {
+        return b.score - a.score;
     });
-
-
-    let pseudomonas = 25;
-
-    if (
-        datos.humedadSuelo === "si"
-    )
-        pseudomonas += 25;
-
-    if (
-        datos.materia === "si"
-    )
-        pseudomonas += 20;
-
-
-    microorganismos.push({
-
-        id: "pseudomonas",
-
-        score:
-            Math.min(
-                pseudomonas,
-                95
-            )
-
-    });
-
-
-    let trichoderma = 25;
-
-    if (
-        datos.materia === "si"
-    )
-        trichoderma += 30;
-
-    if (
-        datos.humedadSuelo === "si"
-    )
-        trichoderma += 15;
-
-
-    microorganismos.push({
-
-        id: "trichoderma",
-
-        score:
-            Math.min(
-                trichoderma,
-                95
-            )
-
-    });
-
-
-    let hongos = 15;
-
-    if (
-        datos.manchas === "si"
-    )
-        hongos += 40;
-
-    if (
-        datos.follajeSeco === "si"
-    )
-        hongos += 15;
-
-    if (
-        datos.humedadAmbiental === "si"
-    )
-        hongos += 20;
-
-    if (
-        datos.hongosVisibles === "si"
-    )
-        hongos += 10;
-
-
-    microorganismos.push({
-
-        id: "hongosFoliares",
-
-        score:
-            Math.min(
-                hongos,
-                90
-            )
-
-    });
-
-
-    let descomponedores = 20;
-
-    if (
-        datos.materia === "si"
-    )
-        descomponedores += 45;
-
-    if (
-        datos.humedadSuelo === "si"
-    )
-        descomponedores += 10;
-
-
-    microorganismos.push({
-
-        id: "descomponedores",
-
-        score:
-            Math.min(
-                descomponedores,
-                95
-            )
-
-    });
-
-
-    microorganismos.sort(
-        function(a,b) {
-
-            return b.score -
-                   a.score;
-
-        }
-    );
-
+    // Mostrar los más relevantes (mayor asociación estimada)
+    microorganismos = microorganismos.slice(0, 8);
 
     mostrarCarga(
         "Analizando características...",
@@ -5615,6 +6753,14 @@ function analizar() {
 
 function obtenerConsejoObservacion(estado, datos, microorganismos) {
 
+    if (datos.baseTronco === "si" || datos.olorInusual === "si") {
+        return {
+            icono: "⬇️",
+            titulo: "Observa la base del tronco",
+            texto: "Prioriza la zona baja del tronco y el suelo inmediato. Anota humedad, heridas, olores o cambios en pocos días."
+        };
+    }
+
     if (datos.humedadSuelo === "si" && datos.drenaje === "no") {
         return {
             icono: "💧",
@@ -5623,27 +6769,35 @@ function obtenerConsejoObservacion(estado, datos, microorganismos) {
         };
     }
 
-    if (datos.manchas === "si" || datos.follajeSeco === "si") {
+    if (datos.compactacion === "si" && (datos.espacioRaices === "no" || datos.drenaje === "no")) {
+        return {
+            icono: "🚶",
+            titulo: "Observa el suelo y las raíces",
+            texto: "La compactación y el poco espacio radical limitan al ciprés. Reduce el pisoteo y revisa encharcamientos o sequedad irregular."
+        };
+    }
+
+    if (datos.manchas === "si" || datos.follajeSeco === "si" || datos.perdidaFollaje === "si") {
         return {
             icono: "🍃",
             titulo: "Observa el follaje",
-            texto: "Revisa las manchas o zonas secas y observa si se mantienen, aumentan o aparecen en nuevas partes del árbol."
+            texto: "Revisa manchas, zonas secas o pérdida de densidad y comprueba si se mantienen, aumentan o aparecen en nuevas partes del árbol."
         };
     }
 
-    if (datos.tronco === "si") {
+    if (datos.tronco === "si" || datos.cortezaSaludable === "no" || datos.exudados === "si") {
         return {
             icono: "🌳",
             titulo: "Observa el tronco",
-            texto: "Da seguimiento a las zonas deterioradas y evita nuevas heridas. Compara su aspecto en observaciones posteriores."
+            texto: "Da seguimiento a corteza, heridas o exudados y evita nuevas lesiones. Compara su aspecto en observaciones posteriores."
         };
     }
 
-    if (datos.luz === "no") {
+    if (datos.luz === "no" || datos.sombraEstructuras === "si") {
         return {
             icono: "☀️",
             titulo: "Observa la iluminación",
-            texto: "Comprueba cómo recibe luz el ciprés durante el día y registra si la exposición cambia con el tiempo."
+            texto: "Comprueba cómo recibe luz el ciprés durante el día y si edificios o plantas cercanas aumentan la sombra."
         };
     }
 
@@ -5651,11 +6805,19 @@ function obtenerConsejoObservacion(estado, datos, microorganismos) {
         return {
             icono: "🔎",
             titulo: "Busca cambios visibles",
-            texto: "Revisa follaje, tronco y ramas con frecuencia para detectar si las señales visibles aumentan o cambian."
+            texto: "Revisa follaje, tronco y ramas con frecuencia para detectar si las señales de hongos o plagas aumentan o cambian."
         };
     }
 
-    if (estado >= 80) {
+    if (datos.climaExtremo === "si") {
+        return {
+            icono: "🌡️",
+            titulo: "Seguimiento tras clima extremo",
+            texto: "Después de calor, heladas o sequía, los síntomas pueden aparecer con retraso. Repite la observación en los próximos días."
+        };
+    }
+
+    if (estado >= 82) {
         return {
             icono: "🌿",
             titulo: "Mantén la observación",
@@ -5663,11 +6825,11 @@ function obtenerConsejoObservacion(estado, datos, microorganismos) {
         };
     }
 
-    if (estado >= 55) {
+    if (estado >= 58) {
         return {
             icono: "👀",
             titulo: "Observa los cambios",
-            texto: "Las condiciones son intermedias. Conviene repetir la observación y comparar los cambios en suelo, follaje y tronco."
+            texto: "Las condiciones son intermedias. Conviene repetir la observación y comparar los cambios en suelo, follaje, tronco y entorno."
         };
     }
 
@@ -6236,7 +7398,11 @@ const datosCuriosos = [
     "Las hojas de ciprés no son finas como agujas, sino pequeñas escamas superpuestas.",
     "Ayuda a prevenir la erosión del suelo gracias a su profundo sistema de raíces.",
     "Produce piñas o conos femeninos globosos que tardan hasta dos años en madurar.",
-    "Es un excelente cortavientos natural utilizado para proteger cultivos en zonas rurales."
+    "Es un excelente cortavientos natural utilizado para proteger cultivos en zonas rurales.",
+    "En muchas culturas el ciprés se planta en cementerios como símbolo de vida eterna y memoria.",
+    "Algunas especies de ciprés pueden alcanzar más de 30 metros de altura en condiciones favorables.",
+    "El aroma de sus hojas proviene de compuestos naturales que también disuaden a ciertos insectos.",
+    "Sus raíces profundas le permiten anclarse bien y aprovechar agua en capas más bajas del suelo."
 ];
 
 let intervaloEscrituraCurioso = null;
@@ -6258,7 +7424,9 @@ if ('speechSynthesis' in window) {
 }
 
 function mostrarDatosCuriososDesde(pantallaRegreso) {
-    window.pantallaRegresoDatosCuriosos = pantallaRegreso || "pantallaResultados";
+    // Debe actualizar la variable usada por el botón «← Resultados»
+    // (let de ámbito de script), no solo window.*.
+    pantallaRegresoDatosCuriosos = pantallaRegreso || "pantallaResultados";
     mostrarSolo("pantallaDatosCuriosos");
 }
 
@@ -6451,7 +7619,7 @@ function escribirTexto6SegundosCurioso(texto, elemento) {
 
             }
 
-        }, timepoPorLetra);
+        }, tiempoPorLetra);
 
 }
 
