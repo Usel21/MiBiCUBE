@@ -1685,6 +1685,180 @@ body {
     30%, 70% { opacity: 1; transform: scale(1); }
 }
 
+
+/* ================================
+   SELECCIÓN DEL MÉTODO DE ANÁLISIS
+================================ */
+.metodosAnalisis {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 22px;
+}
+.tarjetaMetodo {
+    background: white;
+    border: 1px solid #dceee0;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 8px 25px rgba(50,100,60,.09);
+    cursor: pointer;
+    transition: transform .22s, box-shadow .22s, border-color .22s;
+    text-align: center;
+}
+.tarjetaMetodo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 32px rgba(50,100,60,.14);
+    border-color: #9bd2a5;
+}
+.iconoMetodo {
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 15px;
+    border-radius: 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#edf8ef;
+    font-size:31px;
+}
+.tarjetaMetodo h2 {
+    color:#356b40;
+    margin:0 0 10px;
+    font-size:22px;
+}
+.tarjetaMetodo p {
+    color:#6b7e6e;
+    line-height:1.55;
+    font-size:14px;
+    margin:0;
+}
+.notaFotoMetodo {
+    margin-top:18px !important;
+    padding:11px 13px;
+    background:#fff8e8;
+    border:1px solid #f0dfae;
+    border-radius:12px;
+    color:#796738 !important;
+    font-size:12px !important;
+}
+.botonSecundario {
+    margin-top:18px;
+    background:white;
+    color:#356b40;
+    border:1px solid #9dccA5;
+    box-shadow:none;
+}
+.botonSecundario:hover { background:#f2faf3; }
+
+/* ================================
+   FOTO DENTRO DEL CUESTIONARIO
+================================ */
+.panelFotoCuestionario {
+    background: linear-gradient(135deg,#f5fbf6,#edf7ef);
+    border:1px solid #d6ead9;
+    border-radius:20px;
+    padding:18px;
+    margin:0 0 25px;
+}
+.panelFotoCuestionario h2 {
+    color:#356b40;
+    font-size:19px;
+    margin:0 0 5px;
+}
+.panelFotoCuestionario p {
+    color:#718374;
+    font-size:13px;
+    margin:0 0 14px;
+}
+.selectorFotoCuestionario {
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+.zonaFotoMini {
+    width:180px;
+    height:130px;
+    border:2px dashed #8fc99a;
+    border-radius:16px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    cursor:pointer;
+}
+.zonaFotoMini img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.placeholderFoto {
+    color:#66816c;
+    text-align:center;
+    font-size:12px;
+    padding:12px;
+}
+.infoFotoSeleccionada {
+    flex:1;
+    min-width:200px;
+    color:#617365;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* ================================
+   EVIDENCIA DEL ANÁLISIS FOTOGRÁFICO
+================================ */
+.evidenciaFoto {
+    background:#f7fcf8;
+    border:1px solid #dceede;
+    border-radius:18px;
+    padding:16px;
+    margin-top:18px;
+}
+.evidenciaFoto img {
+    display:block;
+    width:100%;
+    max-height:330px;
+    object-fit:contain;
+    background:#eef7f0;
+    border-radius:14px;
+    margin-top:10px;
+}
+.evidenciaFoto h3 {
+    color:#356b40;
+    margin:0 0 5px;
+    font-size:16px;
+}
+.evidenciaFoto p {
+    margin:0;
+    color:#718374;
+    font-size:12px;
+    line-height:1.5;
+}
+.indicadoresFoto {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin-top:12px;
+}
+.indicadorFoto {
+    background:white;
+    border:1px solid #e2eee4;
+    border-radius:11px;
+    padding:9px;
+    font-size:12px;
+    color:#627466;
+}
+.indicadorFoto strong { color:#356b40; display:block; margin-bottom:3px; }
+
+@media(max-width:700px) {
+    .metodosAnalisis { grid-template-columns:1fr; }
+    .indicadoresFoto { grid-template-columns:1fr; }
+}
+
 @media(max-width:700px) {
 
     .resultadoGrid {
@@ -2208,6 +2382,124 @@ body {
     }
 }
 
+
+/* Interfaz de carga fotográfica basada en el archivo pequeño */
+.zona-subida { background:#f3faf4; border:2px dashed #6fba7d; border-radius:20px; padding:30px 20px; text-align:center; cursor:pointer; transition:all .3s ease; position:relative; box-sizing:border-box; }
+.zona-subida:hover { background:#e4f4e7; border-color:#4f9860; }
+.icono-camara { font-size:48px; margin-bottom:12px; display:block; }
+.contenedor-previa { margin-top:20px; text-align:center; }
+.img-previa { max-width:100%; max-height:250px; border-radius:16px; object-fit:cover; border:3px solid #6fba7d; box-shadow:0 6px 16px rgba(0,0,0,.08); }
+.botonFotoAnalisis { background:#356b40; color:#fff; border:none; padding:12px 28px; font-size:15px; font-weight:600; border-radius:12px; cursor:pointer; transition:all .2s ease; display:inline-block; margin-top:15px; box-shadow:0 4px 12px rgba(53,107,64,.2); }
+.botonFotoAnalisis:hover { background:#4f9860; transform:translateY(-2px); }
+
+/* ================================
+   FOTO: SUBIDA — ESTILO BETA
+================================ */
+
+.zonaFotoMiBiCUBE{
+    margin:25px 0;
+    min-height:270px;
+    border:3px dashed #9dcca6;
+    border-radius:20px;
+    background:#f3fbf4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.mensajeFotoMiBiCUBE{
+    color:#6b8871;
+    padding:25px;
+    text-align:center;
+}
+
+.vistaPreviaMiBiCUBE{
+    width:100%;
+    height:270px;
+    object-fit:cover;
+    display:none;
+}
+
+#inputFotoArbol{
+    display:none;
+}
+
+.botonFotoMiBiCUBE{
+    border:none;
+    border-radius:15px;
+    padding:14px 24px;
+    background:#72b77d;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+    display:inline-block;
+}
+
+.botonFotoMiBiCUBE:hover{
+    background:#5fa86b;
+    transform:scale(1.03);
+}
+
+.accionesFotoMiBiCUBE{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:12px;
+}
+
+.botonCambiarFoto{
+    display:none;
+    border:none;
+    border-radius:15px;
+    padding:14px 24px;
+    background:#dcefe0;
+    color:#397449;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.botonCambiarFoto:hover{
+    background:#cce7d1;
+}
+
+.botonFotoAnalisis{
+    display:none;
+    border:none;
+    border-radius:15px;
+    padding:14px 24px;
+    background:#356b40;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.botonFotoAnalisis:hover{
+    background:#4f9860;
+    transform:translateY(-1px);
+}
+
+.estadoFotoMiBiCUBE{
+    display:none;
+    margin:14px auto 0;
+    padding:10px 14px;
+    border-radius:12px;
+    background:#eef8f0;
+    color:#396443;
+    font-size:12px;
+    text-align:center;
+    width:max-content;
+    max-width:100%;
+}
+
 </style>
 </head>
 
@@ -2530,6 +2822,53 @@ body {
 
 
 
+
+<!-- ================================
+     SELECCIÓN DEL MÉTODO
+================================ -->
+<section id="pantallaMetodo" class="pantalla oculto">
+    <div class="encabezado aparecer">
+        <div class="miniLogo">
+            <img src="logo.png" alt="MiBiCUBE²">
+        </div>
+        <button class="volver" onclick="volverFicha()">← Árbol</button>
+    </div>
+
+    <div class="analisis">
+        <h1 class="titulo aparecer delay1">🔬 ¿Cómo quieres analizarlo?</h1>
+        <p class="descripcionTitulo aparecer delay2">
+            Elige el método que mejor se adapte a la información que tienes del ciprés.
+        </p>
+
+        <div class="metodosAnalisis">
+            <div class="tarjetaMetodo aparecer delay3" onclick="elegirMetodo('cuestionario')">
+                <div class="iconoMetodo">📋</div>
+                <h2>Analizar mediante cuestionario</h2>
+                <p>
+                    Responde preguntas sobre follaje, tronco, suelo y ambiente.
+                    El resultado combina todas tus observaciones para estimar el estado general.
+                </p>
+                <button class="boton botonSecundario">Elegir cuestionario</button>
+            </div>
+
+            <div class="tarjetaMetodo aparecer delay4" onclick="elegirMetodo('foto')">
+                <div class="iconoMetodo">📷</div>
+                <h2>Analizar mediante fotografía</h2>
+                <p>
+                    Examina visualmente una fotografía mediante análisis de color, vegetación,
+                    zonas secas, amarillentas, oscuras y otros patrones visibles.
+                </p>
+                <p class="notaFotoMetodo">
+                    ⚠️ Es una estimación visual y no es tan acertada como el cuestionario:
+                    una fotografía no permite conocer el suelo, el ambiente ni diagnosticar
+                    por sí sola una enfermedad.
+                </p>
+                <button class="boton botonSecundario">Elegir fotografía</button>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ================================
      ANÁLISIS
 ================================ -->
@@ -2578,6 +2917,24 @@ body {
 
         </p>
 
+        <div class="panelFotoCuestionario aparecer delay3">
+            <h2>📷 Fotografía de apoyo</h2>
+            <p>
+                Puedes colocar aquí una fotografía del mismo árbol. No sustituye tus respuestas:
+                solo sirve como referencia visual mientras contestas.
+            </p>
+            <div class="selectorFotoCuestionario">
+                <label class="zonaFotoMini" for="inputFotoCuestionario">
+                    <img id="imgFotoCuestionario" class="oculto" src="" alt="Fotografía del árbol">
+                    <span id="placeholderFotoCuestionario" class="placeholderFoto">📷<br>Seleccionar o tomar foto</span>
+                </label>
+                <input id="inputFotoCuestionario" type="file" accept="image/*" capture="environment"
+                       style="display:none" onchange="cargarFotoCuestionario(event)">
+                <div id="infoFotoCuestionario" class="infoFotoSeleccionada">
+                    La foto es opcional. El análisis del cuestionario seguirá utilizando tus respuestas.
+                </div>
+            </div>
+        </div>
 
         <div
             class="progreso aparecer delay3">
@@ -3087,6 +3444,103 @@ body {
 
 
 
+
+<!-- ================================
+     ANÁLISIS MEDIANTE FOTOGRAFÍA
+================================ -->
+<section id="pantallaFotoAnalisis" class="pantalla oculto">
+    <div class="encabezado aparecer">
+        <div class="miniLogo"><img src="logo.png" alt="MiBiCUBE²"></div>
+        <button class="volver" onclick="mostrarSolo('pantallaMetodo')">← Métodos</button>
+    </div>
+
+    <div class="analisis">
+        <h1 class="titulo aparecer delay1">📷 Análisis fotográfico</h1>
+        <p class="descripcionTitulo aparecer delay2">
+            La imagen se analiza localmente mediante características visuales medibles.
+        </p>
+
+        <div id="pantallaFotoCarga" class="panel aparecer delay3">
+            <div class="zonaFotoMiBiCUBE">
+                <div id="mensajeFotoMiBiCUBE" class="mensajeFotoMiBiCUBE">
+                    📷<br><br>Aquí aparecerá la fotografía que selecciones.
+                </div>
+                <img id="previewFotoAnalisis" class="vistaPreviaMiBiCUBE" alt="Vista previa de la fotografía">
+            </div>
+
+            <label for="inputFotoArbol" class="botonFotoMiBiCUBE">📷 Subir fotografía</label>
+            <input id="inputFotoArbol" type="file" accept="image/*" capture="environment"
+                   onchange="cargarFotoArbol(event)">
+
+            <div class="accionesFotoMiBiCUBE">
+                <button id="cambiarFotoArbol" class="botonCambiarFoto" type="button"
+                        onclick="document.getElementById('inputFotoArbol').click()">
+                    Cambiar fotografía
+                </button>
+
+                <button id="botonAnalizarFoto" class="botonFotoAnalisis" type="button"
+                        onclick="analizarFoto()">
+                    🔍 Analizar Fotografía
+                </button>
+            </div>
+
+            <p id="estadoCargaFoto" class="estadoFotoMiBiCUBE">Ninguna fotografía seleccionada.</p>
+
+            <p style="font-size:11px;color:#7a8c7d;line-height:1.5;margin-top:12px;text-align:center">
+                El análisis identifica patrones visuales; no confirma especies, microorganismos ni enfermedades.
+                La precisión disminuye con contraluz, baja resolución, cielo/fondo predominante o una foto demasiado lejana.
+            </p>
+        </div>
+
+        <div id="resultadoFotoAnalisis" class="oculto">
+            <div class="estadoGeneral aparecer">
+                <h2>🌳 Estado visual estimado</h2>
+                <div id="resultadoFotoPorcentaje" class="porcentaje">0%</div>
+                <div class="barraFondo"><div id="barraFotoResultado" class="barraResultado"></div></div>
+                <p id="mensajeFotoResultado" style="margin-top:12px"></p>
+            </div>
+
+            <div class="evidenciaFoto">
+                <h3>🔎 Evidencia visual detectada</h3>
+                <p>
+                    Estos indicadores provienen directamente de los píxeles de la fotografía.
+                    No equivalen a un diagnóstico biológico.
+                </p>
+                <img id="fotoResultadoImagen" src="" alt="Fotografía analizada">
+                <div class="indicadoresFoto" id="indicadoresFoto"></div>
+                <p style="margin-top:10px"><strong>Confianza de la lectura visual: <span id="confianzaFoto">0%</span></strong></p>
+            </div>
+
+            <div class="tarjetaConsejoResultados" style="margin-top:20px">
+                <div class="tarjetaConsejoIcono">🔎</div>
+                <div class="contenidoConsejoResultados">
+                    <h3>Lectura de la fotografía</h3>
+                    <p id="consejoFotoResultado">
+                        La fotografía se interpreta como evidencia visual y debe complementarse con observación directa.
+                    </p>
+                </div>
+            </div>
+
+            <div class="resultadoGrid" style="margin-top:20px">
+                <div class="panel" id="panelCuidadosFoto">
+                    <h2>🌱 Cuidados</h2>
+                    <div id="cuidadosFoto"></div>
+                </div>
+                <div class="panel" id="panelMicroorganismosFoto">
+                    <h2>🧬 Compatibilidad con microorganismos</h2>
+                    <p style="font-size:12px;color:#7a8c7d;margin-bottom:15px">
+                        Son asociaciones orientativas basadas en señales visuales y no indican que el microorganismo esté presente.
+                    </p>
+                    <div id="microorganismosFoto"></div>
+                </div>
+            </div>
+
+            <button class="boton botonSecundario" style="width:100%;margin-top:20px"
+                    onclick="prepararAnalisisFoto()">📷 Analizar otra fotografía</button>
+        </div>
+    </div>
+</section>
+
 <!-- ================================
      RESULTADOS
 ================================ -->
@@ -3582,7 +4036,9 @@ function mostrarSolo(id) {
         "inicio",
         "menuArboles",
         "fichaArbol",
+        "pantallaMetodo",
         "pantallaAnalisis",
+        "pantallaFotoAnalisis",
         "pantallaResultados",
         "pantallaDatosCuriosos"
 
@@ -3925,26 +4381,358 @@ document.querySelectorAll("[data-mapa]").forEach(function(mapa) {
 
 function comenzarAnalisis() {
 
-    document
-    .getElementById(
-        "tituloAnalisis"
-    )
-    .textContent =
-    "Analizando características del " +
-    arboles[
-        arbolActual
-    ].nombre;
-
+    document.getElementById("tituloAnalisis").textContent =
+        "Analizando características del " + arboles[arbolActual].nombre;
 
     actualizarProgreso();
-
-
-    mostrarCarga(
-        "Preparando análisis...",
-        "pantallaAnalisis"
-    );
-
+    mostrarSolo("pantallaMetodo");
 }
+function elegirMetodo(metodo) {
+    if (metodo === "cuestionario") {
+        mostrarSolo("pantallaAnalisis");
+        actualizarProgreso();
+        return;
+    }
+
+    if (metodo === "foto") {
+        prepararAnalisisFoto();
+        mostrarSolo("pantallaFotoAnalisis");
+    }
+}
+
+/* ================================
+   ANÁLISIS FOTOGRÁFICO
+   ================================
+   Se realiza completamente en el navegador.
+   No inventa un porcentaje: calcula indicadores
+   directamente a partir de los píxeles de la imagen.
+*/
+let archivoFotoArbol = null;
+let datosFotoAnalisis = null;
+
+function prepararAnalisisFoto() {
+    const input = document.getElementById("inputFotoArbol");
+    const preview = document.getElementById("previewFotoAnalisis");
+    const mensaje = document.getElementById("mensajeFotoMiBiCUBE");
+    const cambiar = document.getElementById("cambiarFotoArbol");
+    const analizarBtn = document.getElementById("botonAnalizarFoto");
+    const estado = document.getElementById("estadoCargaFoto");
+    const resultados = document.getElementById("resultadoFotoAnalisis");
+
+    if (input) input.value = "";
+    if (preview) {
+        preview.src = "";
+        preview.style.display = "none";
+    }
+    if (mensaje) mensaje.style.display = "block";
+    if (cambiar) cambiar.style.display = "none";
+    if (analizarBtn) analizarBtn.style.display = "none";
+    if (estado) estado.style.display = "none";
+    if (resultados) resultados.classList.add("oculto");
+
+    archivoFotoArbol = null;
+    datosFotoAnalisis = null;
+}
+
+function cargarFotoArbol(evento) {
+    const archivo = evento.target.files && evento.target.files[0];
+    if (!archivo) return;
+
+    if (!archivo.type.startsWith("image/")) {
+        alert("Por favor, selecciona una imagen.");
+        evento.target.value = "";
+        return;
+    }
+
+    archivoFotoArbol = archivo;
+
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        const img = document.getElementById("previewFotoAnalisis");
+        const mensaje = document.getElementById("mensajeFotoMiBiCUBE");
+        const cambiar = document.getElementById("cambiarFotoArbol");
+        const analizarBtn = document.getElementById("botonAnalizarFoto");
+        const estado = document.getElementById("estadoCargaFoto");
+
+        img.src = e.target.result;
+        img.style.display = "block";
+        mensaje.style.display = "none";
+        cambiar.style.display = "inline-block";
+        analizarBtn.style.display = "inline-block";
+        estado.style.display = "block";
+        estado.innerHTML = "<strong>Fotografía cargada correctamente.</strong><br>Puedes cambiarla o iniciar el análisis.";
+    };
+    lector.readAsDataURL(archivo);
+}
+
+function cargarFotoCuestionario(evento) {
+    const archivo = evento.target.files && evento.target.files[0];
+    if (!archivo || !archivo.type.startsWith("image/")) return;
+
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        document.getElementById("imgFotoCuestionario").src = e.target.result;
+        document.getElementById("imgFotoCuestionario").classList.remove("oculto");
+        document.getElementById("placeholderFotoCuestionario").classList.add("oculto");
+        document.getElementById("infoFotoCuestionario").textContent =
+            "Foto disponible como apoyo visual. El cuestionario seguirá basándose en tus respuestas.";
+    };
+    lector.readAsDataURL(archivo);
+}
+
+function analizarFoto() {
+    if (!archivoFotoArbol) return;
+
+    const boton = document.getElementById("botonAnalizarFoto");
+    const estadoCarga = document.getElementById("estadoCargaFoto");
+    boton.disabled = true;
+    estadoCarga.textContent = "Analizando píxeles y patrones visibles…";
+
+    const img = new Image();
+    const url = URL.createObjectURL(archivoFotoArbol);
+
+    img.onload = function() {
+        try {
+            datosFotoAnalisis = extraerIndicadoresFoto(img);
+            renderizarResultadoFoto(datosFotoAnalisis);
+            document.getElementById("pantallaFotoCarga").classList.add("oculto");
+            document.getElementById("resultadoFotoAnalisis").classList.remove("oculto");
+        } catch (error) {
+            console.error(error);
+            estadoCarga.textContent =
+                "No se pudo procesar esta imagen. Prueba con una fotografía JPG, PNG o WEBP.";
+            boton.disabled = false;
+        } finally {
+            URL.revokeObjectURL(url);
+        }
+    };
+
+    img.onerror = function() {
+        estadoCarga.textContent = "No se pudo leer la fotografía.";
+        boton.disabled = false;
+        URL.revokeObjectURL(url);
+    };
+
+    img.src = url;
+}
+
+/* Convierte RGB a HSV. */
+function rgbToHsv(r,g,b) {
+    r/=255; g/=255; b/=255;
+    const max=Math.max(r,g,b), min=Math.min(r,g,b);
+    const d=max-min;
+    let h=0;
+    if (d!==0) {
+        if(max===r) h=((g-b)/d)%6;
+        else if(max===g) h=(b-r)/d+2;
+        else h=(r-g)/d+4;
+        h*=60;
+        if(h<0) h+=360;
+    }
+    const s=max===0?0:d/max;
+    return {h,s,v:max};
+}
+
+function extraerIndicadoresFoto(img) {
+    const maxSide = 900;
+    const escala = Math.min(1, maxSide / Math.max(img.naturalWidth, img.naturalHeight));
+    const w = Math.max(1, Math.round(img.naturalWidth * escala));
+    const h = Math.max(1, Math.round(img.naturalHeight * escala));
+
+    const canvas = document.createElement("canvas");
+    canvas.width=w; canvas.height=h;
+    const ctx=canvas.getContext("2d",{willReadFrequently:true});
+    ctx.drawImage(img,0,0,w,h);
+    const data=ctx.getImageData(0,0,w,h).data;
+
+    let total=0, vegetacion=0, verde=0, verdeOscuro=0;
+    let marron=0, amarillo=0, oscuro=0, claro=0, saturado=0;
+    let sumaV=0, sumaV2=0, bordes=0;
+    const bloque=4;
+
+    /* Para evitar que una pared, cielo o suelo domine el resultado,
+       el análisis de vegetación se apoya en tono + saturación + valor. */
+    for(let y=0;y<h;y+=bloque) {
+        for(let x=0;x<w;x+=bloque) {
+            const i=(y*w+x)*4;
+            const r=data[i], g=data[i+1], b=data[i+2];
+            const hsv=rgbToHsv(r,g,b);
+            const v=hsv.v;
+            const sat=hsv.s;
+            const hue=hsv.h;
+
+            total++;
+            sumaV+=v; sumaV2+=v*v;
+
+            const esVerde = (hue>=70 && hue<=165 && sat>=0.16 && v>=0.15);
+            const esMarron = ((hue<55 || hue>=330) && sat>=0.18 && v>=0.12 && v<=0.72 && r>g*0.78 && g>b*1.05);
+            const esAmarillo = (hue>=38 && hue<70 && sat>=0.20 && v>=0.35);
+            const esOscuro = v<0.18;
+            const esClaro = v>0.88 && sat<0.20;
+
+            if(esVerde) {
+                vegetacion++;
+                verde++;
+                if(v<0.42) verdeOscuro++;
+            }
+            if(esMarron) marron++;
+            if(esAmarillo) amarillo++;
+            if(esOscuro) oscuro++;
+            if(esClaro) claro++;
+            if(sat>0.35) saturado++;
+        }
+    }
+
+    /* Densidad de bordes aproximada: diferencia entre vecinos.
+       Es útil para detectar textura foliar, pero no se interpreta
+       como enfermedad. */
+    for(let y=0;y<h-1;y+=bloque) {
+        for(let x=0;x<w-1;x+=bloque) {
+            const i=(y*w+x)*4;
+            const j=(y*w+x+bloque)*4;
+            const k=((y+bloque)*w+x)*4;
+            const a=(data[i]+data[i+1]+data[i+2])/3;
+            const b1=(data[j]+data[j+1]+data[j+2])/3;
+            const c=(data[k]+data[k+1]+data[k+2])/3;
+            if(Math.abs(a-b1)>35 || Math.abs(a-c)>35) bordes++;
+        }
+    }
+
+    const vegetacionPct=vegetacion/total*100;
+    const verdePct=verde/total*100;
+    const marronPct=marron/total*100;
+    const amarilloPct=amarillo/total*100;
+    const oscuroPct=oscuro/total*100;
+    const claroPct=claro/total*100;
+    const texturaPct=bordes/Math.max(1,Math.floor(total/(bloque*bloque)))*100;
+    const mediaV=sumaV/total;
+    const varV=Math.max(0,sumaV2/total-mediaV*mediaV);
+
+    /* Indicadores de daño visual.
+       Se ponderan de forma conservadora porque color ≠ diagnóstico. */
+    const señalesSecas = Math.min(100, marronPct*3.0 + amarilloPct*1.5);
+    const señalesOscuras = Math.min(100, oscuroPct*2.2);
+    const cobertura = Math.min(100, vegetacionPct*1.25);
+
+    let estado =
+        62 +
+        Math.min(22, cobertura*0.22) -
+        Math.min(22, señalesSecas*0.34) -
+        Math.min(10, señalesOscuras*0.16);
+
+    if(verdePct>=18) estado+=5;
+    if(verdePct>=35) estado+=3;
+    if(marronPct<4 && amarilloPct<7) estado+=5;
+    if(vegetacionPct<8) estado-=8;
+
+    estado=Math.round(Math.max(20,Math.min(96,estado)));
+
+    let nivelConfianza = 35;
+    if(vegetacionPct>=12) nivelConfianza+=15;
+    if(vegetacionPct>=25) nivelConfianza+=15;
+    if(texturaPct>=5) nivelConfianza+=10;
+    if(img.naturalWidth>=900 && img.naturalHeight>=700) nivelConfianza+=10;
+    if(claroPct>60 || vegetacionPct<3) nivelConfianza-=15;
+    nivelConfianza=Math.round(Math.max(15,Math.min(85,nivelConfianza)));
+
+    return {
+        width:w,height:h,
+        estado,
+        confianza:nivelConfianza,
+        vegetacion:Math.round(vegetacionPct*10)/10,
+        verde:Math.round(verdePct*10)/10,
+        marron:Math.round(marronPct*10)/10,
+        amarillo:Math.round(amarilloPct*10)/10,
+        oscuro:Math.round(oscuroPct*10)/10,
+        claro:Math.round(claroPct*10)/10,
+        textura:Math.round(texturaPct*10)/10,
+        mediaBrillo:Math.round(mediaV*100),
+        varBrillo:Math.round(varV*10000)/100
+    };
+}
+
+function renderizarResultadoFoto(d) {
+    document.getElementById("resultadoFotoPorcentaje").textContent=d.estado+"%";
+    document.getElementById("barraFotoResultado").style.width=d.estado+"%";
+
+    let mensaje;
+    if(d.estado>=80) mensaje="🟢 La imagen presenta señales visuales mayormente favorables.";
+    else if(d.estado>=60) mensaje="🟡 La imagen presenta algunas señales que conviene vigilar.";
+    else mensaje="🔴 La imagen contiene varias señales visuales que requieren observación.";
+
+    document.getElementById("mensajeFotoResultado").textContent=mensaje;
+
+    let cuidados=[];
+    if(d.marron>=6 || d.amarillo>=8)
+        cuidados.push("🍃 Se detectaron proporciones apreciables de tonos cafés o amarillentos. Conviene revisar de cerca esas zonas y observar si aumentan.");
+    if(d.verde<15)
+        cuidados.push("🌿 La cobertura de tonos compatibles con vegetación verde es baja en esta fotografía; procura tomar una imagen más cercana y con el follaje bien iluminado.");
+    if(d.oscuro>=8)
+        cuidados.push("🔎 Hay una cantidad elevada de zonas muy oscuras. Pueden corresponder a sombras, ramas, fondo u otras estructuras; la fotografía por sí sola no permite clasificarlas como lesiones.");
+    if(d.claro>=55)
+        cuidados.push("☀️ La imagen contiene muchas zonas muy claras. El exceso de cielo, reflejos o contraluz puede reducir la precisión del análisis.");
+    if(d.textura<3)
+        cuidados.push("📷 La textura visible es limitada. Una fotografía más cercana y enfocada en follaje o tronco puede aportar más información.");
+    if(cuidados.length===0)
+        cuidados.push("🌱 No se detectaron patrones cromáticos fuertes asociados con sequedad o amarillamiento. Continúa observando el árbol y compara fotografías tomadas en condiciones similares.");
+
+    const micros=[
+        {id:"bacillus",score:Math.round(Math.max(20,Math.min(85,45+d.verde*0.35-d.marron*0.5)))},
+        {id:"pseudomonas",score:Math.round(Math.max(15,Math.min(80,35+d.verde*0.45)))},
+        {id:"trichoderma",score:Math.round(Math.max(15,Math.min(85,38+0+d.vegetacion*0.15)))},
+        {id:"hongosFoliares",score:Math.round(Math.max(10,Math.min(90,20+d.marron*1.7+d.amarillo*0.8)))},
+        {id:"descomponedores",score:Math.round(Math.max(15,Math.min(75,25+d.marron*0.5+d.oscuro*0.15)))}
+    ].sort((a,b)=>b.score-a.score);
+
+    const microHTML=micros.map((m,i)=>{
+        const info=microDatos[m.id];
+        return `<div class="microorganismo" style="animation-delay:${i*.15}s"
+            onclick="abrirMicro('${m.id}',${m.score})">
+            <div class="microNombre">${info.icono} ${info.nombre}</div>
+            <div class="microTipo">${info.tipo}</div>
+            <div class="microCompatibilidad">Asociación estimada:
+                <strong class="contadorMicro" data-valor="${m.score}">0%</strong>
+            </div>
+            <div class="miniBarra"><div data-valor="${m.score}"></div></div>
+        </div>`;
+    }).join("");
+
+    document.getElementById("cuidadosFoto").innerHTML=cuidados.map(x=>`<div class="recomendacion">${x}</div>`).join("");
+    document.getElementById("microorganismosFoto").innerHTML=microHTML;
+
+    let consejoFoto =
+        d.marron >= 6 || d.amarillo >= 8
+        ? "La lectura visual detectó una proporción relevante de tonos cafés o amarillos; conviene revisar esas zonas directamente."
+        : d.verde >= 25
+        ? "La imagen contiene una cobertura considerable de tonos compatibles con follaje verde. Esto es favorable como señal visual, pero no descarta problemas que no sean visibles en la foto."
+        : "La fotografía ofrece señales visuales limitadas; una toma más cercana del follaje y del tronco puede mejorar la lectura.";
+    document.getElementById("consejoFotoResultado").textContent = consejoFoto;
+    document.getElementById("confianzaFoto").textContent=d.confianza+"%";
+    document.getElementById("indicadoresFoto").innerHTML=`
+        <div class="indicadorFoto"><strong>Vegetación verde</strong>${d.verde}% de píxeles analizados</div>
+        <div class="indicadorFoto"><strong>Tonos cafés</strong>${d.marron}%</div>
+        <div class="indicadorFoto"><strong>Tonos amarillos</strong>${d.amarillo}%</div>
+        <div class="indicadorFoto"><strong>Zonas oscuras</strong>${d.oscuro}%</div>
+    `;
+
+    setTimeout(()=>{
+        document.querySelectorAll("#microorganismosFoto .contadorMicro").forEach((el,i)=>{
+            const val=Number(el.dataset.valor);
+            const bar=document.querySelectorAll("#microorganismosFoto .miniBarra div")[i];
+            let n=0;
+            const timer=setInterval(()=>{
+                n=Math.min(val,n+2);
+                el.textContent=n+"%";
+                bar.style.width=n+"%";
+                if(n>=val) clearInterval(timer);
+            },18);
+        });
+    },150);
+
+    document.getElementById("fotoResultadoImagen").src =
+        document.getElementById("previewFotoAnalisis").src;
+}
+
 
 
 /* ================================
