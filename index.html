@@ -829,18 +829,14 @@ body {
 }
 
 .tarjetaArbol:hover {
-
- transform:
- translateY(-6px);
-
- box-shadow:
- 0 15px 30px
- rgba(
- 50,
- 100,
- 60,
- 0.16
- );
+ transform: translateY(-6px);
+ box-shadow: 0 15px 30px rgba(50, 100, 60, 0.16);
+}
+.tarjetaArbol.presionada {
+ transform: scale(0.96);
+ box-shadow: 0 4px 12px rgba(50, 100, 60, 0.12);
+ transition: transform 0.18s ease, box-shadow 0.18s ease;
+ filter: brightness(0.98);
 }
 
 .iconoArbol {
@@ -1238,6 +1234,12 @@ body {
  align-items: stretch;
 }
 
+#iconoConsejoResultados {
+  font-size: 1.4em;
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
+}
 .tarjetaConsejoResultados {
  grid-column: 1;
  grid-row: 1;
@@ -1438,55 +1440,28 @@ body {
 ================================ */
 
 #modalMicro {
-
  position: fixed;
-
  inset: 0;
-
- background:
- rgba(
- 25,
- 55,
- 30,
- 0.35
- );
-
+ background: rgba(25, 55, 30, 0.35);
  display: flex;
-
  justify-content: center;
-
- align-items: center;
-
- padding: 20px;
-
+ align-items: flex-start;
+ padding: 24px 16px 40px;
  z-index: 5000;
+ overflow-y: auto;
+ -webkit-overflow-scrolling: touch;
 }
 
 .modalContenido {
-
  max-width: 550px;
-
  width: 100%;
-
  background: white;
-
  border-radius: 25px;
-
- padding: 30px;
-
- box-shadow:
- 0 20px 50px
- rgba(
- 0,
- 0,
- 0,
- 0.2
- );
-
- animation:
- entrarModal
- 0.3s
- ease;
+ padding: 28px 24px 24px;
+ margin: auto 0;
+ box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+ animation: entrarModal 0.3s ease;
+ max-height: none;
 }
 
 .modalIcono {
@@ -1529,7 +1504,35 @@ body {
  font-weight: bold;
 }
 
+
+.modalIcono { cursor: pointer; }
+.modalIcono .modalAvatar { transition: transform 0.2s ease; }
+.modalIcono:active .modalAvatar { transform: scale(0.96); }
+#microZoomOverlay {
+  position: fixed; inset: 0; z-index: 6000;
+  background: rgba(20,40,25,0.55);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px; opacity: 0; pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+#microZoomOverlay.visible { opacity: 1; pointer-events: auto; }
+#microZoomOverlay .zoomCirculo {
+  width: min(78vw, 320px);
+  height: min(78vw, 320px);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+  background: #e8f4ea;
+  transform: scale(0.7);
+  transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+}
+#microZoomOverlay.visible .zoomCirculo { transform: scale(1); }
+#microZoomOverlay img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
 @keyframes entrarModal {
+
 
  from {
 
@@ -2024,6 +2027,20 @@ body {
  justify-content: center;
  margin-top: 28px;
  margin-bottom: 10px;
+}
+
+
+.botonCurioso, .botonDatosCuriososFinal {
+  position: relative;
+  overflow: hidden;
+}
+.botonCurioso:active, .botonDatosCuriososFinal:active {
+  animation: botonCuriosoBrillo 0.7s ease;
+}
+@keyframes botonCuriosoBrillo {
+  0% { box-shadow: 0 0 0 0 rgba(255, 230, 120, 0.0); filter: brightness(1); }
+  35% { box-shadow: 0 0 22px 6px rgba(255, 220, 90, 0.55); filter: brightness(1.15); }
+  100% { box-shadow: 0 8px 20px rgba(79,152,96,0.22); filter: brightness(1); }
 }
 
 .botonDatosCuriososFinal {
@@ -2885,17 +2902,36 @@ button.botonFotoMiBiCUBE, .botonFotoMiBiCUBE{
  display: block;
 }
 .iconoGrande {
- width: 120px;
- height: 120px;
+ width: 180px !important;
+ height: 180px !important;
  border-radius: 50%;
  overflow: hidden;
- margin: 0 auto 12px;
+ margin: 0 auto 20px;
  border: 3px solid #d0e5d6;
  background: #eef7f0;
  display: flex;
  align-items: center;
  justify-content: center;
- font-size: 2.6rem;
+ font-size: 3rem;
+ flex-shrink: 0;
+}
+.iconoGrande img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+}
+.iconoGrande img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+}
+.iconoGrande img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
 }
 .iconoGrande img {
  width: 100%;
@@ -3000,7 +3036,7 @@ button.botonFotoMiBiCUBE, .botonFotoMiBiCUBE{
  display: flex;
  align-items: center;
  justify-content: center;
- padding: 20px;
+ padding: 12px;
  opacity: 0;
  pointer-events: none;
  transition: opacity 0.35s ease;
@@ -3010,21 +3046,27 @@ button.botonFotoMiBiCUBE, .botonFotoMiBiCUBE{
  pointer-events: auto;
 }
 .cartaAmpSaber {
- width: min(360px, 92vw);
- height: min(520px, 78vh);
- position: relative;
+ width: min(380px, 94vw) !important;
+ height: 78vh !important;
+ min-height: 560px !important;
+ max-height: 85vh !important;
+ position: relative !important;
  transform-style: preserve-3d;
  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
  cursor: pointer;
+ flex-shrink: 0 !important;
 }
 .cartaAmpSaber .caraAmp {
  position: absolute;
  inset: 0;
+ width: 100%;
+ height: 100%;
  backface-visibility: hidden;
  -webkit-backface-visibility: hidden;
  border-radius: 22px;
  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
  overflow: hidden;
+ box-sizing: border-box;
 }
 .cartaAmpSaber .frenteAmp {
  background: linear-gradient(165deg, #fff 0%, #eef7f0 100%);
@@ -3033,17 +3075,32 @@ button.botonFotoMiBiCUBE, .botonFotoMiBiCUBE{
  flex-direction: column;
  align-items: center;
  justify-content: center;
- padding: 28px 22px;
+ padding: 36px 26px;
  text-align: center;
+ width: 100%;
+ height: 100%;
+ box-sizing: border-box;
 }
+
+.cartaAmpSaber .frenteAmp {
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+
 .cartaAmpSaber .reversoAmp {
  background: linear-gradient(165deg, #1b7a3d 0%, #0c3d1e 100%);
  color: #fff;
  transform: rotateY(180deg);
- padding: 28px 22px;
+ padding: 36px 26px;
  display: flex;
  flex-direction: column;
  overflow-y: auto;
+ width: 100%;
+ height: 100%;
+ box-sizing: border-box;
 }
 .cartaAmpSaber.volteada {
  transform: rotateY(180deg);
@@ -3183,17 +3240,39 @@ button.botonFotoMiBiCUBE, .botonFotoMiBiCUBE{
 .mapaZona {
  position: absolute;
  border-radius: 50%;
- border: 2px solid rgba(79,152,96,0.5);
- background: rgba(79,152,96,0.12);
- transform: translate(-50%,-50%) scale(0.6);
+ border: 2px solid transparent;
+ background: transparent;
+ transform: translate(-50%,-50%) scale(0.75);
  opacity: 0;
- pointer-events: none;
- transition: opacity 0.45s ease, transform 0.45s ease;
+ pointer-events: none !important;
  z-index: 4;
+ transition:
+  opacity 0.55s ease,
+  transform 0.55s ease,
+  background 0.55s ease,
+  box-shadow 0.55s ease,
+  border-color 0.55s ease;
 }
 .mapaZona.activa {
  opacity: 1;
- transform: translate(-50%,-50%) scale(1);
+ border: 2.5px solid rgba(47, 122, 64, 0.95);
+ background: rgba(79, 152, 96, 0.38);
+ transform: translate(-50%,-50%) scale(1.2);
+ animation: mapaParpadeo 1.05s ease-in-out infinite;
+}
+.mapaZona.apagando {
+ opacity: 0 !important;
+ transform: translate(-50%,-50%) scale(0.7) !important;
+ background: rgba(79, 152, 96, 0.05) !important;
+ border-color: transparent !important;
+ box-shadow: 0 0 0 0 transparent !important;
+ animation: none !important;
+ transition:
+  opacity 0.6s ease,
+  transform 0.6s ease,
+  background 0.6s ease,
+  box-shadow 0.6s ease,
+  border-color 0.5s ease !important;
 }
 .mapaControles {
  display: flex;
@@ -3257,9 +3336,10 @@ button.botonFotoMiBiCUBE, .botonFotoMiBiCUBE{
 }
 .mapaInfoZona.visible {
  opacity: 1;
- max-height: 120px;
- padding: 10px 12px;
+ max-height: 480px;
+ padding: 12px 14px;
  border-color: #d6ead9;
+ overflow: visible;
 }
 .mapaInfoZona strong {
  display: block;
@@ -3268,6 +3348,45 @@ button.botonFotoMiBiCUBE, .botonFotoMiBiCUBE{
 }
 
 /* Guía personaje en mapas */
+
+/* Mapa más interactivo */
+.mapaChip {
+ transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+ cursor: pointer;
+ user-select: none;
+}
+.mapaChip:active {
+ transform: scale(0.94);
+}
+.mapaChip.activo {
+ transform: scale(1.04);
+ box-shadow: 0 4px 14px rgba(79,152,96,0.35);
+}
+@keyframes mapaZonaBrillo {
+ 0% { box-shadow: 0 0 0 0 rgba(79,152,96,0.55); }
+ 70% { box-shadow: 0 0 0 14px rgba(79,152,96,0); }
+ 100% { box-shadow: 0 0 0 6px rgba(79,152,96,0.2); }
+}
+.mapaBtnZoom, .mapaBtnReset {
+ transition: transform 0.15s ease, background 0.2s ease;
+}
+.mapaBtnZoom:active, .mapaBtnReset:active {
+ transform: scale(0.92);
+}
+.mapaInfoZona.visible {
+ animation: mapaInfoIn 0.35s ease both;
+}
+@keyframes mapaInfoIn {
+ from { opacity: 0; transform: translateY(6px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+.mapaVisor {
+ transition: box-shadow 0.3s ease;
+}
+.mapaVisor.mapaZoomed {
+ box-shadow: inset 0 0 0 2px rgba(79,152,96,0.35);
+}
+
 .guiaMapa {
  position: fixed;
  right: 14px;
@@ -3539,6 +3658,141 @@ button.boton[onclick*="abrirMonitoreo"],
   border-radius: 14px !important;
 }
 
+
+@keyframes mapaParpadeo {
+ 0%, 100% {
+  opacity: 1;
+  box-shadow: 0 0 0 5px rgba(79,152,96,0.4);
+  background: rgba(79,152,96,0.42);
+ }
+ 50% {
+  opacity: 0.3;
+  box-shadow: 0 0 0 12px rgba(79,152,96,0.05);
+  background: rgba(79,152,96,0.12);
+ }
+}
+
+/* ================================
+ LEER MÁS (ficha ciprés)
+================================ */
+.leerMasSeccion {
+ margin: 28px 0 8px;
+}
+.leerMasSeccion h2 {
+ text-align: center;
+ color: #356b40;
+ font-size: 24px;
+ margin: 0 0 8px;
+}
+.leerMasIntro {
+ text-align: center;
+ color: #718374;
+ font-size: 14px;
+ line-height: 1.55;
+ max-width: 520px;
+ margin: 0 auto 16px;
+}
+.btnLeerMas {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
+ width: 100%;
+ max-width: 420px;
+ margin: 0 auto;
+ border: 1.5px solid #b8dcc0;
+ background: linear-gradient(135deg, #f3faf4, #e8f5eb);
+ color: #2f6b3c;
+ font-size: 16px;
+ font-weight: bold;
+ padding: 14px 20px;
+ border-radius: 16px;
+ cursor: pointer;
+ box-shadow: 0 4px 14px rgba(50,100,60,0.08);
+ transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.btnLeerMas:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 8px 20px rgba(50,100,60,0.12);
+}
+.btnLeerMas:active {
+ transform: scale(0.98);
+}
+.btnLeerMas .flechaLeer {
+ display: inline-block;
+ transition: transform 0.35s ease;
+ font-size: 14px;
+}
+.btnLeerMas.abierto .flechaLeer {
+ transform: rotate(180deg);
+}
+.panelLeerMas {
+ max-height: 0;
+ overflow: hidden;
+ opacity: 0;
+ transition: max-height 0.55s ease, opacity 0.4s ease, margin 0.35s ease;
+ margin-top: 0;
+}
+.panelLeerMas.abierto {
+ max-height: 2200px;
+ opacity: 1;
+ margin-top: 16px;
+}
+.acordeonLeer {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+.itemLeer {
+ background: #f7fcf8;
+ border: 1px solid #dceee0;
+ border-radius: 14px;
+ overflow: hidden;
+ box-shadow: 0 3px 10px rgba(40,90,50,0.05);
+}
+.itemLeerBtn {
+ width: 100%;
+ border: none;
+ background: transparent;
+ text-align: left;
+ padding: 14px 16px;
+ font-size: 15px;
+ font-weight: bold;
+ color: #356b40;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 10px;
+}
+.itemLeerBtn span.iconoItem {
+ font-size: 18px;
+ margin-right: 6px;
+}
+.itemLeerBtn .chev {
+ transition: transform 0.3s ease;
+ color: #6fba7d;
+ font-size: 12px;
+}
+.itemLeer.abierto .chev {
+ transform: rotate(180deg);
+}
+.itemLeerCuerpo {
+ max-height: 0;
+ overflow: hidden;
+ opacity: 0;
+ padding: 0 16px;
+ color: #5d7162;
+ font-size: 14px;
+ line-height: 1.6;
+ transition: max-height 0.4s ease, opacity 0.35s ease, padding 0.35s ease;
+}
+.itemLeer.abierto .itemLeerCuerpo {
+ max-height: 420px;
+ opacity: 1;
+ padding: 0 16px 14px;
+}
+
 </style>
 </head>
 
@@ -3552,34 +3806,50 @@ button.boton[onclick*="abrirMonitoreo"],
 <div id="modalAyudaMiBiCUBE" class="modalUtilidad oculto" onclick="if(event.target===this)cerrarAyudaMiBiCUBE()">
  <div class="modalUtilidadCaja" onclick="event.stopPropagation()">
  <h2>❓ Cómo funciona MiBiCUBE</h2>
- <p>Herramienta educativa para observar el estado de un <strong>ciprés</strong> con cuestionario, fotografía y asociaciones estimadas de microorganismos. No sustituye un diagnóstico profesional de campo.</p>
+ <p>Herramienta educativa para observar el estado de un <strong>ciprés</strong> con cuestionario, fotografía y asociaciones estimadas de microorganismos. <strong>No sustituye</strong> un diagnóstico profesional de campo.</p>
 
  <h3>1. Cómo usar la página</h3>
  <ul>
  <li>Pulsa <strong>COMENZAR</strong> y elige el ciprés.</li>
- <li>Revisa la ficha (información, mapas interactivos y cartas «Saber más»).</li>
- <li>Elige método: <strong>cuestionario</strong> o <strong>fotografía</strong>.</li>
- <li>Al terminar verás un estado estimado, cuidados y microorganismos asociados.</li>
- <li>Puedes <strong>guardar el análisis</strong> y abrir <strong>📈 Ver monitoreo</strong> para ver el historial y la gráfica en este dispositivo.</li>
+ <li>En la ficha verás información general, <strong>Leer más</strong> (ficha ampliada), cartas <strong>«Saber más»</strong> y mapas de distribución.</li>
+ <li>Elige método de análisis: <strong>cuestionario</strong> o <strong>fotografía</strong> (galería o cámara).</li>
+ <li>Al final verás estado estimado, consejos de observación, cuidados y microorganismos asociados.</li>
+ <li>Puedes <strong>guardar el análisis</strong> y abrir <strong>Ver monitoreo</strong> para el historial y la gráfica en este dispositivo.</li>
  </ul>
 
  <h3>2. Cuestionario</h3>
- <p>Preguntas sobre follaje, tronco, suelo y entorno. El sistema combina respuestas e interacciones (por ejemplo humedad + mal drenaje). El resultado es un <strong>estado estimado</strong>, no un diagnóstico de laboratorio.</p>
+ <p>Preguntas sobre follaje, tronco, suelo, entorno y factores observables. El sistema combina respuestas (por ejemplo humedad + mal drenaje) y, si subes una foto de apoyo, la usa como referencia extra. El resultado es un <strong>estado estimado</strong>, no un diagnóstico de laboratorio.</p>
 
  <h3>3. Análisis de fotografías</h3>
- <p>La foto se analiza <strong>en tu dispositivo</strong>. Se estiman verdes, marrones, textura y forma para calcular un estado visual y si la imagen parece <strong>ciprés</strong>, <strong>otro árbol</strong>, otra vegetación o no vegetal. Si hay muy poco verde puede alertar de vitalidad baja. Confirma siempre mirando el árbol en persona.</p>
+ <p>Todo se procesa <strong>en tu dispositivo</strong>. El motor visual evalúa color (verdes, marrones, amarillos), textura, forma, silueta y tipo de follaje para estimar el estado y clasificar la imagen como:</p>
+ <ul>
+ <li><strong>Ciprés</strong> (o conífera similar)</li>
+ <li><strong>Otro árbol</strong></li>
+ <li><strong>Vegetación</strong> sin árbol claro (césped, planta baja…)</li>
+ <li><strong>No vegetal / objeto</strong> (poca o ninguna planta)</li>
+ </ul>
+ <p>Si hay muy poco verde puede avisar de vitalidad baja o árbol seco. Confirma siempre mirando el árbol en persona.</p>
 
  <h3>4. Microorganismos</h3>
- <p>Asociaciones <strong>estimadas</strong> (bacterias, hongos, oomicetos) según síntomas o señales de la foto. Cada tarjeta indica si es beneficioso, dañino o mixto. <strong>No confirma</strong> que el organismo esté presente.</p>
+ <p>Asociaciones <strong>estimadas</strong> (bacterias, hongos, oomicetos) según el cuestionario o las señales de la foto. Cada ficha indica si es beneficioso, dañino o mixto. Puedes tocar la imagen para verla más grande. <strong>No confirma</strong> que el organismo esté presente en el árbol.</p>
 
  <h3>5. Mapas</h3>
- <p>Dos mapas (mundo y México). Elige una zona para verla resaltada y leer su dato. Puedes acercar con +/− o pellizcar.</p>
+ <p>Hay dos mapas: <strong>mundial</strong> y <strong>México</strong>. No hay puntos fijos a la vista.</p>
+ <ul>
+ <li>Toca el botón de una <strong>región</strong> debajo del mapa: esa zona <strong>parpadea</strong> y aparece su información.</li>
+ <li>Si tocas el <strong>mismo botón otra vez</strong>, el resalte se apaga suavemente.</li>
+ <li>Usa <strong>+</strong> / <strong>−</strong> o pellizca para acercar; <strong>Restablecer</strong> vuelve al tamaño normal.</li>
+ <li>Un personaje guía te explica el mapa la primera vez que lo ves.</li>
+ </ul>
 
- <h3>6. Datos curiosos</h3>
- <p>Textos divulgativos con animación y, si activas la opción, voz del navegador (se intenta usar una voz masculina en español).</p>
+ <h3>6. Cartas «Saber más»</h3>
+ <p>En la ficha del ciprés, el mazo de cartas se abre al tocarlo. Elige una carta: verás una imagen en círculo y el título; al voltearla, la información detallada. Toca de nuevo para cerrar.</p>
 
- <h3>7. Monitoreo</h3>
- <p>Historial y gráfica del estado guardados solo en este navegador (localStorage). Útil para comparar análisis a lo largo del tiempo.</p>
+ <h3>7. Datos curiosos</h3>
+ <p>Textos cortos con animación de escritura (~6 s). Si activas la voz, el navegador narra con tono grave (depende de las voces instaladas en tu dispositivo). También puedes activarlo o desactivarlo en <strong>Ajustes</strong> o en la pantalla de datos curiosos.</p>
+
+ <h3>8. Monitoreo</h3>
+ <p>Historial y gráfica del estado guardados solo en este navegador (<strong>localStorage</strong>). Sirve para comparar análisis a lo largo del tiempo en el mismo dispositivo.</p>
 
  <button type="button" class="btnCerrarUtilidad" onclick="cerrarAyudaMiBiCUBE()">Entendido</button>
  </div>
@@ -3588,17 +3858,31 @@ button.boton[onclick*="abrirMonitoreo"],
 <div id="modalAjustesMiBiCUBE" class="modalUtilidad oculto" onclick="if(event.target===this)cerrarAjustesMiBiCUBE()">
  <div class="modalUtilidadCaja" onclick="event.stopPropagation()">
  <h2>⚙ Ajustes</h2>
- <p>Opciones que se guardan en este dispositivo.</p>
+ <p>Opciones que se guardan en este dispositivo (solo este navegador).</p>
+
  <div class="ajusteFila">
- <label for="ajusteAudioCurioso">Voz en datos curiosos</label>
+ <label for="ajusteAudioCurioso">🔊 Voz en datos curiosos</label>
  <input type="checkbox" id="ajusteAudioCurioso" onchange="guardarAjustesMiBiCUBE()">
  </div>
+ <p style="font-size:12px;color:#718374;margin:-4px 0 12px">Si está activo, el personaje narra el dato curioso. El tono intenta sonar grave; el resultado depende de las voces de tu sistema.</p>
+
  <div class="ajusteFila">
- <label for="ajusteAnimaciones">Animaciones suaves</label>
+ <label for="ajusteAnimaciones">✨ Animaciones suaves</label>
  <input type="checkbox" id="ajusteAnimaciones" checked onchange="guardarAjustesMiBiCUBE()">
  </div>
- <p style="margin-top:14px;font-size:12px;color:#718374">Los análisis del monitoreo se guardan solo en este navegador. La voz depende de las voces instaladas en tu sistema; se prioriza una voz masculina en español cuando está disponible.</p>
- <button type="button" class="boton botonSecundario" style="width:100%;margin-top:12px" onclick="cerrarAjustesMiBiCUBE();abrirMonitoreo('inicio')">Abrir monitoreo / historial</button>
+ <p style="font-size:12px;color:#718374;margin:-4px 0 12px">Entradas, transiciones y efectos visuales. Puedes desactivarlas si prefieres una interfaz más simple o un dispositivo más lento.</p>
+
+ <h3 style="margin:16px 0 8px;font-size:15px;color:#356b40">Monitoreo</h3>
+ <p style="font-size:13px;color:#5d7162;line-height:1.5;margin:0 0 10px">Los análisis guardados (cuestionario o foto) se almacenan en este navegador. Desde aquí puedes abrir el historial y la gráfica de evolución.</p>
+ <button type="button" class="boton botonSecundario" style="width:100%;margin-top:4px" onclick="cerrarAjustesMiBiCUBE();abrirMonitoreo('inicio')">📈 Abrir monitoreo / historial</button>
+
+ <h3 style="margin:18px 0 8px;font-size:15px;color:#356b40">Recordatorios</h3>
+ <ul style="font-size:12px;color:#718374;line-height:1.55;padding-left:18px;margin:0 0 8px">
+ <li>Mapas: región on/off con el mismo botón; sin puntos fijos.</li>
+ <li>Fotos y cuestionario son orientativos, no un diagnóstico oficial.</li>
+ <li>Si borras datos del navegador, se pierde el historial de monitoreo.</li>
+ </ul>
+
  <button type="button" class="btnCerrarUtilidad" onclick="cerrarAjustesMiBiCUBE()">Cerrar</button>
  </div>
 </div>
@@ -3750,7 +4034,7 @@ button.boton[onclick*="abrirMonitoreo"],
 
  <div
  class="tarjetaArbol aparecer delay3"
- onclick="mostrarArbol('cipres')">
+ onclick="pulsarTarjetaArbol(this, 'cipres')">
 
  <div class="iconoArbol">
  <img
@@ -3843,6 +4127,51 @@ button.boton[onclick*="abrirMonitoreo"],
  ================================ -->
 
  
+ 
+ <!-- LEER MÁS · ficha ampliada (no repite Saber más) -->
+ <div class="leerMasSeccion aparecer delay4" id="leerMasSeccion">
+ <h2>Leer más sobre el ciprés</h2>
+ <button type="button" class="btnLeerMas" id="btnLeerMas" aria-expanded="false">
+ <span>Leer más</span>
+ <span class="flechaLeer">▼</span>
+ </button>
+ <div class="panelLeerMas" id="panelLeerMas" hidden>
+ <div class="acordeonLeer">
+ <div class="itemLeer">
+ <button type="button" class="itemLeerBtn"><span>Luz, clima y ubicación</span><span class="chev">▼</span></button>
+ <div class="itemLeerCuerpo">
+ Prefiere sol directo o mucha luz. Tolera climas templados a semisecos y algo de frío, pero sufre en suelos encharcados o sombra permanente. En ciudades de México se ve en avenidas, camellones y predios porque aguanta polvo y poda moderada mejor que muchos árboles de sombra.
+ </div>
+ </div>
+ <div class="itemLeer">
+ <button type="button" class="itemLeerBtn"><span>Riego y suelo (orientativo)</span><span class="chev">▼</span></button>
+ <div class="itemLeerCuerpo">
+ En los primeros años conviene riego regular sin encharcar. Después tolera mejor la sequía si el drenaje es bueno. Evita compactar el suelo junto al tronco y deja un espacio libre (sin concreto hasta el pie del árbol). El exceso de agua y el mal drenaje suelen hacer más daño que un periodo seco moderado.
+ </div>
+ </div>
+ <div class="itemLeer">
+ <button type="button" class="itemLeerBtn"><span>Cómo distinguirlo (vista general)</span><span class="chev">▼</span></button>
+ <div class="itemLeerCuerpo">
+ Porte vertical o columnar, follaje de escamas pequeñas (no agujas largas como muchos pinos) y color verde oscuro persistente todo el año. No sustituye una identificación botánica formal: otras coníferas pueden parecerse en foto o de lejos.
+ </div>
+ </div>
+ <div class="itemLeer">
+ <button type="button" class="itemLeerBtn"><span>Señales para prestar atención</span><span class="chev">▼</span></button>
+ <div class="itemLeerCuerpo">
+ Follaje que se pone café o amarillo en manchas, pérdida fuerte de ramillas, heridas grandes en el tronco, hongos visibles o suelo siempre saturado. MiBiCUBE orienta la observación; un técnico o extensión forestal/agrícola puede confirmar en campo si el problema es grave.
+ </div>
+ </div>
+ <div class="itemLeer">
+ <button type="button" class="itemLeerBtn"><span>Papel en el paisaje</span><span class="chev">▼</span></button>
+ <div class="itemLeerCuerpo">
+ Se usa como ornamento, alineación en caminos y cortina rompevientos en zonas rurales. Su silueta estrecha ocupa poco ancho en banquetas. No es un árbol “de sombra amplia”: su valor es el porte, la persistencia del follaje y la resistencia relativa en sitios secos bien drenados.
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
  <!-- SABER MÁS · CARTAS -->
  <div class="saberMasSeccion aparecer delay4" id="saberMasSeccion">
  <h2 class="distribucionTitulo" style="font-size:24px">📖 Saber más</h2>
@@ -3927,11 +4256,11 @@ button.boton[onclick*="abrirMonitoreo"],
  <div class="mapaVisor" id="visorMapaMundo" data-map="mundo">
  <div class="mapaVisorInner" id="innerMapaMundo">
  <img class="mapaImagen" src="mapa-cipres-mundo.jpeg" alt="Mapa mundial del ciprés">
- <div class="mapaZona" data-zona="mediterraneo" style="left:34%;top:38%;width:56px;height:42px"></div>
- <div class="mapaZona" data-zona="asia" style="left:58%;top:40%;width:50px;height:44px"></div>
- <div class="mapaZona" data-zona="america" style="left:22%;top:45%;width:48px;height:52px"></div>
- <div class="mapaZona" data-zona="africa" style="left:48%;top:55%;width:40px;height:40px"></div>
- <div class="mapaZona" data-zona="oceania" style="left:78%;top:68%;width:44px;height:36px"></div>
+ <div class="mapaZona" data-zona="mediterraneo" style="left:50%;top:40%;width:52px;height:40px"></div>
+ <div class="mapaZona" data-zona="asia" style="left:72%;top:36%;width:52px;height:42px"></div>
+ <div class="mapaZona" data-zona="america" style="left:18%;top:48%;width:46px;height:50px"></div>
+ <div class="mapaZona" data-zona="africa" style="left:52%;top:52%;width:40px;height:40px"></div>
+ <div class="mapaZona" data-zona="oceania" style="left:84%;top:70%;width:44px;height:36px"></div>
  </div>
  </div>
  <div class="mapaControles">
@@ -3958,11 +4287,11 @@ button.boton[onclick*="abrirMonitoreo"],
  <div class="mapaVisor" id="visorMapaMexico" data-map="mexico">
  <div class="mapaVisorInner" id="innerMapaMexico">
  <img class="mapaImagen" src="mapa-cipres-mexico.jpeg" alt="Mapa del ciprés en México">
- <div class="mapaZona" data-zona="centro" style="left:48%;top:44%;width:48px;height:40px"></div>
- <div class="mapaZona" data-zona="bajio" style="left:40%;top:42%;width:44px;height:36px"></div>
- <div class="mapaZona" data-zona="occidente" style="left:34%;top:46%;width:42px;height:38px"></div>
- <div class="mapaZona" data-zona="oriente" style="left:56%;top:48%;width:40px;height:36px"></div>
- <div class="mapaZona" data-zona="sur" style="left:48%;top:60%;width:46px;height:36px"></div>
+ <div class="mapaZona" data-zona="centro" style="left:52%;top:50%;width:44px;height:38px"></div>
+ <div class="mapaZona" data-zona="bajio" style="left:46%;top:45%;width:42px;height:34px"></div>
+ <div class="mapaZona" data-zona="occidente" style="left:38%;top:50%;width:42px;height:36px"></div>
+ <div class="mapaZona" data-zona="oriente" style="left:58%;top:51%;width:40px;height:34px"></div>
+ <div class="mapaZona" data-zona="sur" style="left:56%;top:72%;width:44px;height:36px"></div>
  </div>
  </div>
  <div class="mapaControles">
@@ -4883,9 +5212,9 @@ button.boton[onclick*="abrirMonitoreo"],
  </div>
 
  <div class="tarjetaConsejoResultados" style="margin-top:20px">
- <div class="tarjetaConsejoIcono"></div>
+ <div class="tarjetaConsejoIcono" id="iconoConsejoFotoExtra">🔎</div>
  <div class="contenidoConsejoResultados">
- 
+ <h3 id="tituloConsejoFotoExtra">Consejo de observación</h3>
  <p id="consejoFotoResultado">
  La fotografía se interpreta como evidencia visual y debe complementarse con observación directa.
  </p>
@@ -4916,7 +5245,7 @@ button.boton[onclick*="abrirMonitoreo"],
  <button
  class="boton botonCurioso botonDatosCuriososFinal"
  onclick="mostrarDatosCuriososDesde('pantallaFotoAnalisis')">
- Datos curiosos
+ 💡 Datos curiosos
  </button>
  </div>
 
@@ -5015,10 +5344,9 @@ button.boton[onclick*="abrirMonitoreo"],
 
  <!-- COLUMNA IZQUIERDA: OBSERVACIÓN -->
  <div class="panel tarjetaConsejoResultados" id="tarjetaConsejoResultados">
- <h2><span id="iconoConsejoResultados"></span>
- <span id="tituloConsejoResultados">Consejo de observación</span></h2>
-
- <div class="cajaTextoConsejoResultados">
+ <div class="tarjetaConsejoIcono" id="iconoConsejoResultados">🌿</div>
+ <div class="contenidoConsejoResultados">
+ <h3 id="tituloConsejoResultados">Consejo de observación</h3>
  <p id="textoConsejoResultados"></p>
  </div>
  </div>
@@ -5047,11 +5375,7 @@ button.boton[onclick*="abrirMonitoreo"],
 
  <button
  class="boton botonCurioso botonDatosCuriososFinal"
- onclick="mostrarSolo('pantallaDatosCuriosos')">
-
- Datos curiosos
-
- </button>
+ onclick="mostrarSolo('pantallaDatosCuriosos')">💡 Datos curiosos</button>
 
  </div>
 
@@ -5098,7 +5422,7 @@ button.boton[onclick*="abrirMonitoreo"],
 
  <label class="tarjetaAudioCurioso" for="checkAudio">
 
- <span class="iconoAudioCurioso"></span>
+ <span class="iconoAudioCurioso">🔊</span>
 
  <span class="textoAudioCurioso">
  <strong>¿Quieres escuchar la voz del personaje?</strong>
@@ -5247,7 +5571,11 @@ button.boton[onclick*="abrirMonitoreo"],
 </section>
 <div id="avisoGuardadoMonitoreo" class="avisoGuardadoMonitoreo" role="status" aria-live="polite"></div>
 <div
- id="modalMicro"
+ id="microZoomOverlay" onclick="cerrarZoomMicro()">
+ <div class="zoomCirculo" onclick="event.stopPropagation()"><img id="microZoomImg" alt=""></div>
+</div>
+
+<div id="modalMicro"
  class="oculto"
  onclick="cerrarModal(event)">
 
@@ -5318,6 +5646,8 @@ button.boton[onclick*="abrirMonitoreo"],
  <div class="textoAmp" id="ampTextoSaber"></div>
  <div class="cerrarHintAmp">Toca de nuevo para cerrar</div>
  </div>
+</div>
+</div>
 
 <script>
 
@@ -5377,7 +5707,7 @@ const microDatos = {
  beneficio: "benefico",
  beneficioTexto: "Beneficioso / rizosfera",
  tipo: "Bacteria de la rizosfera",
- descripcion: "Bacteria asociada a raíces; en muchos contextos se relaciona con promoción del crecimiento y suelos activos.",
+ descripcion: "Bacteria de la rizosfera estudiada sobre todo en pastos y cultivos; se incluye como referencia de bacterias promotoras de crecimiento en el suelo, no como patógeno típico del ciprés.",
  condiciones: "Rizosfera, materia orgánica y humedad moderada.",
  organos: "Raíces / suelo",
  prevencion: "Favorecer suelos vivos.",
@@ -5425,7 +5755,7 @@ const microDatos = {
  beneficio: "benefico",
  beneficioTexto: "Beneficioso / simbiosis",
  tipo: "Simbiontes de raíces",
- descripcion: "Hongos que establecen simbiosis con raíces y pueden mejorar la absorción de agua y nutrientes.",
+ descripcion: "Hongos que establecen simbiosis con raíces (en coníferas y otros árboles) y pueden mejorar la absorción de agua y nutrientes, según especie y suelo.",
  condiciones: "Suelos no excesivamente disturbados; asociación con raíces vivas.",
  organos: "Raíces",
  prevencion: "Evitar compactación extrema y pérdida total de materia orgánica.",
@@ -5449,7 +5779,7 @@ const microDatos = {
  },
 
  seiridium: {
- nombre: "Seiridium unicorne",
+ nombre: "Seiridium spp.",
  icono: "",
  imagen: "seiridium.png",
  grupo: "hongo",
@@ -5457,7 +5787,7 @@ const microDatos = {
  beneficio: "danino",
  beneficioTexto: "Dañino / cancro del ciprés",
  tipo: "Cancro del ciprés",
- descripcion: "Asociado al cancro del ciprés. Causa amarillamiento, follaje café-rojizo, ramas aisladas secas entre follaje verde, cancros y resinación.",
+ descripcion: "Hongos del género Seiridium (p. ej. especies asociadas al cancro del ciprés). Pueden causar amarillamiento, follaje café-rojizo, ramas secas entre follaje verde, cancros y resinación.",
  condiciones: "Heridas, estrés del árbol, ramas debilitadas.",
  organos: "Follaje, ramillas, ramas y tronco",
  prevencion: "Mantener vigor, evitar heridas y estrés hídrico; material vegetal sano.",
@@ -5553,7 +5883,7 @@ const microDatos = {
  beneficio: "danino",
  beneficioTexto: "Dañino / agalla de la corona",
  tipo: "Agalla de la corona (tumores bacterianos)",
- descripcion: "Provoca agallas o tumores cerca del cuello y heridas. Inicialmente blandos; luego duros y leñosos. Reduce vigor si interfiere con la conducción.",
+ descripcion: "Agente de la agalla de la corona en muchas plantas leñosas. En ciprés es menos frecuente que los cancros fúngicos, pero se incluye como referencia de tumores bacterianos cerca del cuello o heridas.",
  condiciones: "Heridas en raíces o cuello; material infectado.",
  organos: "Cuello, raíces y base del tronco",
  prevencion: "Plantas sanas, evitar heridas y desinfectar herramientas.",
@@ -5920,6 +6250,19 @@ function crearGotas(boton) {
 /* ================================
  ÁRBOL
 ================================ */
+
+
+function pulsarTarjetaArbol(el, id) {
+  if (el) {
+    el.classList.add("presionada");
+    setTimeout(function () {
+      el.classList.remove("presionada");
+      if (typeof mostrarArbol === "function") mostrarArbol(id);
+    }, 220);
+  } else if (typeof mostrarArbol === "function") {
+    mostrarArbol(id);
+  }
+}
 
 function mostrarArbol(id) {
 
@@ -6775,37 +7118,126 @@ function extraerIndicadoresFoto(img) {
  Math.min(15, verdeOscuroPct * 0.8) - penalCesped * 0.5 - penalHoja * 0.4
  ));
 
- if (vegetacionPct < 2.5 && verdePct < 1.8) {
- tipoImagen = "noVegetal";
- } else if (
- scoreCipres >= 44 && scoreFollajeFino >= 20 && scoreSilueta >= 18 &&
- verdePct >= 8 && vegetacionPct >= 7 && penalHoja < 52
- ) {
- tipoImagen = "probableCipres";
- } else if (
- scoreCipres >= 52 && scoreFollajeFino >= 26 && verdePct >= 12
- ) {
- tipoImagen = "probableCipres";
- } else if (
- (scoreArbol >= 40 && vegetacionPct >= 9 && continuidadVertical >= 32) ||
- (evidenciaArbol >= 26 && vegetacionPct >= 9 && texturaPct >= 1.6 && continuidadVertical >= 32)
- ) {
- tipoImagen = "otroArbol";
- } else if (vegetacionPct >= 3.5 || verdePct >= 2.5) {
- tipoImagen = "vegetal";
- } else {
- tipoImagen = "noVegetal";
+ 
+ /* Clasificador v8 MAX — multi-score: objeto / vegetal / otro árbol / ciprés */
+ var _tx = (typeof texturaPct === "number" ? texturaPct : 0);
+ var _micro = (typeof microTexturaPct === "number" ? microTexturaPct : 0);
+ var _ev = (typeof evidenciaArbol === "number" ? evidenciaArbol : 0);
+ var _contV = (typeof continuidadVertical === "number" ? continuidadVertical : 0);
+ var _orientV = (typeof orientV === "number" ? orientV : (typeof hogV === "number" ? hogV : 0));
+ var _orientH = (typeof orientH === "number" ? orientH : (typeof hogH === "number" ? hogH : 0));
+ var _hojaP = (typeof hojaPequenaPct === "number" ? hojaPequenaPct : 0);
+ var _hojaA = (typeof hojaAnchaPct === "number" ? hojaAnchaPct : 0);
+ var _firmaC = (typeof firmaCipresAvanzada === "number" ? firmaCipresAvanzada : 0);
+ var _consC = (typeof consistenciaCipres === "number" ? consistenciaCipres : 0);
+ var _firmaMax = (typeof firmaCipresMax === "number" ? firmaCipresMax : 0);
+ var _copaCol = (typeof copaColumna === "number" ? copaColumna : 0);
+ var _copaPir = (typeof copaPiramidal === "number" ? copaPiramidal : 0);
+ var _simV = (typeof simetriaVertical === "number" ? simetriaVertical : 0);
+ var _period = (typeof periodicidadFina === "number" ? periodicidadFina : 0);
+ var _verdeT = (typeof verdeTexturadoPct === "number" ? verdeTexturadoPct : 0);
+ var _claro = (typeof claroPct === "number" ? claroPct : 0);
+ var _varB = (typeof varV === "number" ? varV : 0);
+
+ var scoreObjeto = 0;
+ scoreObjeto += Math.max(0, 12 - vegetacionPct) * 3.2;
+ scoreObjeto += Math.max(0, 10 - verdePct) * 2.8;
+ scoreObjeto += Math.max(0, 6 - _tx) * 2.5;
+ scoreObjeto += Math.max(0, 8 - _micro) * 1.8;
+ scoreObjeto += Math.min(18, _claro * 0.35);
+ scoreObjeto += (marronPct < 3 && amarilloPct < 3 && verdePct < 4) ? 14 : 0;
+ scoreObjeto += (_ev < 12 && _contV < 18) ? 10 : 0;
+ scoreObjeto += (_varB < 0.012 && verdePct < 5) ? 8 : 0;
+ scoreObjeto -= Math.min(25, vegetacionPct * 0.9);
+ scoreObjeto -= Math.min(20, verdePct * 0.7);
+ scoreObjeto -= Math.min(15, _tx * 0.8);
+
+ var scoreVegetal = 0;
+ scoreVegetal += Math.min(35, vegetacionPct * 1.1);
+ scoreVegetal += Math.min(28, verdePct * 0.95);
+ scoreVegetal += Math.min(12, (marronPct + amarilloPct) * 0.45);
+ scoreVegetal += Math.min(10, _tx * 0.5);
+ scoreVegetal += (_orientH > _orientV + 8 && _contV < 35) ? 12 : 0;
+ scoreVegetal += (_contV < 22 && vegetacionPct >= 8) ? 8 : 0;
+ scoreVegetal -= Math.min(20, _ev * 0.35);
+ scoreVegetal -= Math.min(15, _contV * 0.25);
+ scoreVegetal -= Math.min(12, scoreCipres * 0.12);
+
+ var scoreOtro = 0;
+ scoreOtro += Math.min(30, scoreArbol * 0.38);
+ scoreOtro += Math.min(22, _ev * 0.42);
+ scoreOtro += Math.min(18, _contV * 0.28);
+ scoreOtro += Math.min(14, vegetacionPct * 0.35);
+ scoreOtro += Math.min(12, verdePct * 0.28);
+ scoreOtro += Math.min(14, penalHoja * 0.22);
+ scoreOtro += Math.min(10, _hojaA * 0.25);
+ scoreOtro += (_hojaA > _hojaP + 5) ? 8 : 0;
+ scoreOtro += (_contV >= 30 && scoreFollajeFino < 22) ? 10 : 0;
+ scoreOtro += (_copaPir > 40 && scoreCipres < 40) ? 6 : 0;
+ scoreOtro -= Math.min(22, scoreCipres * 0.2);
+ scoreOtro -= Math.min(12, scoreFollajeFino * 0.15);
+ scoreOtro -= Math.min(15, Math.max(0, scoreObjeto) * 0.12);
+
+ var scoreCip = 0;
+ scoreCip += Math.min(32, scoreCipres * 0.40);
+ scoreCip += Math.min(20, scoreFollajeFino * 0.38);
+ scoreCip += Math.min(18, scoreSilueta * 0.32);
+ scoreCip += Math.min(14, _consC * 0.22);
+ scoreCip += Math.min(12, _firmaC * 0.18);
+ scoreCip += Math.min(10, _firmaMax * 0.12);
+ scoreCip += Math.min(10, _hojaP * 0.22);
+ scoreCip += Math.min(8, _period * 0.15);
+ scoreCip += Math.min(8, _copaCol * 0.12);
+ scoreCip += Math.min(8, _verdeT * 0.1);
+ scoreCip += Math.min(6, _simV * 0.08);
+ scoreCip += (verdePct >= 8 && vegetacionPct >= 6) ? 6 : 0;
+ scoreCip += (_orientV >= _orientH) ? 5 : 0;
+ scoreCip -= Math.min(28, penalHoja * 0.38);
+ scoreCip -= Math.min(18, penalCesped * 0.5);
+ scoreCip -= Math.min(14, Math.max(0, _hojaA - _hojaP) * 0.35);
+ scoreCip -= Math.min(20, Math.max(0, scoreObjeto) * 0.15);
+
+ var candidatos = [
+  { id: "noVegetal", s: scoreObjeto },
+  { id: "vegetal", s: scoreVegetal },
+  { id: "otroArbol", s: scoreOtro },
+  { id: "probableCipres", s: scoreCip }
+ ];
+ candidatos.sort(function (a, b) { return b.s - a.s; });
+ var ganador = candidatos[0];
+ var segundo = candidatos[1];
+ var margen = ganador.s - segundo.s;
+
+ if (ganador.id === "probableCipres" && (scoreCip < 28 || vegetacionPct < 3.5 || verdePct < 3)) {
+  if (scoreOtro >= scoreVegetal && scoreOtro >= 22) ganador = { id: "otroArbol", s: scoreOtro };
+  else if (scoreVegetal >= 18) ganador = { id: "vegetal", s: scoreVegetal };
+  else ganador = { id: "noVegetal", s: scoreObjeto };
+ }
+ if (ganador.id === "otroArbol" && scoreOtro < 20 && vegetacionPct < 5) {
+  ganador = scoreVegetal >= scoreObjeto ? { id: "vegetal", s: scoreVegetal } : { id: "noVegetal", s: scoreObjeto };
+ }
+ if (ganador.id === "vegetal" && vegetacionPct < 2.5 && verdePct < 2 && scoreObjeto > scoreVegetal) {
+  ganador = { id: "noVegetal", s: scoreObjeto };
+ }
+ if (verdePct < 1.8 && vegetacionPct < 2.5 && (marronPct + amarilloPct) < 4.5) {
+  ganador = { id: "noVegetal", s: Math.max(scoreObjeto, 40) };
+ }
+ if (scoreCip >= 42 && scoreFollajeFino >= 18 && penalHoja < 50 && verdePct >= 7) {
+  ganador = { id: "probableCipres", s: scoreCip };
  }
 
+ tipoImagen = ganador.id;
+
  let confianzaTipo;
- if (tipoImagen === "noVegetal") {
- confianzaTipo = Math.round(Math.max(55, Math.min(92, 72 + (3 - vegetacionPct) * 4)));
- } else if (tipoImagen === "probableCipres") {
- confianzaTipo = Math.round(Math.max(58, Math.min(95, 50 + scoreCipres * 0.42)));
+ var baseConf = 48 + Math.min(28, margen * 1.1);
+ if (tipoImagen === "probableCipres") {
+  confianzaTipo = Math.round(Math.max(55, Math.min(96, baseConf + scoreCip * 0.22 + scoreFollajeFino * 0.12)));
  } else if (tipoImagen === "otroArbol") {
- confianzaTipo = Math.round(Math.max(48, Math.min(86, 42 + scoreArbol * 0.38)));
+  confianzaTipo = Math.round(Math.max(48, Math.min(90, baseConf + scoreOtro * 0.2 + _ev * 0.15)));
+ } else if (tipoImagen === "vegetal") {
+  confianzaTipo = Math.round(Math.max(40, Math.min(84, baseConf + scoreVegetal * 0.18 + vegetacionPct * 0.35)));
  } else {
- confianzaTipo = Math.round(Math.max(36, Math.min(78, 34 + vegetacionPct * 0.4)));
+  confianzaTipo = Math.round(Math.max(58, Math.min(96, baseConf + scoreObjeto * 0.2 + Math.max(0, 8 - vegetacionPct) * 3)));
  }
 
  /* Estado visual v5 — curva no lineal + textura + tipo */
@@ -6952,12 +7384,24 @@ function renderizarResultadoFoto(d) {
 
  document.getElementById("mensajeFotoResultado").textContent=mensaje;
 
- const mensajesTipo = {
- probableCipres: {titulo:" Parece un ciprés", texto:"La fotografía presenta varios patrones visuales compatibles con un ciprés. Es una estimación orientativa: una foto por sí sola no confirma la especie."},
- otroArbol: {titulo:" Parece otro árbol", texto:"La fotografía presenta señales compatibles con vegetación arbórea, pero no reúne suficientes características visuales para considerarla un ciprés."},
- vegetal: {titulo:" Se detecta vegetación, pero no es posible confirmar un árbol", texto:"La imagen contiene señales de vegetación, aunque la lectura no aporta evidencia suficiente para distinguir un árbol o un ciprés."},
- noVegetal: {titulo:" No se detectan señales suficientes de vegetación", texto:"La imagen no presenta una cobertura vegetal suficiente para tratarla como fotografía de un ciprés o de otro árbol. Puede ser un objeto, una superficie, una imagen muy oscura o una toma donde el vegetal no es visible."}
- };
+ mensajesTipo = {
+ probableCipres: {
+  titulo: "Parece un ciprés",
+  texto: "La lectura combina color del follaje, textura fina tipo escama, orientación vertical y silueta. Los patrones son compatibles con un ciprés u otra conífera similar. Sigue siendo una estimación visual orientativa."
+ },
+ otroArbol: {
+  titulo: "Parece otro árbol",
+  texto: "Hay señales de porte arbóreo (masa vertical, textura de copa, vegetación), pero el follaje o la forma no coinciden bien con un ciprés: puede ser hoja ancha u otra especie."
+ },
+ vegetal: {
+  titulo: "Vegetación, sin árbol claro",
+  texto: "Se detectan tonos y texturas vegetales (verde, seco o mixto), pero no hay suficiente evidencia de tronco/copa de árbol. Puede ser césped, arbusto, planta baja o una toma muy cercana."
+ },
+ noVegetal: {
+  titulo: "No parece vegetación (objeto u otra escena)",
+  texto: "Poca cobertura vegetal, poca textura orgánica o predominio de superficies lisas/artificiales. Puede ser un objeto, muro, suelo, cielo, persona u otra escena sin planta reconocible."
+ }
+};
  const tipo = mensajesTipo[d.tipoImagen] || mensajesTipo.noVegetal;
  document.getElementById("tipoFotoResultado").innerHTML = `<strong>${tipo.titulo}</strong><br>${tipo.texto}`;
  document.getElementById("confianzaTipoFoto").textContent = "Confianza de esta clasificación visual: " + d.confianzaTipo + "%.";
@@ -7046,13 +7490,27 @@ function renderizarResultadoFoto(d) {
  : d.verde >= 25
  ? "La imagen contiene una cobertura considerable de tonos compatibles con follaje verde. Esto es favorable como señal visual, pero no descarta problemas que no sean visibles en la foto."
  : "La fotografía ofrece señales visuales limitadas; una toma más cercana del follaje y del tronco puede mejorar la lectura.";
- document.getElementById("consejoFotoResultado").textContent = consejoFoto;
+  document.getElementById("consejoFotoResultado").textContent = consejoFoto;
+ var iconExtra = document.getElementById("iconoConsejoFotoExtra");
+ var titExtra = document.getElementById("tituloConsejoFotoExtra");
+ if (d.marron >= 6 || d.amarillo >= 8) {
+  if (iconExtra) iconExtra.textContent = "🍂";
+  if (titExtra) titExtra.textContent = "Revisa zonas secas";
+ } else if (d.verde >= 25) {
+  if (iconExtra) iconExtra.textContent = "🌿";
+  if (titExtra) titExtra.textContent = "Follaje con buen tono";
+ } else {
+  if (iconExtra) iconExtra.textContent = "🔎";
+  if (titExtra) titExtra.textContent = "Mejora la toma";
+ }
  const observaFollaje = d.marron>=6 || d.amarillo>=8
- ? "Observa especialmente las zonas cafés, amarillentas o con menor densidad. Comprueba si el cambio se extiende y registra su evolución."
- : d.verde>=25
- ? "Observa si el follaje mantiene un color y una densidad uniformes. Busca pequeñas zonas secas, manchas o pérdida de ramillas que puedan pasar desapercibidas en una toma general."
- : "La foto no permite valorar bien el follaje. Toma una imagen más cercana, enfocada y con iluminación uniforme para observar color, densidad y posibles cambios.";
+  ? "Observa especialmente las zonas cafés, amarillentas o con menor densidad. Comprueba si el cambio se extiende y registra su evolución."
+  : d.verde>=25
+  ? "Observa si el follaje mantiene un color y una densidad uniformes. Busca pequeñas zonas secas, manchas o pérdida de ramillas."
+  : "La foto no permite valorar bien el follaje. Toma una imagen más cercana, enfocada y con iluminación uniforme para observar mejor.";
  document.getElementById("observaFollajeFoto").textContent = observaFollaje;
+ var iconFollaje = document.querySelector("#resultadoFotoAnalisis .tarjetaConsejoIcono");
+ if (iconFollaje && iconFollaje.id !== "iconoConsejoFotoExtra") iconFollaje.textContent = "🍃";
  document.getElementById("confianzaFoto").textContent=d.confianza+"%";
  document.getElementById("indicadoresFoto").innerHTML=`
  <div class="indicadorFoto"><strong>Vegetación verde</strong>${d.verde}% de píxeles analizados</div>
@@ -8292,6 +8750,20 @@ function htmlMicroAvatar(info, grande) {
 }
 
 
+
+function abrirZoomMicro(src) {
+  if (!src) return;
+  var ov = document.getElementById("microZoomOverlay");
+  var im = document.getElementById("microZoomImg");
+  if (!ov || !im) return;
+  im.src = src;
+  ov.classList.add("visible");
+}
+function cerrarZoomMicro() {
+  var ov = document.getElementById("microZoomOverlay");
+  if (ov) ov.classList.remove("visible");
+}
+
 function abrirMicro(
  id,
  score
@@ -8305,6 +8777,14 @@ function abrirMicro(
  if (iconEl) {
  iconEl.innerHTML = htmlMicroAvatar(micro, true);
  iconEl.style.fontSize = "";
+ var img = iconEl.querySelector("img.modalAvatar");
+ if (img) {
+  img.style.cursor = "pointer";
+  img.onclick = function (e) {
+   e.stopPropagation();
+   abrirZoomMicro(img.currentSrc || img.src);
+  };
+ }
  }
 
 
@@ -8904,17 +9384,17 @@ function dibujarGraficaMonitoreo(hist) {
 
 
 const datosCuriosos = [
- "El ciprés puede vivir más de mil años gracias a su madera extremadamente resistente.",
- "Sus aceites esenciales se han utilizado históricamente para calmar problemas respiratorios.",
+ "Algunos cipreses mediterráneos alcanzan edades centenarias; se citan ejemplares muy longevos gracias en parte a su madera resistente.",
+ "Sus aceites esenciales se han usado en tradiciones herbales; hoy se estudian sus compuestos aromáticos, sin sustituir tratamiento médico.",
  "En la antigüedad, el ciprés se asociaba con la eternidad y la inmortalidad.",
- "Su madera resiste la descomposición y el agua, por lo que se usa en construcciones marinas.",
- "Las hojas de ciprés no son finas como agujas, sino pequeñas escamas superpuestas.",
+ "Su madera es durable y resistente a la humedad; históricamente se ha empleado en postes, carpintería exterior y usos expuestos al agua.",
+ "En jardinería se usa a menudo para formar setos densos y pantallas verdes que delimiten espacios.",
  "Ayuda a prevenir la erosión del suelo gracias a su profundo sistema de raíces.",
  "Produce piñas o conos femeninos globosos que tardan hasta dos años en madurar.",
  "Es un excelente cortavientos natural utilizado para proteger cultivos en zonas rurales.",
  "En muchas culturas el ciprés se planta en cementerios como símbolo de vida eterna y memoria.",
  "Algunas especies de ciprés pueden alcanzar más de 30 metros de altura en condiciones favorables.",
- "El aroma de sus hojas proviene de compuestos naturales que también disuaden a ciertos insectos.",
+ "El aroma de su follaje se debe a aceites esenciales; algunos de esos compuestos se han estudiado por efectos repelentes sobre ciertos insectos.",
  "Sus raíces profundas le permiten anclarse bien y aprovechar agua en capas más bajas del suelo."
 ];
 
@@ -9269,13 +9749,13 @@ const DETALLES_SABER = {
  icono: "",
  imagen: "saber-nombre",
  titulo: "Nombre y origen",
- texto: "«Ciprés» agrupa varias especies de la familia Cupressaceae. El más citado en jardinería mediterránea y mexicana es Cupressus sempervirens (ciprés italiano), pero en México también se cultivan otras como Cupressus lusitanica (ciprés mexicano o de Portugal).\n\nEl nombre viene del latín cupressus, ligado al griego kyparissos. La forma, el aroma y la resistencia cambian según la especie."
+ texto: "«Ciprés» agrupa varias especies de la familia Cupressaceae. El más citado en jardinería mediterránea es Cupressus sempervirens (ciprés italiano o mediterráneo). En México también es frecuente Cupressus lusitanica (ciprés mexicano o cedro de la Mancha), muy usado en reforestación y ornato.\n\nEl nombre viene del latín cupressus, ligado al griego kyparissos. La forma, el aroma y la resistencia cambian según la especie."
  },
  conos: {
  icono: "",
  imagen: "saber-conos",
  titulo: "Conos y reproducción",
- texto: "Los cipreses son gimnospermas: no tienen flores con pétalos, sino conos. Los masculinos liberan polen; los femeninos, al madurar, se vuelven leñosos y guardan las semillas.\n\nEn muchas especies tardan más de un año en madurar y pueden quedarse cerrados en el árbol. La dispersión suele ser por viento. Ver conos no indica por sí solo salud o enfermedad."
+ texto: "Los cipreses son gimnospermas: no tienen flores con pétalos, sino conos. Los masculinos liberan polen; los femeninos, al madurar, se vuelven leñosos y guardan las semillas.\n\nEn muchas especies tardan entre uno y dos años en madurar y pueden permanecer cerrados en el árbol. La dispersión suele ser por viento. Ver conos no indica por sí solo salud o enfermedad."
  },
  raices: {
  icono: "",
@@ -9325,30 +9805,38 @@ function initSaberMas() {
  if (!d) return;
  var ampIcon = document.getElementById("ampIconoSaber");
  if (ampIcon) {
- ampIcon.textContent = "";
- if (d.imagen) {
- var im = document.createElement("img");
- im.alt = d.titulo || "";
- im.src = d.imagen + ".png";
- im.onerror = function () {
- if (im.dataset.tried) { ampIcon.textContent = d.icono || ""; return; }
- im.dataset.tried = "1";
- im.src = d.imagen + ".jpg";
- };
- ampIcon.appendChild(im);
- } else {
- ampIcon.textContent = d.icono || "";
- }
+  ampIcon.innerHTML = "";
+  if (d.imagen) {
+   var im = document.createElement("img");
+   im.alt = d.titulo || "";
+   im.src = d.imagen + ".png";
+   im.onerror = function () {
+    if (im.dataset.tried) { ampIcon.textContent = d.icono || ""; return; }
+    im.dataset.tried = "1";
+    im.src = d.imagen + ".jpg";
+   };
+   ampIcon.appendChild(im);
+  } else {
+   ampIcon.textContent = d.icono || "";
+  }
  }
  document.getElementById("ampTituloSaber").textContent = d.titulo;
  document.getElementById("ampTituloRevSaber").textContent = d.titulo;
  document.getElementById("ampTextoSaber").textContent = d.texto;
  volteadaAmp = false;
  cartaAmp.classList.remove("volteada");
+ // Mismo largo frente y reverso (como la cara verde de la captura)
+ var h = Math.round(window.innerHeight * 0.78);
+ if (h < 560) h = Math.min(560, Math.round(window.innerHeight * 0.88));
+ ["height","min-height"].forEach(function (prop) {
+  cartaAmp.style.setProperty(prop, h + "px", "important");
+ });
+ cartaAmp.style.setProperty("max-height", "85vh", "important");
+ cartaAmp.style.setProperty("width", "min(380px, 94vw)", "important");
  overlay.classList.add("visible");
  }
 
- function cerrarCartaSaber() {
+function cerrarCartaSaber() {
  overlay.classList.remove("visible");
  volteadaAmp = false;
  cartaAmp.classList.remove("volteada");
@@ -9413,12 +9901,7 @@ if (document.readyState === "loading") {
 }
 window.addEventListener("load", initSaberMas);
 
-
-
-
 </script>
-</div>
-</div>
 
 
 <!-- Guía personaje mapas -->
@@ -9438,18 +9921,18 @@ window.addEventListener("load", initSaberMas);
 (function initMapasInteractivos() {
  var INFO_MAPA = {
  mundo: {
- mediterraneo: { titulo: "Mediterráneo", texto: "Origen de Cupressus sempervirens. Clima seco y soleado: el paisaje clásico del ciprés." },
- asia: { titulo: "Asia", texto: "Especies nativas en montañas de Asia y amplio cultivo ornamental en jardines." },
- america: { titulo: "América", texto: "Introducido y cultivado, sobre todo en México y zonas templadas de Norte y Sudamérica." },
- africa: { titulo: "África", texto: "Presente en el Magreb y en algunas zonas de cultivo del sur." },
- oceania: { titulo: "Oceanía", texto: "Uso ornamental en Australia y Nueva Zelanda." }
+ mediterraneo: { titulo: "Mediterráneo", texto: "Origen de Cupressus sempervirens. Clima seco, veranos cálidos e inviernos suaves: el paisaje clásico del ciprés en cementerios, caminos y jardines formales del sur de Europa y el Magreb cercano." },
+ asia: { titulo: "Asia", texto: "Varias especies nativas en montañas de Asia occidental y central. También se cultiva mucho como ornamental en jardines templados de China, Japón y el sur de Asia." },
+ america: { titulo: "América", texto: "Introducido y cultivado desde Canadá hasta el Cono Sur. En México y el oeste de EE. UU. es habitual en avenidas; en Chile y Argentina aparece en jardines y cortinas rompevientos." },
+ africa: { titulo: "África", texto: "Presente sobre todo en el Magreb (Marruecos, Argelia, Túnez) y en algunas zonas de cultivo del este y sur del continente, donde el clima permite coníferas de porte columnar." },
+ oceania: { titulo: "Oceanía", texto: "Uso ornamental en Australia y Nueva Zelanda, en parques y jardines de clima templado. No es nativo, pero se adapta bien a varios suelos bien drenados." }
  },
  mexico: {
- centro: { titulo: "Centro (CDMX y alrededores)", texto: "Muy frecuente en avenidas, parques y camellones del Valle de México." },
- bajio: { titulo: "Bajío", texto: "Común en predios y jardines de clima semiseco." },
- occidente: { titulo: "Occidente", texto: "Ornamental en ciudades y zonas residenciales." },
- oriente: { titulo: "Oriente / Altiplano", texto: "Puebla, Tlaxcala e Hidalgo: plazas, iglesias y jardines templados." },
- sur: { titulo: "Sur (valles)", texto: "En valles de mayor altitud, por ejemplo en Oaxaca." }
+ centro: { titulo: "Centro (CDMX y alrededores)", texto: "Muy frecuente en avenidas, parques y camellones del Valle de México. Tolera la altitud y la contaminación urbana mejor que muchos árboles de sombra." },
+ bajio: { titulo: "Bajío", texto: "Común en predios, ranchos y jardines de clima semiseco (Guanajuato, Querétaro, Aguascalientes). Se usa como cerca viva y ornamento." },
+ occidente: { titulo: "Occidente", texto: "Ornamental en Jalisco, Michoacán y alrededores: ciudades, fraccionamientos y zonas residenciales con clima templado a semicálido." },
+ oriente: { titulo: "Oriente / Altiplano", texto: "Puebla, Tlaxcala e Hidalgo: plazas, atrios de iglesias y jardines templados del altiplano. Suele verse en alineaciones junto a caminos." },
+ sur: { titulo: "Sur (valles)", texto: "En valles de mayor altitud, por ejemplo en Oaxaca y zonas templadas del sur. Menos frecuente en costas cálidas y húmedas." }
  }
  };
 
@@ -9576,21 +10059,54 @@ window.addEventListener("load", initSaberMas);
  bar.querySelectorAll(".mapaChip").forEach(function (chip) {
  chip.addEventListener("click", function () {
  var z = chip.getAttribute("data-zona");
+ var yaActivo = chip.classList.contains("activo");
+ /* Toggle: si ya estaba activo, apagar */
  bar.querySelectorAll(".mapaChip").forEach(function (c) { c.classList.remove("activo"); });
- chip.classList.add("activo");
  if (tarjeta) {
- tarjeta.querySelectorAll(".mapaZona").forEach(function (el) {
- el.classList.toggle("activa", el.getAttribute("data-zona") === z);
- });
+  tarjeta.querySelectorAll(".mapaZona").forEach(function (el) { el.classList.remove("activa"); });
+ }
+ if (yaActivo) {
+  if (tarjeta) {
+   tarjeta.querySelectorAll(".mapaZona.activa").forEach(function (el) {
+    el.classList.add("apagando");
+    el.classList.remove("activa");
+    setTimeout(function () { el.classList.remove("apagando"); }, 620);
+   });
+  }
+  if (info) {
+   info.style.transition = "opacity 0.45s ease, max-height 0.5s ease";
+   info.classList.remove("visible");
+   setTimeout(function () { if (!info.classList.contains("visible")) info.innerHTML = ""; }, 480);
+  }
+  chip.style.transform = "scale(0.96)";
+  setTimeout(function () { chip.style.transform = ""; }, 160);
+  return;
+ }
+ chip.classList.add("activo");
+ chip.style.transform = "scale(1.08)";
+ setTimeout(function () { chip.style.transform = ""; }, 160);
+ if (tarjeta) {
+  tarjeta.querySelectorAll(".mapaZona").forEach(function (el) {
+   if (el.getAttribute("data-zona") === z) el.classList.add("activa");
+  });
  }
  var d = INFO_MAPA[mapId] && INFO_MAPA[mapId][z];
  if (d && info) {
- info.innerHTML = "<strong>" + d.titulo + "</strong>" + d.texto;
- info.classList.add("visible");
+  info.innerHTML = "<strong>" + d.titulo + "</strong> " + d.texto;
+  info.classList.add("visible");
+  var marco = tarjeta && (tarjeta.querySelector(".mapaVisor") || tarjeta.querySelector(".mapaMarco"));
+  if (marco) {
+   marco.style.transition = "transform 0.25s ease";
+   marco.style.transform = "scale(1.015)";
+   setTimeout(function () { marco.style.transform = ""; }, 280);
+  }
  }
  });
  });
  });
+
+ 
+ /* Zonas solo se activan con los botones de región (sin círculos fijos) */
 
  /* Guía: aparece cuando el primer mapa es visible */
  var guia = document.getElementById("guiaMapa");
@@ -9609,9 +10125,9 @@ window.addEventListener("load", initSaberMas);
  }
 
  var mensajesGuia = [
- "¡Hola! Cuando veas el mapa, elige una zona… así no se llena de puntos.",
- "Toca Mediterráneo, Centro o Asia y verás un resalte suave con su dato.",
- "También puedes acercar con + o pellizcar. Cierra este mensaje cuando quieras."
+ "¡Hola! En el mapa no hay puntos fijos: usa los botones de cada región abajo.",
+ "Al tocar una región, parpadea en el mapa y aparece su dato. Si la tocas otra vez, se apaga.",
+ "Puedes acercar con + o pellizcar, y Restablecer vuelve al tamaño normal."
  ];
 
  function escribirGuia(texto, done) {
@@ -9750,5 +10266,38 @@ window.addEventListener("load", initSaberMas);
 </script>
 
 
+<script>
+
+/* Leer más — ficha ciprés */
+(function initLeerMas() {
+ function setup() {
+  var btn = document.getElementById("btnLeerMas");
+  var panel = document.getElementById("panelLeerMas");
+  if (!btn || !panel || btn.dataset.ready === "1") return;
+  btn.dataset.ready = "1";
+  btn.addEventListener("click", function () {
+   var open = panel.classList.toggle("abierto");
+   btn.classList.toggle("abierto", open);
+   btn.setAttribute("aria-expanded", open ? "true" : "false");
+   btn.querySelector("span:first-child").textContent = open ? "Leer menos" : "Leer más";
+   if (open) panel.removeAttribute("hidden");
+   else setTimeout(function () { if (!panel.classList.contains("abierto")) panel.setAttribute("hidden", ""); }, 500);
+  });
+  panel.querySelectorAll(".itemLeer").forEach(function (item) {
+   var b = item.querySelector(".itemLeerBtn");
+   if (!b) return;
+   b.addEventListener("click", function () {
+    var was = item.classList.contains("abierto");
+    panel.querySelectorAll(".itemLeer").forEach(function (o) { o.classList.remove("abierto"); });
+    if (!was) item.classList.add("abierto");
+   });
+  });
+ }
+ if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", setup);
+ else setup();
+ window.addEventListener("load", setup);
+})();
+
+</script>
 </body>
 </html>
